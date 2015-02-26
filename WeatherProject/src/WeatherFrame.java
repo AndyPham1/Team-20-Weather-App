@@ -8,6 +8,7 @@ public class WeatherFrame extends JFrame {
 		setLocation(100, 200);
 	}
 	
+	@SuppressWarnings("deprecation")
 	public static void main(String[] args)
 	{
 		JFrame f = new WeatherFrame();
