@@ -1,5 +1,72 @@
-/**
- * Created by paul on 2/17/15.
- */
-public class LongTermForecastData {
+/**Team 20**/
+
+public class LongTermForecastData{
+
+private String[] forecastTime;
+private float[] longTermTemperature;
+private float[] longTermSkyIcon;
+private float[] longTermMaxTemp;
+private float[] longTermMinTemp;
+
+public LongTermForecastData{
+	forecastTime = null;
+	longTermTemperature = null;
+	longTermSkyIcon = null;
+	longTermMaxTemp = null;
+	longTermMinTemp = null;	
+}
+
+public LongTermForecastData update()
+{
+
+	return this;
+}
+
+/**change temperature**/
+public void changeTemperature(String unit1, String unit2) throws NoDataFoundException
+{	
+	if(longTermTemperature == null) throw new NoDataFoundException("No data");
+	
+	for(int i = 0; i < longTermTemperature.length ; i++)
+	{
+			longTermTemperature[i] = convertTemperature(unit1,unit2,longTermTemperature[i]);
+			longTermMaxTemp[i] = convertTemperature(unit1,unit2,longTermMaxTemp[i]);
+			longTermMinTemp[i] = convertTemperature(unit1,unit2,longTermMinTemp[i]);
+	}
+}
+
+/**converts temperature**/
+private float convertTemperature(String unit1, String unit2, float temp)
+{
+	if(unit1.equals("kelvin") && unit2.equals("celsius"))
+	{
+		temp = (float) (temp - 273.15);
+		return temp;
+	}
+	else if(unit1.equals("celsius") && unit2.equals("kelvin")) 
+	{
+		temp = (float) (temp + 273.15);
+		return temp;
+	}
+	else if(unit1.equals("kelvin") && unit2.equals("fahrenheit")) 
+	{
+		temp = ((float) ((temp - 273.0)*(9.0/5.0) + 32.0));
+		return temp;
+	}
+	else if(unit1.equals("fahrenheit") && unit2.equals("kelvin"))
+	{
+		temp =  (float) ((temp - 32.0)*(5.0/9.0) + 273.0);
+		return temp;
+	}
+	else if(unit1.equals("fahrenheit") && unit2.equals("celsius"))
+	{
+		temp =(float) ((temp-32.0)*(5.0/9.0));
+		return temp;
+	}
+	else
+	{
+		temp = (float)((9.0/5.0)*temp + 32.0);
+		return temp;
+	}
+}
 }
