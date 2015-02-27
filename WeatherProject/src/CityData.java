@@ -6,12 +6,12 @@
 public class CityData{
 
 /* Instant variables */
-String cityName;
-int cityID;
-String countryCode;
-float longitude;
-float latitude;
-float updateTime;
+private String cityName;
+private int cityID;
+private String countryCode;
+private float longitude;
+private float latitude;
+private float updateTime;
 
 /* Constructor */
  public CityData (String cityName){
