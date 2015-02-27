@@ -39,6 +39,25 @@ public class WeatherFrame extends JFrame {
         JMenuBar menubar = new JMenuBar();
         JMenu mnuFile = new JMenu("File");
         mnuFile.setMnemonic(KeyEvent.VK_F);
+                JMenuItem mniSave = new JMenuItem("Save");
+        mniSave.setMnemonic(KeyEvent.VK_E);
+        mniSave.setToolTipText("Save");
+        mniSave.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                ;
+            }
+        });
+        mnuFile.add(mniSave);
+        JMenuItem mniLoad = new JMenuItem("Load");
+        mniLoad.setToolTipText("Load");
+        mniLoad.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                ;
+            }
+        });
+        mnuFile.add(mniLoad);
         JMenuItem mniFileExit = new JMenuItem("Exit");
         mniFileExit.setMnemonic(KeyEvent.VK_E);
         mniFileExit.setToolTipText("Exit application");
