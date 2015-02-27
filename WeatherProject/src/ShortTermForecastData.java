@@ -1,23 +1,36 @@
-/**Team 20**/
+/**
+ * ShortTermForecastData is a class containing the data for short term forecast
+ * @author Team 20
+ */
 
 public class ShortTermForecastData{
 
+/* Instance Variables */
 private String[] forecastTimeList;
 private float[] shortTermTemperature;
 private int[] shortTermSkyConditionID;
 
+/* Constructor */
 public ShortTermForecastData(){
 	forecastTimeList = null;
 	shortTermTemperature = null;
 	shortTermSkyConditionID = null;
 }
 
+/* Methods */
+
+/**
+ * ShortTermForecastData 
+ * @return ShortTermForecastData
+ */
 public ShortTermForecastData update()
 {
 	return this;
 }
 
-/**change temperature**/
+/**
+ * changeTemperature method changes the temperature
+ */
 public void changeTemperature(String unit1, String unit2) throws NoDataFoundException
 {	
 	if(shortTermTemperature == null) throw new NoDataFoundException("No data");
@@ -28,7 +41,10 @@ public void changeTemperature(String unit1, String unit2) throws NoDataFoundExce
 	}
 }
 
-/**converts temperature**/
+/**
+ * convertTemperature
+ * @return temperature that is converted
+ */
 private float convertTemperature(String unit1, String unit2, float temp)
 {
 	if(unit1.equals("kelvin") && unit2.equals("celsius"))

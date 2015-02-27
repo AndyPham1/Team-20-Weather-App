@@ -1,13 +1,18 @@
-/**Team 20**/
+/**
+ * LongTermForecastData class  will store the longterm forecast data
+ * @author Team 20
+ */
 
 public class LongTermForecastData{
 
+/* Instance Variables */
 private String[] forecastTime;
 private float[] longTermTemperature;
 private float[] longTermSkyIcon;
 private float[] longTermMaxTemp;
 private float[] longTermMinTemp;
 
+/* Constructor */
 public LongTermForecastData{
 	forecastTime = null;
 	longTermTemperature = null;
@@ -16,13 +21,21 @@ public LongTermForecastData{
 	longTermMinTemp = null;	
 }
 
+/* Methods */
+
+/** 
+ * LongTermForecastData method 
+ * @return LongTermForecastData
+ */
 public LongTermForecastData update()
 {
 
 	return this;
 }
 
-/**change temperature**/
+/**
+ * changeTemperature method changes the temperature and throws NoDataFoundException
+ */
 public void changeTemperature(String unit1, String unit2) throws NoDataFoundException
 {	
 	if(longTermTemperature == null) throw new NoDataFoundException("No data");
@@ -35,7 +48,10 @@ public void changeTemperature(String unit1, String unit2) throws NoDataFoundExce
 	}
 }
 
-/**converts temperature**/
+/**
+ * convertTemperature converts the temperature
+ * @return temp returns the converted temperature
+ */
 private float convertTemperature(String unit1, String unit2, float temp)
 {
 	if(unit1.equals("kelvin") && unit2.equals("celsius"))

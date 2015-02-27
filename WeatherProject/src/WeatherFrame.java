@@ -1,11 +1,12 @@
 
-/**
- * Created by Team 20. Creates GUI.
- */
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+
+/**
+ * Weather Frame is the GUI for the app
+ * @author Team 20
+ */
 
 public class WeatherFrame extends JFrame {
     private JTextField txtName;

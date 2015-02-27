@@ -1,7 +1,11 @@
-/**Team 20**/
+/**
+ * WeatherData class contains the weather data 
+ * @author Team 20
+ */
 
 public class WeatherData{
-	
+
+/* Instance Variables */
 private float temperature;
 private float windSpeed;
 private float windDirection;
@@ -13,12 +17,18 @@ private float maxTemp;
 private float sunRise;
 private float sunSet;
 
+/* Constructor */
 public WeatherData update()
 {
 	return this;
 }
 
-/**change temperature**/
+/* Methods */
+
+/**
+ * changeTemperature method changes the temperature
+ * @param unit1 is the first unit, unit2 is the second unit
+ */
 public void changeTemperature(String unit1, String unit2)
 {
 	temperature = convertTemperature(unit1,unit2,temperature);
@@ -26,7 +36,11 @@ public void changeTemperature(String unit1, String unit2)
 	maxTemp = convertTemperature(unit1,unit2,maxTemp);
 }
 
-/**converts temperature**/
+/**
+ * convertTemperature converts the temperature from celcius, kelvin or fahrenheit to its corresponding temperature
+ * @param unit1,unit2,temp 
+ * @return temp the temperature that has been converted
+ */
 private float convertTemperature(String unit1, String unit2, float temp)
 {
 	if(unit1.equals("kelvin") && unit2.equals("celsius"))
