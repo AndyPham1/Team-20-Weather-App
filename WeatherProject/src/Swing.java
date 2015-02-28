@@ -10,8 +10,13 @@ public class Swing {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				WeatherFrame window = new WeatherFrame();
-				window.setVisible(true);
+                try {
+                    WeatherFrame window = new WeatherFrame();
+                    window.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
 			}
 		});
 	}
