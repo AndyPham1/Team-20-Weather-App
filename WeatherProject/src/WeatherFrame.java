@@ -4,6 +4,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.awt.event.*;
@@ -175,6 +176,7 @@ public class WeatherFrame extends JFrame {
         lblTuesday.setBounds(10, 11, 82, 14);
         panel_4.add(lblTuesday);
 
+        
         // Adds an image
         JLabel label_31 = new JLabel(new ImageIcon(myPictureSunny));
         label_31.setBounds(10, 30, 82, 50);
