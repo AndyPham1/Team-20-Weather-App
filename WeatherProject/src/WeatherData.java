@@ -39,7 +39,6 @@ public class WeatherData {
 	 * Initializes the instance variables with the first fetch-data from the source 
 	 */
 	public WeatherData(){
-		this.lastUpdatedTime = getTime();
 		getWeather();
 	}
 	
@@ -51,13 +50,18 @@ public class WeatherData {
 		return this;
 	}
 	
+	/* ===========================================METHODS===================================================*/
+
+	/**
+	 * getWeather opens up the OpenWeatherMap API and retrieves given information that we wish to acquire
+	 */
 	private void getWeather()
 	{
 		try {
 			OpenWeatherMap owm = new OpenWeatherMap("");
-
-			//CurrentWeather cwd = owm.currentWeatherByCityName("London");
-			CurrentWeather cwd = owm.currentWeatherByCityName("London", "CA");
+			//CurrentWeather cwd = owm.currentWeatherByCityName("London");//to methods of currentWeatherByCityName, one is with Country, one without, London, ON 
+			//needs to be specified with Canada because default is the London in Great Britain  
+			CurrentWeather cwd = owm.currentWeatherByCityName("London", "CA"); 
 			if (cwd.isValid()) {
 
 	            // checking if city name is available
@@ -72,7 +76,8 @@ public class WeatherData {
 	            		&&  cwd.getMainInstance().hasPressure() && cwd.getMainInstance().hasHumidity() 
 	            		&& cwd.getMainInstance().hasTemperature() && cwd.getWindInstance().hasWindSpeed()
 	            		&& cwd.getWindInstance().hasWindDegree()) {
-	                // printing the max./min. temperature
+	            	
+	            	//retrieving specs 
 	            	
 	            	this.temperature = cwd.getMainInstance().getTemperature();   
 	            	currentUnit = new Unit(this.temperature, "fahrenheit");
@@ -82,16 +87,18 @@ public class WeatherData {
 	                this.humidity = cwd.getMainInstance().getHumidity();
 	                this.windSpeed = cwd.getWindInstance().getWindSpeed();
 	                this.windDirectionDegrees = cwd.getWindInstance().getWindDegree();
+	                this.lastUpdatedTime = cwd.getDateTime().toGMTString();
+
+	                //changes to specs 
 	            	changeTemperatureUnits("fahrenheit", "celsius"); changeWind(); changePressure();
 	                
+	                // printing specs
 	                DecimalFormat df = new DecimalFormat("#.##");
 	                System.out.println("Current Temperature is : " + df.format(temperature) + "\'C");
 	                System.out.println("MaxTemperature/MinTemperature: " + df.format(maxTemp) + "/" + df.format(minTemp) + "\'C");
 	                System.out.println("Humidity: " + df.format(humidity) + " %"); 
 	                System.out.println("Air Pressure: " + df.format(airPressure) + " kPa");
 	                System.out.println("Wind is at: " + df.format(windSpeed) + "km/h " + windDirectionString);
-	                
-	                this.lastUpdatedTime = cwd.getDateTime().toGMTString();
 	                System.out.println("\nLast updated : " + lastUpdatedTime);
 	            }
 			}
@@ -104,9 +111,6 @@ public class WeatherData {
 		}
 		
 	}
-
-	/* Methods */
-
 	/**
 	 * changeTemperature method changes the temperature
 	 * @param fromUnit is the unit to be changed from, toUnit is the unit to change into 
@@ -123,6 +127,10 @@ public class WeatherData {
 		minTemp = unit_Min.temperature;
 		maxTemp = unit_Max.temperature;
 	}
+	
+	/**
+	 * getTime retrieves the current time and then parsed into just the hour and minute
+	 */
 	private String getTime()
 	{
 		this.lastUpdatedTime = new SimpleDateFormat("HHmmss").format(Calendar.getInstance().getTime());
@@ -133,6 +141,10 @@ public class WeatherData {
 		timeString = hour + ":" + minute;
 		return timeString;
 	}
+	
+	/**
+	 * changeWind is a simple method to change from degrees format (given by the fetch) to a string
+	 */
 	private void changeWind()
 	{
 		final double ANGLE_CHANGE_DEGREE = 22.5; 
@@ -142,6 +154,9 @@ public class WeatherData {
 		windDirectionString = cardinalWind[wind%16];
 	}
 	
+	/*
+	 * changePressure is a simple method to change from hPA to kPA
+	 */
 	private void changePressure()
 	{
 		this.airPressure /= 10;
@@ -150,35 +165,5 @@ public class WeatherData {
 	{
 		WeatherData wd = new WeatherData();
 	}
-	/*================================================================================================================
-	public static void main(String[] args)
-	{
-		String k = "kelvin";
-		String c = "celsius";
-		String f = "fahrenheit";
-		double temp = 1;
-		double newTemp = convertTemperature(k,c,temp);
-		System.out.println("k -> c:\t" + newTemp);
-		temp=1;
-		newTemp = convertTemperature(c,k,temp);
-		System.out.println("c -> k:\t" + newTemp);
-		temp=1;
-		newTemp = convertTemperature(k,f,temp);
-		System.out.println("k -> f:\t" + newTemp);
-		temp=1;
-		newTemp = convertTemperature(f,k,temp);
-		System.out.println("f -> k:\t" + newTemp);
-		temp=1;
-		newTemp = convertTemperature(f,c,temp);
-		System.out.println("f -> c:\t" + newTemp);
-		temp=1;
-		newTemp = convertTemperature(c,f,temp);
-		System.out.println("c -> f:\t" + newTemp);
-		
-	}
-	================================================================================================================*/
-	
-	
-	
 }
 
