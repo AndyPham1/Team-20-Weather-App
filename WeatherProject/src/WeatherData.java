@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -18,7 +19,8 @@ public class WeatherData {
 	/* Instance Variables */
 	//private double temperature;
 	private double windSpeed;
-	private double windDegree;
+	private double windDirectionDegrees;
+	private String windDirectionString; 
 	private double airPressure;
 	private double humidity;
 	private int skyConditionID;
@@ -30,6 +32,7 @@ public class WeatherData {
 	private double minTemp;
 	private double maxTemp;
 	private String lastUpdatedTime;
+	private Unit currentUnit;
 	
 	/*
 	 * Constructor for WeatherData class.
@@ -53,7 +56,8 @@ public class WeatherData {
 		try {
 			OpenWeatherMap owm = new OpenWeatherMap("");
 
-			CurrentWeather cwd = owm.currentWeatherByCityName("London");
+			//CurrentWeather cwd = owm.currentWeatherByCityName("London");
+			CurrentWeather cwd = owm.currentWeatherByCityName("London", "CA");
 			if (cwd.isValid()) {
 
 	            // checking if city name is available
@@ -69,20 +73,26 @@ public class WeatherData {
 	            		&& cwd.getMainInstance().hasTemperature() && cwd.getWindInstance().hasWindSpeed()
 	            		&& cwd.getWindInstance().hasWindDegree()) {
 	                // printing the max./min. temperature
+	            	
+	            	this.temperature = cwd.getMainInstance().getTemperature();   
+	            	currentUnit = new Unit(this.temperature, "fahrenheit");
 	            	this.maxTemp = cwd.getMainInstance().getMaxTemperature();
 	            	this.minTemp = cwd.getMainInstance().getMinTemperature();
-	                System.out.println("Temperature: " + maxTemp + "/" + minTemp + "\'F");
-	                
 	                this.airPressure = cwd.getMainInstance().getPressure();
 	                this.humidity = cwd.getMainInstance().getHumidity();
-	                this.temperature = cwd.getMainInstance().getTemperature();
-	                System.out.println("Current Temperature is : " + temperature);
-	                System.out.println("Humidity: " + humidity +"\nAir Pressure: " + airPressure);
-	                
 	                this.windSpeed = cwd.getWindInstance().getWindSpeed();
-	                this.windDegree = cwd.getWindInstance().getWindDegree();
-	                System.out.println("Wind is at: " + windSpeed + "km/h\nWind Degree at: " + windDegree);
+	                this.windDirectionDegrees = cwd.getWindInstance().getWindDegree();
+	            	changeTemperatureUnits("fahrenheit", "celsius"); changeWind(); changePressure();
 	                
+	                DecimalFormat df = new DecimalFormat("#.##");
+	                System.out.println("Current Temperature is : " + df.format(temperature) + "\'C");
+	                System.out.println("MaxTemperature/MinTemperature: " + df.format(maxTemp) + "/" + df.format(minTemp) + "\'C");
+	                System.out.println("Humidity: " + df.format(humidity) + " %"); 
+	                System.out.println("Air Pressure: " + df.format(airPressure) + " kPa");
+	                System.out.println("Wind is at: " + df.format(windSpeed) + "km/h " + windDirectionString);
+	                
+	                this.lastUpdatedTime = cwd.getDateTime().toGMTString();
+	                System.out.println("\nLast updated : " + lastUpdatedTime);
 	            }
 			}
 		} catch (JSONException e) {
@@ -122,6 +132,19 @@ public class WeatherData {
 		String minute = ""+timeArray[2]+timeArray[2];
 		timeString = hour + ":" + minute;
 		return timeString;
+	}
+	private void changeWind()
+	{
+		final double ANGLE_CHANGE_DEGREE = 22.5; 
+		String[] cardinalWind = {"N","NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"};
+		
+		int wind = (int) ((windDirectionDegrees + 11.25)/ANGLE_CHANGE_DEGREE);
+		windDirectionString = cardinalWind[wind%16];
+	}
+	
+	private void changePressure()
+	{
+		this.airPressure /= 10;
 	}
 	public static void main(String[] args)
 	{
