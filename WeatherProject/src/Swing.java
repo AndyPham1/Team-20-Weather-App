@@ -12,6 +12,7 @@ public class Swing {
 			public void run() {
                 try {
                     WeatherFrame window = new WeatherFrame();
+                    window.setResizable(false);
                     window.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
