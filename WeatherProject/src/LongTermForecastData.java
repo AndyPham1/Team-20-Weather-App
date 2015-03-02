@@ -13,7 +13,7 @@ private float[] longTermMaxTemp;
 private float[] longTermMinTemp;
 
 /* Constructor */
-public LongTermForecastData{
+public LongTermForecastData() {
 	forecastTime = null;
 	longTermTemperature = null;
 	longTermSkyIcon = null;
