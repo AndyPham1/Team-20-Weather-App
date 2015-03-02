@@ -63,10 +63,19 @@ public CityData changeCity() throws NoCityFoundException
 
 /** 
  * removeCity method removes the current city
+ * @param newCityCollection 
  * 
  */
-public void removeCity() throws NoCityFoundException
+public void removeCity(String cityName) throws NoCityFoundException
 {
+		for (int i=0; i<cityCollection.length; i++) {
+			if (cityCollection[i].getCityName().equals(cityName)) {   
+				cityCollection[i]=null;
+			}
+			if (i == cityCollection.length-1) {
+				throw new NoCityFoundException("The city was not found");
+			}
+		} 
 	
 }
 

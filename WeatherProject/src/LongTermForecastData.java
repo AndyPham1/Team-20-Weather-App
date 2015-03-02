@@ -1,5 +1,5 @@
 /**
- * LongTermForecastData class  will store the longterm forecast data
+ * LongTermForecastData class  will store the long term forecast data
  * @author Team 20
  */
 
