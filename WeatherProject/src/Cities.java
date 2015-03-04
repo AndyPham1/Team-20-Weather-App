@@ -1,3 +1,4 @@
+
 /**
  * Cities class
  * @author Team 20
@@ -84,7 +85,9 @@ public void removeCity(String cityName) throws NoCityFoundException
  */
 public void removeAll()
 {
-	cityCollection = null;
+	for (int i = 0; i < cityCollection.length; i++){
+		cityCollection[i] = null;
+	}
 }
 
 }
