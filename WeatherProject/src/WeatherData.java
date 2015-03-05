@@ -1,13 +1,14 @@
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import org.json.JSONException;
-
-import net.aksingh.owmjapis.CurrentWeather;
-import net.aksingh.owmjapis.CurrentWeather.Wind;
-import net.aksingh.owmjapis.OpenWeatherMap;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * WeatherData class contains the weather data 
@@ -33,7 +34,7 @@ public class WeatherData {
 	private double maxTemp;
 	private String lastUpdatedTime;
 	private Unit currentUnit;
-	
+
 	/*
 	 * Constructor for WeatherData class.
 	 * Initializes the instance variables with the first fetch-data from the source 
@@ -41,7 +42,7 @@ public class WeatherData {
 	public WeatherData(){
 		getWeather();
 	}
-	
+
 	/*
 	 * this class returns a list of WeatherData elements that updates the data by fetching it from the source 
 	 */
@@ -49,7 +50,7 @@ public class WeatherData {
 	{
 		return this;
 	}
-	
+
 	/* ===========================================METHODS===================================================*/
 
 	/**
@@ -57,59 +58,46 @@ public class WeatherData {
 	 */
 	private void getWeather()
 	{
+		String stringURL = "http://api.openweathermap.org/data/2.5/weather?q=London,ca"; 
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
 		try {
-			OpenWeatherMap owm = new OpenWeatherMap("");
-			//CurrentWeather cwd = owm.currentWeatherByCityName("London");//to methods of currentWeatherByCityName, one is with Country, one without, London, ON 
-			//needs to be specified with Canada because default is the London in Great Britain  
-			CurrentWeather cwd = owm.currentWeatherByCityName("London", "CA"); 
-			if (cwd.isValid()) {
-
-	            // checking if city name is available
-				
-	            if (cwd.hasCityName()) {
-	                //printing city name from the retrieved data
-	                System.out.println("City: " + cwd.getCityName());
-	            }
-
-	            // checking if max. temp. and min. temp. is available
-	            if (cwd.getMainInstance().hasMaxTemperature() && cwd.getMainInstance().hasMinTemperature()
-	            		&&  cwd.getMainInstance().hasPressure() && cwd.getMainInstance().hasHumidity() 
-	            		&& cwd.getMainInstance().hasTemperature() && cwd.getWindInstance().hasWindSpeed()
-	            		&& cwd.getWindInstance().hasWindDegree()) {
-	            	
-	            	//retrieving specs 
-	            	
-	            	this.temperature = cwd.getMainInstance().getTemperature();   
-	            	currentUnit = new Unit(this.temperature, "fahrenheit");
-	            	this.maxTemp = cwd.getMainInstance().getMaxTemperature();
-	            	this.minTemp = cwd.getMainInstance().getMinTemperature();
-	                this.airPressure = cwd.getMainInstance().getPressure();
-	                this.humidity = cwd.getMainInstance().getHumidity();
-	                this.windSpeed = cwd.getWindInstance().getWindSpeed();
-	                this.windDirectionDegrees = cwd.getWindInstance().getWindDegree();
-	                this.lastUpdatedTime = cwd.getDateTime().toGMTString();
-
-	                //changes to specs 
-	            	changeTemperatureUnits("fahrenheit", "celsius"); changeWind(); changePressure();
-	                
-	                // printing specs
-	                DecimalFormat df = new DecimalFormat("#.##");
-	                System.out.println("Current Temperature is : " + df.format(temperature) + "\'C");
-	                System.out.println("MaxTemperature/MinTemperature: " + df.format(maxTemp) + "/" + df.format(minTemp) + "\'C");
-	                System.out.println("Humidity: " + df.format(humidity) + " %"); 
-	                System.out.println("Air Pressure: " + df.format(airPressure) + " kPa");
-	                System.out.println("Wind is at: " + df.format(windSpeed) + "km/h " + windDirectionString);
-	                System.out.println("\nLast updated : " + lastUpdatedTime);
-	            }
-			}
-		} catch (JSONException e) {
+			WeatherVals myMainValues = mapper.readValue(new URL(stringURL), WeatherVals.class);
+			//System.out.println(myMainValues.getMain().toString());
+			//System.out.println(myMainValues.getWind().toString());
+			temperature = myMainValues.getMain().getTemp();
+			maxTemp = myMainValues.getMain().getTemp_max();
+			minTemp = myMainValues.getMain().getTemp_min();
+			humidity = myMainValues.getMain().getHumidity();
+			airPressure = myMainValues.getMain().getPressure();
+			windSpeed = myMainValues.getWind().getSpeed();
+			windDirectionDegrees = myMainValues.getWind().getDeg();
+			lastUpdatedTime = getTime();
+			
+			changeTemperatureUnits("kelvin", "celsius"); changeWind(); changePressure();
+			
+			DecimalFormat df = new DecimalFormat("#.##");
+			System.out.println("Current Temperature is : " + df.format(temperature) + "\'C");
+			System.out.println("MaxTemperature/MinTemperature: " + df.format(maxTemp) + "/" + df.format(minTemp) + "\'C");
+			System.out.println("Humidity: " + df.format(humidity) + " %"); 
+			System.out.println("Air Pressure: " + df.format(airPressure) + " kPa");
+			System.out.println("Wind is at: " + df.format(windSpeed) + "km/h " + windDirectionString);
+			System.out.println("\nLast updated : " + lastUpdatedTime);
+			
+		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 	/**
 	 * changeTemperature method changes the temperature
@@ -127,7 +115,7 @@ public class WeatherData {
 		minTemp = unit_Min.temperature;
 		maxTemp = unit_Max.temperature;
 	}
-	
+
 	/**
 	 * getTime retrieves the current time and then parsed into just the hour and minute
 	 */
@@ -141,7 +129,7 @@ public class WeatherData {
 		timeString = hour + ":" + minute;
 		return timeString;
 	}
-	
+
 	/**
 	 * changeWind is a simple method to change from degrees format (given by the fetch) to a string
 	 */
@@ -149,11 +137,11 @@ public class WeatherData {
 	{
 		final double ANGLE_CHANGE_DEGREE = 22.5; 
 		String[] cardinalWind = {"N","NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"};
-		
+
 		int wind = (int) ((windDirectionDegrees + 11.25)/ANGLE_CHANGE_DEGREE);
 		windDirectionString = cardinalWind[wind%16];
 	}
-	
+
 	/*
 	 * changePressure is a simple method to change from hPA to kPA
 	 */
