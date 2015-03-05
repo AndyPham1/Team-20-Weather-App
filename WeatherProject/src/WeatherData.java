@@ -24,16 +24,14 @@ public class WeatherData {
 	private String windDirectionString; 
 	private double airPressure;
 	private double humidity;
-	private int skyConditionID;
-	//private double minTemp;
-	//private double maxTemp;
-	private double sunRise;
-	private double sunSet;
+	//private int skyConditionID;
+	//private double sunRise;
+	//private double sunSet;
 	private	double temperature;
 	private double minTemp;
 	private double maxTemp;
 	private String lastUpdatedTime;
-	private Unit currentUnit;
+	//private Unit currentUnit;
 
 	/*
 	 * Constructor for WeatherData class.
@@ -152,6 +150,42 @@ public class WeatherData {
 	public static void main(String[] args)
 	{
 		WeatherData wd = new WeatherData();
+	}
+	
+	public double getWindSpeed() {
+		return windSpeed;
+	}
+
+	public double getWindDirectionDegrees() {
+		return windDirectionDegrees;
+	}
+
+	public String getWindDirectionString() {
+		return windDirectionString;
+	}
+
+	public double getAirPressure() {
+		return airPressure;
+	}
+
+	public double getHumidity() {
+		return humidity;
+	}
+
+	public double getTemperature() {
+		return temperature;
+	}
+
+	public double getMinTemp() {
+		return minTemp;
+	}
+
+	public double getMaxTemp() {
+		return maxTemp;
+	}
+
+	public String getLastUpdatedTime() {
+		return lastUpdatedTime;
 	}
 }
 
