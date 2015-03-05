@@ -31,9 +31,23 @@ public float getUpdateTime() throws NoDataFoundException
 /**
  * addCity
  */
-public void addCity() throws NoCityFoundException
-{ 
+public Boolean addCity(CityData city) throws NoCityFoundException
+{   
+	Boolean check = false;
 	
+	if (city == null) {
+		throw new NoCityFoundException("No City Entered");
+	}
+	
+	for (int i = 0; i < cityCollection.length; i++){
+		if (cityCollection[i] == null){
+			cityCollection[i] = city;
+			check = true;
+			break;
+		}
+	}
+	
+	return check;
 }
 
 /**
