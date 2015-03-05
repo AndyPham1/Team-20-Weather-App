@@ -5,84 +5,84 @@
 
 public class CityData{
 
-/* Instant variables */
-private String cityName;
-private int cityID;
-private String countryCode;
-private float longitude;
-private float latitude;
-private float updateTime;
+	/* Instant variables */
+	private String cityName;
+	private int cityID;
+	private String countryCode;
+	private float longitude;
+	private float latitude;
+	private float updateTime;
 
-/* Constructor */
- public CityData (String cityName){
-  this.cityName = cityName;
- }
+	/* Constructor */
+	public CityData (String cityName){
+		this.cityName = cityName;
+	}
 
-/*Getters*/
- 
-/**
- * getCityName gets the city name that the user had entered
- * @return cityName
- */
- 
-public String getCityName()
-{
-	return cityName;
-}
+	/*Getters*/
 
-/**
- * getCityID gets the ID of the city
- * @return cityID
- */
-public int getCityID()
-{
-	return cityID;
-}
+	/**
+	 * getCityName gets the city name that the user had entered
+	 * @return cityName
+	 */
 
-/**
- * getCountryCode gets the country code
- * @return countryCode
- */
-public String getCountryCode()
-{
-	return countryCode;
-}
+	public String getCityName()
+	{
+		return cityName;
+	}
 
-/**
- * getLongtitude gets the Longtitude
- * @return longtitude
- */
-public float getLongitude()
-{
-	return longitude;
-}
+	/**
+	 * getCityID gets the ID of the city
+	 * @return cityID
+	 */
+	public int getCityID()
+	{
+		return cityID;
+	}
 
-/**
- * getLatitude gets the latitude
- * @return latitude
- */
-public float getLatitude()
-{
-	return latitude;
-}
+	/**
+	 * getCountryCode gets the country code
+	 * @return countryCode
+	 */
+	public String getCountryCode()
+	{
+		return countryCode;
+	}
 
-/**
- * update method updates the city Data with the new data
- * @return CityData 
- */
-public CityData update()
-{
-	return this;
-}
+	/**
+	 * getLongtitude gets the Longtitude
+	 * @return longtitude
+	 */
+	public float getLongitude()
+	{
+		return longitude;
+	}
 
-/**
- * getUpdateTime gets the updated time
- * @return updateTime
- */
-public float getUpdateTime() throws NoDataFoundException
-{
-	if (updateTime == 0) throw new NoDataFoundException("no previous update");
-	return updateTime;
-}
+	/**
+	 * getLatitude gets the latitude
+	 * @return latitude
+	 */
+	public float getLatitude()
+	{
+		return latitude;
+	}
+
+	/**
+	 * update method updates the city Data with the new data
+	 * @return CityData 
+	 */
+	public CityData update()
+	{
+		return this;
+	}
+
+	/**
+	 * getUpdateTime gets the updated time
+	 * @return updateTime
+	 */
+	public float getUpdateTime() throws NoDataFoundException
+	{
+		if (updateTime == 0) throw new NoDataFoundException("no previous update");
+		return updateTime;
+	}
 }
 

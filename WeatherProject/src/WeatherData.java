@@ -31,14 +31,15 @@ public class WeatherData {
 	private double minTemp;
 	private double maxTemp;
 	private String lastUpdatedTime;
+	private String currentCity; 
 	//private Unit currentUnit;
 
 	/*
 	 * Constructor for WeatherData class.
 	 * Initializes the instance variables with the first fetch-data from the source 
 	 */
-	public WeatherData(){
-		getWeather();
+	public WeatherData(String city, String countryCode){
+		getWeather(city, countryCode);
 	}
 
 	/*
@@ -54,14 +55,15 @@ public class WeatherData {
 	/**
 	 * getWeather opens up the OpenWeatherMap API and retrieves given information that we wish to acquire
 	 */
-	private void getWeather()
+	private void getWeather(String city, String countryCode)
 	{
-		String stringURL = "http://api.openweathermap.org/data/2.5/weather?q=London,ca"; 
+		String urlSkeleton = "http://api.openweathermap.org/data/2.5/weather?q=";
+		String fullURL = urlSkeleton + city + "," + countryCode; 
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
 		try {
-			WeatherVals myMainValues = mapper.readValue(new URL(stringURL), WeatherVals.class);
+			WeatherVals myMainValues = mapper.readValue(new URL(fullURL), WeatherVals.class);
 			//System.out.println(myMainValues.getMain().toString());
 			//System.out.println(myMainValues.getWind().toString());
 			temperature = myMainValues.getMain().getTemp();
@@ -72,11 +74,13 @@ public class WeatherData {
 			windSpeed = myMainValues.getWind().getSpeed();
 			windDirectionDegrees = myMainValues.getWind().getDeg();
 			lastUpdatedTime = getTime();
+			currentCity = myMainValues.getName();
 			
 			changeTemperatureUnits("kelvin", "celsius"); changeWind(); changePressure();
 			
 			DecimalFormat df = new DecimalFormat("#.##");
-			System.out.println("Current Temperature is : " + df.format(temperature) + "\'C");
+			System.out.println("Current Weather for [" + currentCity +"]");
+			System.out.println("\nTemperature : " + df.format(temperature) + "\'C");
 			System.out.println("MaxTemperature/MinTemperature: " + df.format(maxTemp) + "/" + df.format(minTemp) + "\'C");
 			System.out.println("Humidity: " + df.format(humidity) + " %"); 
 			System.out.println("Air Pressure: " + df.format(airPressure) + " kPa");
@@ -149,7 +153,7 @@ public class WeatherData {
 	}
 	public static void main(String[] args)
 	{
-		WeatherData wd = new WeatherData();
+		WeatherData wd = new WeatherData("Toronto", "CA");
 	}
 	
 	public double getWindSpeed() {
