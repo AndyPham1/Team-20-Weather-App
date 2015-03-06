@@ -36,14 +36,13 @@ public class WeatherFrame extends JFrame {
         BufferedImage myPictureDrizzle = ImageIO.read(new File("src/icons/drizzle.png"));
         BufferedImage myPictureUpdate = ImageIO.read(new File("src/icons/update.png"));
         
-        WeatherData weatherData = new WeatherData("London", "CA");
-=======
+        WeatherData weatherData = new WeatherData("London", "CA");	//THIS IS PRACTICE
 
         /******END IMAGES*****/
         
        
         /*****PANELS*****/
->>>>>>> ec96ae7916e203c565aee3eb72c574373fcd8be0
+
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 800, 645);
@@ -514,7 +513,7 @@ public class WeatherFrame extends JFrame {
         shortTermPanel7.add(shortTermTime7);
 
         // Adds an image
-<<<<<<< HEAD
+
         JLabel label_23 = new JLabel(new ImageIcon(myPictureCloudy));
         label_23.setBounds(10, 28, 40, 40);
         panel_16.add(label_23);
@@ -546,7 +545,7 @@ public class WeatherFrame extends JFrame {
         lblSunset.setFont(new Font("Tahoma", Font.PLAIN, 14));
         lblSunset.setBounds(181, 227, 57, 14);
         panel_1.add(lblSunset);
-=======
+
         JLabel shortTermIcon7 = new JLabel(new ImageIcon(myPictureCloudy));
         shortTermIcon7.setBounds(10, 28, 40, 40);
         shortTermPanel7.add(shortTermIcon7);
@@ -572,7 +571,7 @@ public class WeatherFrame extends JFrame {
         shortTermTime8.setHorizontalAlignment(SwingConstants.CENTER);
         shortTermTime8.setBounds(10, 11, 40, 14);
         shortTermPanel8.add(shortTermTime8);
->>>>>>> ec96ae7916e203c565aee3eb72c574373fcd8be0
+
 
         // Adds an image
         JLabel shortTermIcon8 = new JLabel(new ImageIcon(myPictureCloudy));
