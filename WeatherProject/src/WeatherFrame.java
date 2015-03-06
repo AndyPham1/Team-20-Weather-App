@@ -512,39 +512,39 @@ public class WeatherFrame extends JFrame {
         shortTermTime7.setBounds(10, 11, 40, 14);
         shortTermPanel7.add(shortTermTime7);
 
-        // Adds an image
-
-        JLabel label_23 = new JLabel(new ImageIcon(myPictureCloudy));
-        label_23.setBounds(10, 28, 40, 40);
-        panel_16.add(label_23);
-
-        JLabel label_24 = new JLabel("Cloudy");
-        label_24.setHorizontalAlignment(SwingConstants.CENTER);
-        label_24.setBounds(0, 68, 60, 14);
-        panel_16.add(label_24);
-
-        JLabel label_25 = new JLabel("-12\u00B0");
-        label_25.setHorizontalAlignment(SwingConstants.CENTER);
-        label_25.setFont(new Font("Tahoma", Font.BOLD, 13));
-        label_25.setBounds(10, 79, 40, 26);
-        panel_16.add(label_25);
-        panel_1.setLayout(null);
-
-        JLabel lblNewLabel = new JLabel("Currently Viewing:" + weatherData.getCurrrentCity() + ", " + weatherData.getCountryCode());
-        lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        lblNewLabel.setBounds(10, 11, 120, 24);
-        lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
-        panel_1.add(lblNewLabel);
-
-        JLabel lblLocation = new JLabel("Sunrise:");
-        lblLocation.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        lblLocation.setBounds(181, 202, 57, 14);
-        panel_1.add(lblLocation);
-
-        JLabel lblSunset = new JLabel("Sunset:");
-        lblSunset.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        lblSunset.setBounds(181, 227, 57, 14);
-        panel_1.add(lblSunset);
+//        // Adds an image
+//
+//        JLabel label_23 = new JLabel(new ImageIcon(myPictureCloudy));
+//        label_23.setBounds(10, 28, 40, 40);
+//        panel_16.add(label_23);
+//
+//        JLabel label_24 = new JLabel("Cloudy");
+//        label_24.setHorizontalAlignment(SwingConstants.CENTER);
+//        label_24.setBounds(0, 68, 60, 14);
+//        panel_16.add(label_24);
+//
+//        JLabel label_25 = new JLabel("-12\u00B0");
+//        label_25.setHorizontalAlignment(SwingConstants.CENTER);
+//        label_25.setFont(new Font("Tahoma", Font.BOLD, 13));
+//        label_25.setBounds(10, 79, 40, 26);
+//        panel_16.add(label_25);
+//        panel_1.setLayout(null);
+//
+//        JLabel lblNewLabel = new JLabel("Currently Viewing:" + weatherData.getCurrrentCity() + ", " + weatherData.getCountryCode());
+//        lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+//        lblNewLabel.setBounds(10, 11, 120, 24);
+//        lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
+//        panel_1.add(lblNewLabel);
+//
+//        JLabel lblLocation = new JLabel("Sunrise:");
+//        lblLocation.setFont(new Font("Tahoma", Font.PLAIN, 14));
+//        lblLocation.setBounds(181, 202, 57, 14);
+//        panel_1.add(lblLocation);
+//
+//        JLabel lblSunset = new JLabel("Sunset:");
+//        lblSunset.setFont(new Font("Tahoma", Font.PLAIN, 14));
+//        lblSunset.setBounds(181, 227, 57, 14);
+//        panel_1.add(lblSunset);
 
         JLabel shortTermIcon7 = new JLabel(new ImageIcon(myPictureCloudy));
         shortTermIcon7.setBounds(10, 28, 40, 40);
@@ -594,9 +594,9 @@ public class WeatherFrame extends JFrame {
         
         /******CURRENT WEATHER*****/
         
-        JLabel currLocationLabel = new JLabel("CurrLocation");
+        JLabel currLocationLabel = new JLabel(weatherData.getCurrrentCity() + ", " +weatherData.getCountryCode());
         currLocationLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        currLocationLabel.setBounds(10, 11, 113, 24);
+        currLocationLabel.setBounds(10, 11, 140, 24);
         currLocationLabel.setHorizontalAlignment(SwingConstants.LEFT);
         currWeatherPanel.add(currLocationLabel);
 
@@ -615,41 +615,46 @@ public class WeatherFrame extends JFrame {
         currWeatherIcon.setBounds(10, 40, 100, 100);
         currWeatherPanel.add(currWeatherIcon);
 
-        JLabel currWeatherConditionLabel = new JLabel("WeatherCondition");
+        JLabel currWeatherConditionLabel = new JLabel("Current Weather Conditions");
         currWeatherConditionLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        currWeatherConditionLabel.setBounds(10, 150, 145, 24);
+        currWeatherConditionLabel.setBounds(10, 150, 250, 24);
         currWeatherPanel.add(currWeatherConditionLabel);
 
-        JLabel currHumidityLabel = new JLabel("Humidity:\r\n");
+        JLabel currHumidityLabel = new JLabel("Humidity: " + weatherData.getHumidity() + "%\r\n");
         currHumidityLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        currHumidityLabel.setBounds(10, 174, 72, 24);
+        currHumidityLabel.setBounds(10, 174, 150, 24);
         currWeatherPanel.add(currHumidityLabel);
 
-        JLabel currWindSpeedLabel = new JLabel("Wind Speed:\r\n");
+        JLabel currWindSpeedLabel = new JLabel("Wind Speed: "+weatherData.getWindSpeed()+" km/h\r\n");
         currWindSpeedLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        currWindSpeedLabel.setBounds(10, 197, 84, 24);
+        currWindSpeedLabel.setBounds(10, 197, 150, 24);
         currWeatherPanel.add(currWindSpeedLabel);
 
-        JLabel currPressureLabel = new JLabel("Pressure:\r\n");
+        JLabel currPressureLabel = new JLabel("Pressure: "+ weatherData.getAirPressure() +" kPa\r\n");
         currPressureLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        currPressureLabel.setBounds(10, 221, 84, 24);
+        currPressureLabel.setBounds(10, 221, 150, 24);
         currWeatherPanel.add(currPressureLabel);
 
-        JLabel currTempOutput = new JLabel("-17\u00B0");
+        JLabel currTemp = new JLabel("Current Temperature: ");
+//        currTemp.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        currTemp.setBounds(330, 22, 150, 50);
+        currWeatherPanel.add(currTemp);
+        
+        JLabel currTempOutput = new JLabel(weatherData.getTemperature() + "\u00B0");
         currTempOutput.setFont(new Font("Tahoma", Font.PLAIN, 56));
-        currTempOutput.setBounds(330, 46, 113, 68);
+        currTempOutput.setBounds(330, 46, 150, 68);
         currWeatherPanel.add(currTempOutput);
 
-        JLabel currLowestTemp = new JLabel("\u2207-30");
-        currLowestTemp.setBounds(397, 125, 31, 15);
+        JLabel currLowestTemp = new JLabel("\u2207"+weatherData.getMinTemp());
+        currLowestTemp.setBounds(397, 125, 60, 15);
         currWeatherPanel.add(currLowestTemp);
 
-        JLabel currHighestTemp = new JLabel("\u25B2-10");
-        currHighestTemp.setBounds(330, 125, 46, 14);
+        JLabel currHighestTemp = new JLabel("\u25B2"+weatherData.getMaxTemp());
+        currHighestTemp.setBounds(330, 125, 60, 14);
         currWeatherPanel.add(currHighestTemp);
 
-        JLabel lastUpdatedLabel = new JLabel("Last updated:");
-        lastUpdatedLabel.setBounds(306, 149, 84, 14);
+        JLabel lastUpdatedLabel = new JLabel("Last updated: " + weatherData.getLastUpdatedTime());
+        lastUpdatedLabel.setBounds(443, 238, 200, 14);
         currWeatherPanel.add(lastUpdatedLabel);
         
         JButton currRefreshButton = new JButton(new ImageIcon(myPictureUpdate));
@@ -662,7 +667,7 @@ public class WeatherFrame extends JFrame {
         /******LOCATIONS******/
         
         JLabel locationsLabel = new JLabel("Locations");
-        locationsLabel.setBounds(10, 0, 60, 23);
+        locationsLabel.setBounds(10, 0, 200, 23);
         locationsLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
         JList locationList = new JList();
