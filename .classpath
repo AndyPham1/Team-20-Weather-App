@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="WeatherProject/src"/>
-	<classpathentry kind="lib" path="WeatherProject/libs/owm-japis-2.5.0.3.jar"/>
+	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/Users/logankember/courses/cs2212/team20/WeatherProject/libs/jackson-annotations-2.5.0.jar"/>
+	<classpathentry kind="lib" path="/Users/logankember/courses/cs2212/team20/WeatherProject/libs/jackson-core-2.5.1.jar"/>
+	<classpathentry kind="lib" path="/Users/logankember/courses/cs2212/team20/WeatherProject/libs/jackson-databind-2.5.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -31,7 +31,8 @@ public class WeatherData {
 	private double minTemp;
 	private double maxTemp;
 	private String lastUpdatedTime;
-	private String currentCity; 
+	private String currentCity;
+	private String countryCode;
 	//private Unit currentUnit;
 
 	/*
@@ -75,6 +76,7 @@ public class WeatherData {
 			windDirectionDegrees = myMainValues.getWind().getDeg();
 			lastUpdatedTime = getTime();
 			currentCity = myMainValues.getName();
+			countryCode = myMainValues.getSys().getCountry();
 			
 			changeTemperatureUnits("kelvin", "celsius"); changeWind(); changePressure();
 			
@@ -191,5 +193,14 @@ public class WeatherData {
 	public String getLastUpdatedTime() {
 		return lastUpdatedTime;
 	}
+	
+	public String getCurrrentCity() {
+		return currentCity;
+	}
+
+	public String getCountryCode() {
+		return countryCode;
+	}
+	
 }
 

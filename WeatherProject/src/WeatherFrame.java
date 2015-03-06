@@ -16,17 +16,25 @@ import java.awt.*;
  */
 
 public class WeatherFrame extends JFrame {
+
+	/////////////////////////  ATTRIBUTES /////////////////////////////
+	
+	private WeatherData weatherData;
     private JTextField txtName;
     private JLabel lblGreeting;
     private JPanel contentPane;
     private JTextField textField;
 
+    ////////////////////////// CONSTRUCTOR /////////////////////////////
+    
     public WeatherFrame() throws IOException {
         BufferedImage myPictureSunny = ImageIO.read(new File("src/icons/sunny.png"));
         BufferedImage myPictureCloudy = ImageIO.read(new File("src/icons/cloudy.png"));
         BufferedImage myPictureDrizzle = ImageIO.read(new File("src/icons/drizzle.png"));
         BufferedImage myPictureUpdate = ImageIO.read(new File("src/icons/update.png"));
-
+        
+        WeatherData weatherData = new WeatherData("London", "CA");
+        
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 800, 645);
         contentPane = new JPanel();
@@ -528,9 +536,9 @@ public class WeatherFrame extends JFrame {
         panel_16.add(label_25);
         panel_1.setLayout(null);
 
-        JLabel lblNewLabel = new JLabel("CurrLocation");
+        JLabel lblNewLabel = new JLabel("Currently Viewing:" + weatherData.getCurrrentCity() + ", " + weatherData.getCountryCode());
         lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        lblNewLabel.setBounds(10, 11, 113, 24);
+        lblNewLabel.setBounds(10, 11, 120, 24);
         lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
         panel_1.add(lblNewLabel);
 

@@ -73,7 +73,8 @@ public class Cities {
 	 */
 	public CityData changeCity() throws NoCityFoundException
 	{
-
+		//TODO
+		return null;
 	}
 
 	/** 
