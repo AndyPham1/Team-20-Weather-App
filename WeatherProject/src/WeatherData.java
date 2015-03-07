@@ -33,6 +33,8 @@ public class WeatherData {
 	private String lastUpdatedTime;
 	private String currentCity;
 	private String countryCode;
+	private double sunrise;
+	private double sunset;
 	//private Unit currentUnit;
 
 	/*
@@ -41,6 +43,7 @@ public class WeatherData {
 	 */
 	public WeatherData(String city, String countryCode){
 		getWeather(city, countryCode);
+		this.countryCode = countryCode;
 	}
 
 	/*
@@ -77,7 +80,8 @@ public class WeatherData {
 			lastUpdatedTime = getTime();
 			currentCity = myMainValues.getName();
 			countryCode = myMainValues.getSys().getCountry();
-			
+			sunrise = myMainValues.getSys().getSunrise();
+			sunset = myMainValues.getSys().getSunset();
 			changeTemperatureUnits("kelvin", "celsius"); changeWind(); changePressure();
 			
 			DecimalFormat df = new DecimalFormat("#.##");
@@ -200,6 +204,14 @@ public class WeatherData {
 
 	public String getCountryCode() {
 		return countryCode;
+	}
+	
+	public double getSunset() {
+		return sunset;
+	}
+	
+	public double getSunrise() {
+		return sunrise;
 	}
 	
 }

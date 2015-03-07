@@ -1,12 +1,15 @@
 
 import javax.imageio.ImageIO;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.text.DecimalFormat;
 import java.awt.event.*;
 import java.awt.*;
 
@@ -15,7 +18,7 @@ import java.awt.*;
  * @author Team 20
  */
 
-public class WeatherFrame extends JFrame {
+public class WeatherFrame extends JFrame implements ActionListener {
 
 	/////////////////////////  ATTRIBUTES /////////////////////////////
 	
@@ -24,6 +27,8 @@ public class WeatherFrame extends JFrame {
     private JLabel lblGreeting;
     private JPanel contentPane;
     private JTextField locationInputField;
+    private JList locationList;
+    private static WeatherData[] locationNames;
 
     ////////////////////////// CONSTRUCTOR /////////////////////////////
     
@@ -36,7 +41,7 @@ public class WeatherFrame extends JFrame {
         BufferedImage myPictureDrizzle = ImageIO.read(new File("src/icons/drizzle.png"));
         BufferedImage myPictureUpdate = ImageIO.read(new File("src/icons/update.png"));
         
-        WeatherData weatherData = new WeatherData("London", "CA");	//THIS IS PRACTICE
+        weatherData = new WeatherData("London", "CA");	//THIS IS PRACTICE
 
         /******END IMAGES*****/
         
@@ -512,8 +517,8 @@ public class WeatherFrame extends JFrame {
         shortTermTime7.setBounds(10, 11, 40, 14);
         shortTermPanel7.add(shortTermTime7);
 
-//        // Adds an image
-//
+        // Adds an image
+
 //        JLabel label_23 = new JLabel(new ImageIcon(myPictureCloudy));
 //        label_23.setBounds(10, 28, 40, 40);
 //        panel_16.add(label_23);
@@ -600,14 +605,14 @@ public class WeatherFrame extends JFrame {
         currLocationLabel.setHorizontalAlignment(SwingConstants.LEFT);
         currWeatherPanel.add(currLocationLabel);
 
-        JLabel currSunriseLabel = new JLabel("Sunrise:");
+        JLabel currSunriseLabel = new JLabel("Sunrise: "+ weatherData.getSunrise());
         currSunriseLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        currSunriseLabel.setBounds(181, 202, 57, 14);
+        currSunriseLabel.setBounds(181, 202, 200, 14);
         currWeatherPanel.add(currSunriseLabel);
 
-        JLabel currSunsetLabel = new JLabel("Sunset:");
+        JLabel currSunsetLabel = new JLabel("Sunset: " + weatherData.getSunset());
         currSunsetLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        currSunsetLabel.setBounds(181, 227, 57, 14);
+        currSunsetLabel.setBounds(181, 227, 200, 14);
         currWeatherPanel.add(currSunsetLabel);
 
         // Adds an image
@@ -622,27 +627,33 @@ public class WeatherFrame extends JFrame {
 
         JLabel currHumidityLabel = new JLabel("Humidity: " + weatherData.getHumidity() + "%\r\n");
         currHumidityLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        currHumidityLabel.setBounds(10, 174, 150, 24);
+        currHumidityLabel.setBounds(10, 197, 150, 24);
         currWeatherPanel.add(currHumidityLabel);
 
         JLabel currWindSpeedLabel = new JLabel("Wind Speed: "+weatherData.getWindSpeed()+" km/h\r\n");
         currWindSpeedLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        currWindSpeedLabel.setBounds(10, 197, 150, 24);
+        currWindSpeedLabel.setBounds(10, 174, 150, 24);
         currWeatherPanel.add(currWindSpeedLabel);
 
+        JLabel currWindDirection = new JLabel("Wind Direction: "+weatherData.getWindDirectionDegrees()+"\u00B0");
+        currWindDirection.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        currWindDirection.setBounds(181, 174, 200, 24);
+        currWeatherPanel.add(currWindDirection);
+        
         JLabel currPressureLabel = new JLabel("Pressure: "+ weatherData.getAirPressure() +" kPa\r\n");
         currPressureLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
         currPressureLabel.setBounds(10, 221, 150, 24);
         currWeatherPanel.add(currPressureLabel);
 
         JLabel currTemp = new JLabel("Current Temperature: ");
-//        currTemp.setFont(new Font("Tahoma", Font.PLAIN, 12));
         currTemp.setBounds(330, 22, 150, 50);
         currWeatherPanel.add(currTemp);
         
-        JLabel currTempOutput = new JLabel(weatherData.getTemperature() + "\u00B0");
+        DecimalFormat df = new DecimalFormat(); //Used to keep the temperature to one decimal place
+        df.setMaximumFractionDigits(1);
+        JLabel currTempOutput = new JLabel(df.format(weatherData.getTemperature()) + "\u00B0");
         currTempOutput.setFont(new Font("Tahoma", Font.PLAIN, 56));
-        currTempOutput.setBounds(330, 46, 150, 68);
+        currTempOutput.setBounds(330, 46, 250, 68);
         currWeatherPanel.add(currTempOutput);
 
         JLabel currLowestTemp = new JLabel("\u2207"+weatherData.getMinTemp());
@@ -666,17 +677,27 @@ public class WeatherFrame extends JFrame {
         
         /******LOCATIONS******/
         
+//        locationList = new JList<WeatherData>(locationNames);
+//        locationList.setVisibleRowCount(4);	//Number of rows it will display
+//        locationList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); //Only one city can be selected at once
+//        add(new JScrollPane(locationList));
+//        locationList.addListSelectionListener(
+//        		new ListSelectionListener(){
+//					
+//        			public void valueChanged(ListSelectionEvent e) {
+//						
+//						
+//						
+//					}
+//        		});
+        
         JLabel locationsLabel = new JLabel("Locations");
         locationsLabel.setBounds(10, 0, 200, 23);
         locationsLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
-        JList locationList = new JList();
-        locationList.setBackground(new Color(153, 153, 153));
-        locationList.setBounds(0, 25, 197, 446);
-
         JButton btnAdd = new JButton("Add");
         btnAdd.setBounds(10, 511, 66, 23);
-
+        
         JButton btnRemove = new JButton("Remove");
         btnRemove.setBounds(86, 511, 101, 23);
         
@@ -685,7 +706,6 @@ public class WeatherFrame extends JFrame {
         locationInputField.setColumns(10);
         LocationPanel.setLayout(null);
         LocationPanel.add(locationsLabel);
-        LocationPanel.add(locationList);
         LocationPanel.add(locationInputField);
         LocationPanel.add(btnAdd);
         LocationPanel.add(btnRemove);
@@ -693,5 +713,13 @@ public class WeatherFrame extends JFrame {
         
         /******END LOCATIONS******/
     }
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+    
+    
 }
 
