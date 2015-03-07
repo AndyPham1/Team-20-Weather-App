@@ -1,14 +1,12 @@
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.net.MalformedURLException;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.*;
 
 /**
  * WeatherData class contains the weather data 
@@ -58,28 +56,26 @@ public class WeatherData {
 	 */
 	private void getWeather(String city, String countryCode)
 	{
+
 		String urlSkeleton = "http://api.openweathermap.org/data/2.5/weather?q=";
 		String fullURL = urlSkeleton + city + "," + countryCode; 
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-
 		try {
-			WeatherVals myMainValues = mapper.readValue(new URL(fullURL), WeatherVals.class);
-			//System.out.println(myMainValues.getMain().toString());
-			//System.out.println(myMainValues.getWind().toString());
-			temperature = myMainValues.getMain().getTemp();
-			maxTemp = myMainValues.getMain().getTemp_max();
-			minTemp = myMainValues.getMain().getTemp_min();
-			humidity = myMainValues.getMain().getHumidity();
-			airPressure = myMainValues.getMain().getPressure();
-			windSpeed = myMainValues.getWind().getSpeed();
-			windDirectionDegrees = myMainValues.getWind().getDeg();
+			String jsonData = readUrl(fullURL);
+			Gson gson = new Gson();
+			WeatherValue wv = gson.fromJson(jsonData, WeatherValue.class);
+			temperature = wv.getMain().getTemp();
+			maxTemp = wv.getMain().getTemp_max();
+			minTemp = wv.getMain().getTemp_min();
+			humidity = wv.getMain().getHumidity();
+			airPressure = wv.getMain().getPressure();
+			windSpeed = wv.getWind().getSpeed();
+			windDirectionDegrees = wv.getWind().getDeg();
 			lastUpdatedTime = getTime();
-			currentCity = myMainValues.getName();
-			countryCode = myMainValues.getSys().getCountry();
-			
+			currentCity = wv.getName();
+			countryCode = wv.getSys().getCountry();
+
 			changeTemperatureUnits("kelvin", "celsius"); changeWind(); changePressure();
-			
+
 			DecimalFormat df = new DecimalFormat("#.##");
 			System.out.println("Current Weather for [" + currentCity +"]");
 			System.out.println("\nTemperature : " + df.format(temperature) + "\'C");
@@ -92,16 +88,32 @@ public class WeatherData {
 		} catch (JsonParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * Helper method to read the URL as a String and make a request to the server to read the contents of the page
+	 * @param urlString is the String that links to the json file
+	 */
+	private static String readUrl(String urlString) throws Exception {
+	    BufferedReader reader = null;
+	    try {
+	        URL url = new URL(urlString);
+	        reader = new BufferedReader(new InputStreamReader(url.openStream()));
+	        StringBuffer buffer = new StringBuffer();
+	        int read;
+	        char[] chars = new char[1024];
+	        while ((read = reader.read(chars)) != -1)
+	            buffer.append(chars, 0, read); 
+
+	        return buffer.toString();
+	    } finally {
+	        if (reader != null)
+	            reader.close();
+	    }
 	}
 	/**
 	 * changeTemperature method changes the temperature
@@ -157,7 +169,7 @@ public class WeatherData {
 	{
 		WeatherData wd = new WeatherData("Toronto", "CA");
 	}
-	
+
 	public double getWindSpeed() {
 		return windSpeed;
 	}
@@ -193,7 +205,7 @@ public class WeatherData {
 	public String getLastUpdatedTime() {
 		return lastUpdatedTime;
 	}
-	
+
 	public String getCurrrentCity() {
 		return currentCity;
 	}
@@ -201,6 +213,6 @@ public class WeatherData {
 	public String getCountryCode() {
 		return countryCode;
 	}
-	
+
 }
 
