@@ -49,8 +49,8 @@ public class CityData{
 	}
 
 	/**
-	 * getLongtitude gets the Longtitude
-	 * @return longtitude
+	 * getLongitude gets the Longitude
+	 * @return longitude
 	 */
 	public float getLongitude()
 	{
