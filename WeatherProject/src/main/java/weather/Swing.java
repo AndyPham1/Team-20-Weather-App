@@ -1,3 +1,4 @@
+package main.java.weather;
 import javax.swing.SwingUtilities;
 
 /**

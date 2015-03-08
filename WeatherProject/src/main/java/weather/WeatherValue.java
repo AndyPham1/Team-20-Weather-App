@@ -1,11 +1,12 @@
-import com.fasterxml.jackson.annotation.JsonIgnore;
+package main.java.weather;
 
+import java.util.List;
 
-public class WeatherVals {
+public class WeatherValue {
 	
 	private Coord coord;
 	private Sys sys;
-	private Weather weather;
+	private List<Weather> weather; 
 	private String base; 
 	private Main main;
 	private Wind wind;
@@ -87,21 +88,6 @@ public class WeatherVals {
 	}
 	public static class Weather
 	{
-		public void setId(String id) {
-			this.id = id;
-		}
-
-		public void setMain(String main) {
-			this.main = main;
-		}
-
-		public void setDescription(String description) {
-			this.description = description;
-		}
-
-		public void setIcon(String icon) {
-			this.icon = icon;
-		}
 
 		private String id, main, description, icon;
 
@@ -119,6 +105,21 @@ public class WeatherVals {
 
 		public String getIcon() {
 			return icon;
+		}
+		public void setId(String id) {
+			this.id = id;
+		}
+
+		public void setMain(String main) {
+			this.main = main;
+		}
+
+		public void setDescription(String description) {
+			this.description = description;
+		}
+
+		public void setIcon(String icon) {
+			this.icon = icon;
 		}
 	}
 	
@@ -239,7 +240,7 @@ public class WeatherVals {
 	public Sys getSys() {
 		return sys;
 	}
-	public Weather getWeather() {
+	public List<Weather> getWeather() {
 		return weather;
 	}
 	public String getBase() {
@@ -272,8 +273,8 @@ public class WeatherVals {
 	public void setSys(Sys sys) {
 		this.sys = sys;
 	}
-	@JsonIgnore
-	public void setWeather(Weather weather)
+	
+	public void setWeather(List<Weather> weather)
 	{
 		this.weather = weather;
 	}

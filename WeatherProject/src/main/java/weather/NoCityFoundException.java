@@ -1,3 +1,4 @@
+package main.java.weather;
 /**
  * NoCityFoundException is an exception class
  * @author Team 20
