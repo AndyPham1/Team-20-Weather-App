@@ -36,10 +36,10 @@ public class WeatherFrame extends JFrame implements ActionListener {
     	
     	/*****IMAGES*****/
    
-    	BufferedImage myPictureSunny = ImageIO.read(this.getClass().getResourceAsStream("/icons/sunny.png"));
-        BufferedImage myPictureCloudy = ImageIO.read(this.getClass().getResourceAsStream("/icons/cloudy.png"));
-        BufferedImage myPictureDrizzle = ImageIO.read(this.getClass().getResourceAsStream("/icons/drizzle.png"));
-        BufferedImage myPictureUpdate = ImageIO.read(this.getClass().getResourceAsStream("/icons/update.png"));
+    	BufferedImage myPictureSunny = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("icons/sunny.png"));
+        BufferedImage myPictureCloudy = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("icons/cloudy.png"));
+        BufferedImage myPictureDrizzle = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("icons/drizzle.png"));
+        BufferedImage myPictureUpdate = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("icons/update.png"));
         
         weatherData = new WeatherData("London", "CA");	//THIS IS PRACTICE
 
