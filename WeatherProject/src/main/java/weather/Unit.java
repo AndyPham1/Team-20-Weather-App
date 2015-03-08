@@ -1,4 +1,6 @@
 
+package main.java.weather;
+
 public class Unit {
 	private static final String KELVIN_UNIT = "kelvin";
 	private static final String CELSIUS_UNIT = "celsius";

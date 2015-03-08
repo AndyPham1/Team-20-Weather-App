@@ -1,4 +1,4 @@
-
+package main.java.weather;
 /**
  * Cities class
  * @author Team 20

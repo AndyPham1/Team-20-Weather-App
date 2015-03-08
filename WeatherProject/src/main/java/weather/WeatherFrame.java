@@ -1,4 +1,4 @@
-
+package main.java.weather;
 import javax.imageio.ImageIO;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
@@ -35,11 +35,11 @@ public class WeatherFrame extends JFrame implements ActionListener {
     public WeatherFrame() throws IOException {
     	
     	/*****IMAGES*****/
-    	
-        BufferedImage myPictureSunny = ImageIO.read(new File("src/icons/sunny.png"));
-        BufferedImage myPictureCloudy = ImageIO.read(new File("src/icons/cloudy.png"));
-        BufferedImage myPictureDrizzle = ImageIO.read(new File("src/icons/drizzle.png"));
-        BufferedImage myPictureUpdate = ImageIO.read(new File("src/icons/update.png"));
+   
+    	BufferedImage myPictureSunny = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("icons/sunny.png"));
+        BufferedImage myPictureCloudy = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("icons/cloudy.png"));
+        BufferedImage myPictureDrizzle = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("icons/drizzle.png"));
+        BufferedImage myPictureUpdate = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("icons/update.png"));
         
         weatherData = new WeatherData("London", "CA");	//THIS IS PRACTICE
 

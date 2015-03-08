@@ -1,3 +1,5 @@
+package main.java.weather;
+
 import java.util.List;
 
 public class WeatherValue {

@@ -1,3 +1,4 @@
+package main.java.weather;
 /**
  * LongTermForecastData class  will store the long term forecast data
  * @author Team 20
