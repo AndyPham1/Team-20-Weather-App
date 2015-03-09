@@ -31,6 +31,7 @@ public ShortTermForecastData update()
 
 /**
  * changeTemperature method changes the temperature
+ * @param unit 1 first unit, unit2 second unit
  */
 public void changeTemperature(String unit1, String unit2) throws NoDataFoundException
 {	
@@ -44,6 +45,7 @@ public void changeTemperature(String unit1, String unit2) throws NoDataFoundExce
 
 /**
  * convertTemperature
+ * @param unit1 first unit, unit2 second unit, temp temperature to be converted
  * @return temperature that is converted
  */
 private float convertTemperature(String unit1, String unit2, float temp)

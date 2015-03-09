@@ -20,7 +20,7 @@ import java.awt.*;
 
 public class WeatherFrame extends JFrame implements ActionListener {
 
-	/////////////////////////  ATTRIBUTES /////////////////////////////
+	/* Instance Variables */
 	
 	private WeatherData weatherData;
     private JTextField txtName;
@@ -30,7 +30,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
     private JList locationList;
     private static WeatherData[] locationNames;
 
-    ////////////////////////// CONSTRUCTOR /////////////////////////////
+    /* Constructor */
     
     public WeatherFrame() throws IOException {
     	

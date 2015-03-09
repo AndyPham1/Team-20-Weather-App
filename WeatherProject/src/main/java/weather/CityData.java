@@ -6,7 +6,7 @@ package main.java.weather;
 
 public class CityData{
 
-	/* Instant variables */
+	/* Instance Variables */
 	private String cityName;
 	private int cityID;
 	private String countryCode;

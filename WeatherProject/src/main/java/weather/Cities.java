@@ -1,6 +1,6 @@
 package main.java.weather;
 /**
- * Cities class
+ * Cities class contains a collection of cities
  * @author Team 20
  */
 

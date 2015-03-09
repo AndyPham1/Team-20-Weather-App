@@ -33,6 +33,7 @@ public class WeatherData {
 	private String sunrise;
 	private String sunset;
 	private WeatherValue wv; 
+	
 	/*
 	 * Constructor for WeatherData class.
 	 * Initializes the instance variables with the first fetch-data from the source 
@@ -41,19 +42,21 @@ public class WeatherData {
 		getWeather(city, countryCode);
 		this.countryCode = countryCode;
 	}
-
-	/*
-	 * this class returns a list of WeatherData elements that updates the data by fetching it from the source 
+	
+	/* Methods */
+	
+	/**
+	 * update will return a list of WeatherData elements that updates the data by fetching it from the source 
+	 * @return WeatherData 
 	 */
 	public WeatherData update() throws IOException
 	{
 		return this;
 	}
 
-	/* ===========================================METHODS===================================================*/
-
 	/**
 	 * getWeather opens up the OpenWeatherMap API and retrieves given information that we wish to acquire
+	 * @param city the city, countryCode the country code as a string
 	 */
 	private void getWeather(String city, String countryCode)
 	{
@@ -105,6 +108,7 @@ public class WeatherData {
 	/**
 	 * Helper method to read the URL as a String and make a request to the server to read the contents of the page
 	 * @param urlString is the String that links to the json file
+	 * @return String 
 	 */
 	private static String readUrl(String urlString) throws Exception {
 	    BufferedReader reader = null;
@@ -142,6 +146,7 @@ public class WeatherData {
 
 	/**
 	 * getTime retrieves the current time and then parsed into just the hour and minute
+	 * @return String return the timeString
 	 */
 	private String getTime()
 	{
@@ -166,7 +171,7 @@ public class WeatherData {
 		windDirectionString = cardinalWind[wind%16];
 	}
 
-	/*
+	/**
 	 * changePressure is a simple method to change from hPA to kPA
 	 */
 	private void changePressure()
@@ -174,6 +179,9 @@ public class WeatherData {
 		this.airPressure /= 10;
 	}
 	
+	/**
+	 * changeSun changes the sunrise and sunset 
+	 */
 	private void changeSun()
 	{
 		String sunriseDate = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new java.util.Date ((Long.parseLong(sunrise) *1000)));
@@ -186,6 +194,7 @@ public class WeatherData {
 		sunrise = sbSunrise.toString();
 		sunset = sbSunset.toString();
 	}
+	
 	/*
 	public static void main(String[] args)
 	{
