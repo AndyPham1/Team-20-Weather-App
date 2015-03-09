@@ -599,7 +599,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         
         /******CURRENT WEATHER*****/
         
-        JLabel currLocationLabel = new JLabel(weatherData.getCurrrentCity() + ", " +weatherData.getCountryCode());
+        JLabel currLocationLabel = new JLabel(weatherData.getCurrentCity() + ", " +weatherData.getCountryCode());
         currLocationLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
         currLocationLabel.setBounds(10, 11, 140, 24);
         currLocationLabel.setHorizontalAlignment(SwingConstants.LEFT);

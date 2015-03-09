@@ -35,8 +35,8 @@ public class WeatherValue {
 	
 	public static class Sys
 	{
-		private double type, id, message, sunrise, sunset;
-		private String country;
+		private double type, id, message;
+		private String country, sunrise, sunset;
 
 		public double getType() {
 			return type;
@@ -54,11 +54,11 @@ public class WeatherValue {
 			return country;
 		}
 
-		public double getSunrise() {
+		public String getSunrise() {
 			return sunrise;
 		}
 
-		public double getSunset() {
+		public String getSunset() {
 			return sunset;
 		}
 		public void setType(double type) {
@@ -77,11 +77,11 @@ public class WeatherValue {
 			this.country = country;
 		}
 
-		public void setSunrise(double sunrise) {
+		public void setSunrise(String sunrise) {
 			this.sunrise = sunrise;
 		}
 
-		public void setSunset(double sunset) {
+		public void setSunset(String sunset) {
 			this.sunset = sunset;
 		}
 

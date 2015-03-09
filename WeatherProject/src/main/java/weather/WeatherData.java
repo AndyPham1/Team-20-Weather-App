@@ -24,19 +24,15 @@ public class WeatherData {
 	private String windDirectionString; 
 	private double airPressure;
 	private double humidity;
-	//private int skyConditionID;
-	//private double sunRise;
-	//private double sunSet;
 	private	double temperature;
 	private double minTemp;
 	private double maxTemp;
 	private String lastUpdatedTime;
 	private String currentCity;
 	private String countryCode;
-	private double sunrise;
-	private double sunset;
-	//private Unit currentUnit;
-
+	private String sunrise;
+	private String sunset;
+	private WeatherValue wv; 
 	/*
 	 * Constructor for WeatherData class.
 	 * Initializes the instance variables with the first fetch-data from the source 
@@ -67,21 +63,26 @@ public class WeatherData {
 		try {
 			String jsonData = readUrl(fullURL);
 			Gson gson = new Gson();
-			WeatherValue wv = gson.fromJson(jsonData, WeatherValue.class);
-			temperature = wv.getMain().getTemp();
-			maxTemp = wv.getMain().getTemp_max();
-			minTemp = wv.getMain().getTemp_min();
-			humidity = wv.getMain().getHumidity();
-			airPressure = wv.getMain().getPressure();
-			windSpeed = wv.getWind().getSpeed();
-			windDirectionDegrees = wv.getWind().getDeg();
-			lastUpdatedTime = getTime();
-			currentCity = wv.getName();
-			countryCode = wv.getSys().getCountry();
-			sunrise = wv.getSys().getSunrise();
-			sunset = wv.getSys().getSunset();
-			changeTemperatureUnits("kelvin", "celsius"); changeWind(); changePressure();
+			wv = gson.fromJson(jsonData, WeatherValue.class);
+			
+			//DecimalFormat df = new DecimalFormat("#");	//change to 1 decimal 
 
+			setTemperature(wv.getMain().getTemp());
+			setMaxTemp(wv.getMain().getTemp_max());
+			setMinTemp(wv.getMain().getTemp_min());
+			setHumidity(wv.getMain().getHumidity());
+			setAirPressure(wv.getMain().getPressure());
+			setWindSpeed(wv.getWind().getSpeed());
+			setWindDirectionDegrees(wv.getWind().getDeg());
+			setCurrentCity(wv.getName());
+			setCountryCode(wv.getSys().getCountry());
+			setSunrise(wv.getSys().getSunrise());
+			setSunset(wv.getSys().getSunset());
+			
+			setLastUpdatedTime(getTime());
+
+			changeTemperatureUnits("kelvin", "celsius"); changeWind(); changePressure(); changeSun();
+			/*
 			DecimalFormat df = new DecimalFormat("#.##");
 			System.out.println("Current Weather for [" + currentCity +"]");
 			System.out.println("\nTemperature : " + df.format(temperature) + "\'C");
@@ -90,6 +91,7 @@ public class WeatherData {
 			System.out.println("Air Pressure: " + df.format(airPressure) + " kPa");
 			System.out.println("Wind is at: " + df.format(windSpeed) + "km/h " + windDirectionString);
 			System.out.println("\nLast updated : " + lastUpdatedTime);
+			*/
 			
 		} catch (JsonParseException e) {
 			// TODO Auto-generated catch block
@@ -171,11 +173,35 @@ public class WeatherData {
 	{
 		this.airPressure /= 10;
 	}
+	
+	private void changeSun()
+	{
+		String sunriseDate = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new java.util.Date ((Long.parseLong(sunrise) *1000)));
+		String sunsetDate = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new java.util.Date ((Long.parseLong(sunset)*1000)));
+		int length = sunriseDate.length();
+		sunriseDate = sunriseDate.substring(length - 9, length-3).toString();
+		sunsetDate = sunsetDate.substring(length - 9, length-3).toString();
+		StringBuilder sbSunrise = new StringBuilder(sunriseDate);
+		StringBuilder sbSunset = new StringBuilder(sunsetDate);
+		sunrise = sbSunrise.toString();
+		sunset = sbSunset.toString();
+	}
+	/*
 	public static void main(String[] args)
 	{
 		WeatherData wd = new WeatherData("Toronto", "CA");
 	}
-
+	*/
+	
+	
+	
+	/***********************************************************************************************
+	 * 
+	 * ***********************************GETTERS AND SETTERS****************************************
+	 * 
+	 ************************************************************************************************/
+	
+	
 	public double getWindSpeed() {
 		return windSpeed;
 	}
@@ -212,7 +238,7 @@ public class WeatherData {
 		return lastUpdatedTime;
 	}
 
-	public String getCurrrentCity() {
+	public String getCurrentCity() {
 		return currentCity;
 	}
 
@@ -220,12 +246,64 @@ public class WeatherData {
 		return countryCode;
 	}
 	
-	public double getSunset() {
+	public String getSunset() {
 		return sunset;
 	}
 	
-	public double getSunrise() {
+	public String getSunrise() {
 		return sunrise;
+	}
+
+	public void setWindSpeed(double windSpeed) {
+		this.windSpeed = windSpeed;
+	}
+
+	public void setWindDirectionDegrees(double windDirectionDegrees) {
+		this.windDirectionDegrees = windDirectionDegrees;
+	}
+
+	public void setWindDirectionString(String windDirectionString) {
+		this.windDirectionString = windDirectionString;
+	}
+
+	public void setAirPressure(double airPressure) {
+		this.airPressure = airPressure;
+	}
+
+	public void setHumidity(double humidity) {
+		this.humidity = humidity;
+	}
+
+	public void setTemperature(double temperature) {
+		this.temperature = temperature;
+	}
+
+	public void setMinTemp(double minTemp) {
+		this.minTemp = minTemp;
+	}
+
+	public void setMaxTemp(double maxTemp) {
+		this.maxTemp = maxTemp;
+	}
+
+	public void setLastUpdatedTime(String lastUpdatedTime) {
+		this.lastUpdatedTime = lastUpdatedTime;
+	}
+
+	public void setCurrentCity(String currentCity) {
+		this.currentCity = currentCity;
+	}
+
+	public void setCountryCode(String countryCode) {
+		this.countryCode = countryCode;
+	}
+
+	public void setSunrise(String sunrise) {
+		this.sunrise = sunrise;
+	}
+
+	public void setSunset(String sunset) {
+		this.sunset = sunset;
 	}
 }
 
