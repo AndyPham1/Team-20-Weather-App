@@ -599,6 +599,9 @@ public class WeatherFrame extends JFrame implements ActionListener {
         /******END SHORT TERM WEATHER******/
         
         /******CURRENT WEATHER*****/
+        //To keep certain variables to one decimal place
+        DecimalFormat df = new DecimalFormat(); 
+        df.setMaximumFractionDigits(1);
         
         JLabel currLocationLabel = new JLabel(weatherData.getCurrentCity() + ", " +weatherData.getCountryCode());
         currLocationLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -636,12 +639,12 @@ public class WeatherFrame extends JFrame implements ActionListener {
         currWindSpeedLabel.setBounds(10, 174, 150, 24);
         currWeatherPanel.add(currWindSpeedLabel);
 
-        JLabel currWindDirection = new JLabel("Wind Direction: "+weatherData.getWindDirectionDegrees()+"\u00B0");
+        JLabel currWindDirection = new JLabel("Wind Direction: "+df.format(weatherData.getWindDirectionDegrees())+"\u00B0");
         currWindDirection.setFont(new Font("Tahoma", Font.PLAIN, 14));
         currWindDirection.setBounds(181, 174, 200, 24);
         currWeatherPanel.add(currWindDirection);
         
-        JLabel currPressureLabel = new JLabel("Pressure: "+ weatherData.getAirPressure() +" kPa\r\n");
+        JLabel currPressureLabel = new JLabel("Pressure: "+ df.format(weatherData.getAirPressure()) +" kPa\r\n");
         currPressureLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
         currPressureLabel.setBounds(10, 221, 150, 24);
         currWeatherPanel.add(currPressureLabel);
@@ -650,18 +653,16 @@ public class WeatherFrame extends JFrame implements ActionListener {
         currTemp.setBounds(330, 22, 150, 50);
         currWeatherPanel.add(currTemp);
         
-        DecimalFormat df = new DecimalFormat(); //Used to keep the temperature to one decimal place
-        df.setMaximumFractionDigits(1);
         JLabel currTempOutput = new JLabel(df.format(weatherData.getTemperature()) + "\u00B0");
         currTempOutput.setFont(new Font("Tahoma", Font.PLAIN, 56));
         currTempOutput.setBounds(330, 46, 250, 68);
         currWeatherPanel.add(currTempOutput);
 
-        JLabel currLowestTemp = new JLabel("\u2207"+weatherData.getMinTemp());
+        JLabel currLowestTemp = new JLabel("\u2207"+df.format(weatherData.getMinTemp())+"\u00B0");
         currLowestTemp.setBounds(397, 125, 60, 15);
         currWeatherPanel.add(currLowestTemp);
 
-        JLabel currHighestTemp = new JLabel("\u25B2"+weatherData.getMaxTemp());
+        JLabel currHighestTemp = new JLabel("\u25B2"+df.format(weatherData.getMaxTemp())+"\u00B0");
         currHighestTemp.setBounds(330, 125, 60, 14);
         currWeatherPanel.add(currHighestTemp);
 
