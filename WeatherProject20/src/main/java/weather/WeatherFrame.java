@@ -37,7 +37,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
     	
     	/*****IMAGES*****/
     	
-    	  BufferedImage myPictureSunny = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("sunny.png"));
+    	BufferedImage myPictureSunny = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("sunny.png"));
         BufferedImage myPictureCloudy = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("cloudy.png"));
         BufferedImage myPictureDrizzle = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("drizzle.png"));
         BufferedImage myPictureUpdate = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("update.png"));
@@ -692,24 +692,59 @@ public class WeatherFrame extends JFrame implements ActionListener {
 //					}
 //        		});
         
-        JLabel locationsLabel = new JLabel("Locations");
+        JLabel locationsLabel = new JLabel("Your Locations");
         locationsLabel.setBounds(10, 0, 200, 23);
         locationsLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-
-        JButton btnAdd = new JButton("Add");
-        btnAdd.setBounds(10, 511, 66, 23);
         
-        JButton btnRemove = new JButton("Remove");
-        btnRemove.setBounds(86, 511, 101, 23);
         
-        locationInputField = new JTextField();
-        locationInputField.setBounds(10, 478, 177, 20);
-        locationInputField.setColumns(10);
+        JButton btnAdd = new JButton("Add Location");
+        btnAdd.setBounds(10, 560, 180, 23);
+        btnAdd.addActionListener(
+        new ActionListener() {
+       		public void actionPerformed(ActionEvent e) {
+       			JFrame locationAdder = new JFrame("Add Location");
+        		locationAdder.setSize(310,95);
+        		locationAdder.setLocationRelativeTo(null);
+        		locationAdder.setVisible(true);
+        		locationAdder.getContentPane().setLayout(null);
+        		
+        		//Adding Text
+        		JLabel inputLabel = new JLabel("Input a location: ");
+        		inputLabel.setBounds(4, 5, 150, 23);
+        		locationAdder.add(inputLabel);
+        		
+        		//Adding a text field
+        		JTextField locationInput = new JTextField();
+        		locationInput.setBounds(107, 5, 200, 23);
+        		locationAdder.add(locationInput);
+        		
+        		//Adding an accept button
+        		JButton btnAccept = new JButton("Accept");
+        		btnAccept.setBounds(77, 40, 150, 23);
+        		btnAccept.addActionListener(
+        				new ActionListener() {
+        					public void actionPerformed(ActionEvent e) {
+        						/*TODO: Take user input and add city data based on input */
+        					}
+        				});
+        		locationAdder.add(btnAccept);
+        		
+        		
+       		}
+       	});
+        
+//        JButton btnRemove = new JButton("Remove");
+//        btnRemove.setBounds(86, 511, 101, 23);
+        
+//        locationInputField = new JTextField();
+//        locationInputField.setBounds(10, 478, 177, 20);
+//        locationInputField.setColumns(10);
+//        LocationPanel.add(locationInputField);
+        
         LocationPanel.setLayout(null);
         LocationPanel.add(locationsLabel);
-        LocationPanel.add(locationInputField);
         LocationPanel.add(btnAdd);
-        LocationPanel.add(btnRemove);
+//        LocationPanel.add(btnRemove);
         contentPane.setLayout(gl_contentPane);
         
         /******END LOCATIONS******/
