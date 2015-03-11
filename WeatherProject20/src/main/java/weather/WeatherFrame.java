@@ -27,13 +27,18 @@ public class WeatherFrame extends JFrame implements ActionListener {
     private JTextField txtName;
     private JLabel lblGreeting;
     private JPanel contentPane;
-    private JTextField locationInputField;
+//    private JTextField locationInputField;
     private JList locationList;
-    private static WeatherData[] locationNames;
-
+    private static WeatherData[] locationNames = new WeatherData[10];
+    private String userCityInput;
+    private String userCountryInput;
+    
+    
     /* Constructor */
     
     public WeatherFrame() throws IOException {
+    	
+        weatherData = new WeatherData("London", "CA");	//THIS IS PRACTICE
     	
     	/*****IMAGES*****/
     	
@@ -41,8 +46,6 @@ public class WeatherFrame extends JFrame implements ActionListener {
         BufferedImage myPictureCloudy = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("cloudy.png"));
         BufferedImage myPictureDrizzle = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("drizzle.png"));
         BufferedImage myPictureUpdate = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("update.png"));
-        
-        weatherData = new WeatherData("London", "CA");	//THIS IS PRACTICE
 
         /******END IMAGES*****/
         
@@ -703,29 +706,44 @@ public class WeatherFrame extends JFrame implements ActionListener {
         btnAdd.addActionListener(
         new ActionListener() {
        		public void actionPerformed(ActionEvent e) {
-       			JFrame locationAdder = new JFrame("Add Location");
-        		locationAdder.setSize(310,95);
+       			final JFrame locationAdder = new JFrame("Add Location");
+        		locationAdder.setSize(310,120);
         		locationAdder.setLocationRelativeTo(null);
         		locationAdder.setVisible(true);
         		locationAdder.getContentPane().setLayout(null);
         		
         		//Adding Text
-        		JLabel inputLabel = new JLabel("Input a location: ");
-        		inputLabel.setBounds(4, 5, 150, 23);
-        		locationAdder.add(inputLabel);
+        		JLabel cityInputLabel = new JLabel("Input a city: ");
+        		cityInputLabel.setBounds(4, 5, 150, 23);
+        		locationAdder.add(cityInputLabel);
+        		
+        		JLabel countryInputLabel = new JLabel("Input a country: ");
+        		countryInputLabel.setBounds(4, 30, 150, 23);
+        		locationAdder.add(countryInputLabel);
         		
         		//Adding a text field
-        		JTextField locationInput = new JTextField();
-        		locationInput.setBounds(107, 5, 200, 23);
-        		locationAdder.add(locationInput);
+        		final JTextField cityInput = new JTextField();
+        		cityInput.setBounds(107, 5, 200, 23);
+        		locationAdder.add(cityInput);
+        		
+        		final JTextField countryInput = new JTextField();
+        		countryInput.setBounds(107, 30, 200, 23);
+        		locationAdder.add(countryInput);
         		
         		//Adding an accept button
         		JButton btnAccept = new JButton("Accept");
-        		btnAccept.setBounds(77, 40, 150, 23);
+        		btnAccept.setBounds(77, 65, 150, 23);
         		btnAccept.addActionListener(
         				new ActionListener() {
-        					public void actionPerformed(ActionEvent e) {
+							public void actionPerformed(ActionEvent e) {
         						/*TODO: Take user input and add city data based on input */
+        						userCityInput = cityInput.getName();
+        						userCountryInput = countryInput.getName();
+        						userCountryInput = changeToCountryCode(userCountryInput);
+        						WeatherData newWeatherData = new WeatherData(userCityInput, userCountryInput);
+        						addToLocationList(newWeatherData); //Adding the location to the myLocations list
+        						locationAdder.setVisible(false);
+        						locationAdder.dispose();	//Close the frame when accept is clicked
         					}
         				});
         		locationAdder.add(btnAccept);
@@ -751,12 +769,40 @@ public class WeatherFrame extends JFrame implements ActionListener {
         /******END LOCATIONS******/
     }
 
-	
+	/**************METHODS*************/
+    
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
     
+	public String changeToCountryCode(String country) {
+		//TODO: Must use if statements to change input string country into a country code
+		return null;
+	}
+	
+	public void addToLocationList(WeatherData newWeatherData) {
+		boolean check = false;
+		for (int i=0; i<locationNames.length; i++) {
+			if (locationNames[i] == null) {
+				locationNames[i] = newWeatherData;
+				check = true;
+			}
+		}
+		if (check == false) {
+			arrayOverflow(newWeatherData);
+		}
+	}
+	
+	public void arrayOverflow(WeatherData newWeatherData) {
+		WeatherData[] newWeatherDataArray = new WeatherData[locationNames.length+1];
+		int i=0;
+		for (; i<locationNames.length; i++) {
+			newWeatherDataArray[i] = locationNames[i];
+		}
+		newWeatherDataArray[i+1] = newWeatherData;
+	}
+	
     
 }
 

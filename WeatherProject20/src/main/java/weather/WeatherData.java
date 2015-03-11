@@ -43,6 +43,8 @@ public class WeatherData {
 		this.countryCode = countryCode;
 	}
 	
+	
+	
 	/* Methods */
 	
 	/**
