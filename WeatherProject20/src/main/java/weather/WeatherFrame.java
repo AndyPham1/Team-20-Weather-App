@@ -38,7 +38,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
     
     public WeatherFrame() throws IOException {
     	
-        weatherData = new WeatherData("London", "CA");	//THIS IS PRACTICE
+        weatherData = new WeatherData("London", "Ca");	//THIS IS PRACTICE
     	
     	/*****IMAGES*****/
     	
@@ -778,7 +778,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
     
 	public String changeToCountryCode(String country) {
 		//TODO: Must use if statements to change input string country into a country code
-		return null;
+		return country;
 	}
 	
 	public void addToLocationList(WeatherData newWeatherData) {
