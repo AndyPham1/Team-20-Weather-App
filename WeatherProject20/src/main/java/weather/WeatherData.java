@@ -53,6 +53,7 @@ public class WeatherData {
 	 */
 	public WeatherData update() throws IOException
 	{
+		this.getWeather(currentCity, countryCode);
 		return this;
 	}
 
