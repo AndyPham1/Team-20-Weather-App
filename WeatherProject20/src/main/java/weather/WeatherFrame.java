@@ -27,22 +27,25 @@ public class WeatherFrame extends JFrame implements ActionListener {
     private JTextField txtName;
     private JLabel lblGreeting;
     private JPanel contentPane;
-    private JTextField locationInputField;
+//    private JTextField locationInputField;
     private JList locationList;
-    private static WeatherData[] locationNames;
-
+    private static WeatherData[] locationNames = new WeatherData[10];
+    private String userCityInput;
+    private String userCountryInput;
+    
+    
     /* Constructor */
     
     public WeatherFrame() throws IOException {
     	
+        weatherData = new WeatherData("London", "Ca");	//THIS IS PRACTICE
+    	
     	/*****IMAGES*****/
     	
-    	  BufferedImage myPictureSunny = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("sunny.png"));
+    	BufferedImage myPictureSunny = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("sunny.png"));
         BufferedImage myPictureCloudy = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("cloudy.png"));
         BufferedImage myPictureDrizzle = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("drizzle.png"));
         BufferedImage myPictureUpdate = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("update.png"));
-        
-        weatherData = new WeatherData("London", "CA");	//THIS IS PRACTICE
 
         /******END IMAGES*****/
         
@@ -599,6 +602,9 @@ public class WeatherFrame extends JFrame implements ActionListener {
         /******END SHORT TERM WEATHER******/
         
         /******CURRENT WEATHER*****/
+        //To keep certain variables to one decimal place
+        DecimalFormat df = new DecimalFormat(); 
+        df.setMaximumFractionDigits(1);
         
         JLabel currLocationLabel = new JLabel(weatherData.getCurrentCity() + ", " +weatherData.getCountryCode());
         currLocationLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -641,7 +647,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         currWindDirection.setBounds(181, 174, 200, 24);
         currWeatherPanel.add(currWindDirection);
         
-        JLabel currPressureLabel = new JLabel("Pressure: "+ weatherData.getAirPressure() +" kPa\r\n");
+        JLabel currPressureLabel = new JLabel("Pressure: "+ df.format(weatherData.getAirPressure()) +" kPa\r\n");
         currPressureLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
         currPressureLabel.setBounds(10, 221, 150, 24);
         currWeatherPanel.add(currPressureLabel);
@@ -650,18 +656,16 @@ public class WeatherFrame extends JFrame implements ActionListener {
         currTemp.setBounds(330, 22, 150, 50);
         currWeatherPanel.add(currTemp);
         
-        DecimalFormat df = new DecimalFormat(); //Used to keep the temperature to one decimal place
-        df.setMaximumFractionDigits(1);
         JLabel currTempOutput = new JLabel(df.format(weatherData.getTemperature()) + "\u00B0");
         currTempOutput.setFont(new Font("Tahoma", Font.PLAIN, 56));
         currTempOutput.setBounds(330, 46, 250, 68);
         currWeatherPanel.add(currTempOutput);
 
-        JLabel currLowestTemp = new JLabel("\u2207"+weatherData.getMinTemp());
+        JLabel currLowestTemp = new JLabel("\u2207"+df.format(weatherData.getMinTemp())+"\u00B0");
         currLowestTemp.setBounds(397, 125, 60, 15);
         currWeatherPanel.add(currLowestTemp);
 
-        JLabel currHighestTemp = new JLabel("\u25B2"+weatherData.getMaxTemp());
+        JLabel currHighestTemp = new JLabel("\u25B2"+df.format(weatherData.getMaxTemp())+"\u00B0");
         currHighestTemp.setBounds(330, 125, 60, 14);
         currWeatherPanel.add(currHighestTemp);
 
@@ -692,35 +696,113 @@ public class WeatherFrame extends JFrame implements ActionListener {
 //					}
 //        		});
         
-        JLabel locationsLabel = new JLabel("Locations");
+        JLabel locationsLabel = new JLabel("Your Locations");
         locationsLabel.setBounds(10, 0, 200, 23);
         locationsLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-
-        JButton btnAdd = new JButton("Add");
-        btnAdd.setBounds(10, 511, 66, 23);
         
-        JButton btnRemove = new JButton("Remove");
-        btnRemove.setBounds(86, 511, 101, 23);
         
-        locationInputField = new JTextField();
-        locationInputField.setBounds(10, 478, 177, 20);
-        locationInputField.setColumns(10);
+        JButton btnAdd = new JButton("Add Location");
+        btnAdd.setBounds(10, 560, 180, 23);
+        btnAdd.addActionListener(
+        new ActionListener() {
+       		public void actionPerformed(ActionEvent e) {
+       			final JFrame locationAdder = new JFrame("Add Location");
+        		locationAdder.setSize(310,120);
+        		locationAdder.setLocationRelativeTo(null);
+        		locationAdder.setVisible(true);
+        		locationAdder.getContentPane().setLayout(null);
+        		
+        		//Adding Text
+        		JLabel cityInputLabel = new JLabel("Input a city: ");
+        		cityInputLabel.setBounds(4, 5, 150, 23);
+        		locationAdder.add(cityInputLabel);
+        		
+        		JLabel countryInputLabel = new JLabel("Input a country: ");
+        		countryInputLabel.setBounds(4, 30, 150, 23);
+        		locationAdder.add(countryInputLabel);
+        		
+        		//Adding a text field
+        		final JTextField cityInput = new JTextField();
+        		cityInput.setBounds(107, 5, 200, 23);
+        		locationAdder.add(cityInput);
+        		
+        		final JTextField countryInput = new JTextField();
+        		countryInput.setBounds(107, 30, 200, 23);
+        		locationAdder.add(countryInput);
+        		
+        		//Adding an accept button
+        		JButton btnAccept = new JButton("Accept");
+        		btnAccept.setBounds(77, 65, 150, 23);
+        		btnAccept.addActionListener(
+        				new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+        						/*TODO: Take user input and add city data based on input */
+        						userCityInput = cityInput.getName();
+        						userCountryInput = countryInput.getName();
+        						userCountryInput = changeToCountryCode(userCountryInput);
+        						WeatherData newWeatherData = new WeatherData(userCityInput, userCountryInput);
+        						addToLocationList(newWeatherData); //Adding the location to the myLocations list
+        						locationAdder.setVisible(false);
+        						locationAdder.dispose();	//Close the frame when accept is clicked
+        					}
+        				});
+        		locationAdder.add(btnAccept);
+        		
+        		
+       		}
+       	});
+        
+//        JButton btnRemove = new JButton("Remove");
+//        btnRemove.setBounds(86, 511, 101, 23);
+        
+//        locationInputField = new JTextField();
+//        locationInputField.setBounds(10, 478, 177, 20);
+//        locationInputField.setColumns(10);
+//        LocationPanel.add(locationInputField);
+        
         LocationPanel.setLayout(null);
         LocationPanel.add(locationsLabel);
-        LocationPanel.add(locationInputField);
         LocationPanel.add(btnAdd);
-        LocationPanel.add(btnRemove);
+//        LocationPanel.add(btnRemove);
         contentPane.setLayout(gl_contentPane);
         
         /******END LOCATIONS******/
     }
 
-	
+	/**************METHODS*************/
+    
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
     
+	public String changeToCountryCode(String country) {
+		//TODO: Must use if statements to change input string country into a country code
+		return country;
+	}
+	
+	public void addToLocationList(WeatherData newWeatherData) {
+		boolean check = false;
+		for (int i=0; i<locationNames.length; i++) {
+			if (locationNames[i] == null) {
+				locationNames[i] = newWeatherData;
+				check = true;
+			}
+		}
+		if (check == false) {
+			arrayOverflow(newWeatherData);
+		}
+	}
+	
+	public void arrayOverflow(WeatherData newWeatherData) {
+		WeatherData[] newWeatherDataArray = new WeatherData[locationNames.length+1];
+		int i=0;
+		for (; i<locationNames.length; i++) {
+			newWeatherDataArray[i] = locationNames[i];
+		}
+		newWeatherDataArray[i+1] = newWeatherData;
+	}
+	
     
 }
 

@@ -19,7 +19,6 @@ import com.google.gson.*;
 public class WeatherData {
 
 	/* Instance Variables */
-	//private double temperature;
 	private double windSpeed;
 	private double windDirectionDegrees;
 	private String windDirectionString; 
@@ -43,6 +42,8 @@ public class WeatherData {
 		getWeather(city, countryCode);
 		this.countryCode = countryCode;
 	}
+	
+	
 	
 	/* Methods */
 	
