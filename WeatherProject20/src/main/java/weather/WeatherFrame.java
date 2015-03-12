@@ -642,7 +642,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         currWindSpeedLabel.setBounds(10, 174, 150, 24);
         currWeatherPanel.add(currWindSpeedLabel);
 
-        JLabel currWindDirection = new JLabel("Wind Direction: "+weatherData.getWindDirectionString()+"\u00B0");
+        JLabel currWindDirection = new JLabel("Wind Direction: "+weatherData.getWindDirectionString());
         currWindDirection.setFont(new Font("Tahoma", Font.PLAIN, 14));
         currWindDirection.setBounds(181, 174, 200, 24);
         currWeatherPanel.add(currWindDirection);
