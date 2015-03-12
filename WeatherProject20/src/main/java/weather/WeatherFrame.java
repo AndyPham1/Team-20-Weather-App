@@ -8,6 +8,7 @@ import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import java.util.concurrent.TimeUnit;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.text.DecimalFormat;
@@ -634,12 +635,12 @@ public class WeatherFrame extends JFrame implements ActionListener {
 
         JLabel currHumidityLabel = new JLabel("Humidity: " + weatherData.getHumidity() + "%\r\n");
         currHumidityLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        currHumidityLabel.setBounds(10, 197, 150, 24);
+        currHumidityLabel.setBounds(10, 197, 170, 24);
         currWeatherPanel.add(currHumidityLabel);
 
-        JLabel currWindSpeedLabel = new JLabel("Wind Speed: "+weatherData.getWindSpeed()+" km/h\r\n");
+        JLabel currWindSpeedLabel = new JLabel("Wind Speed: "+df.format(weatherData.getWindSpeed())+" km/h\r\n");
         currWindSpeedLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        currWindSpeedLabel.setBounds(10, 174, 150, 24);
+        currWindSpeedLabel.setBounds(10, 174, 170, 24);
         currWeatherPanel.add(currWindSpeedLabel);
 
         JLabel currWindDirection = new JLabel("Wind Direction: "+weatherData.getWindDirectionString());
@@ -677,6 +678,19 @@ public class WeatherFrame extends JFrame implements ActionListener {
         currRefreshButton.setContentAreaFilled(false);
         currRefreshButton.setBounds(519, 11, 40, 40);
         currWeatherPanel.add(currRefreshButton);
+        currRefreshButton.addActionListener(
+        		new ActionListener() {
+        			public void actionPerformed(ActionEvent e) {
+        				lastUpdatedLabel.setText("Updating ...");
+        				try {
+							weatherData.update();
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}        				
+        				lastUpdatedLabel.setText("Last updated: " + weatherData.getLastUpdatedTime());
+        			}
+        		});
 
         /******END CURRENT WEATHER******/
         
