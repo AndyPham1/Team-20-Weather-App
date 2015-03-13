@@ -8,6 +8,8 @@ import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import com.sun.media.jai.codec.PNGEncodeParam.Gray;
+
 import java.util.concurrent.TimeUnit;
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -27,8 +29,8 @@ public class WeatherFrame extends JFrame implements ActionListener {
 	private WeatherData weatherData;
     private JLabel lastUpdatedLabel;
     private JPanel contentPane;
-    private JList locationList;
-    private static WeatherData[] locationNames = new WeatherData[10];
+    private JList<WeatherData> locationList;
+    private static WeatherData[] locationNames = new WeatherData[1];
     private String userCityInput;
     private String userCountryInput;
     private DecimalFormat df;
@@ -781,19 +783,22 @@ public class WeatherFrame extends JFrame implements ActionListener {
         
         /******LOCATIONS******/
         
-//        locationList = new JList<WeatherData>(locationNames);
-//        locationList.setVisibleRowCount(4);	//Number of rows it will display
-//        locationList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); //Only one city can be selected at once
-//        add(new JScrollPane(locationList));
-//        locationList.addListSelectionListener(
-//        		new ListSelectionListener(){
-//					
-//        			public void valueChanged(ListSelectionEvent e) {
-//						
-//						
-//						
-//					}
-//        		});
+        locationList = new JList<WeatherData>(locationNames);
+        locationList.setVisibleRowCount(4);	//Number of rows it will display
+        locationList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); //Only one city can be selected at once
+        locationList.setBounds(10, 25, 180, 500);
+        locationList.setFixedCellHeight(20);
+        locationList.setListData(locationNames);
+        locationList.setCellRenderer(new ListCellRenderer());
+        add(new JScrollPane(locationList));
+        locationList.addListSelectionListener(
+        		new ListSelectionListener(){
+        			public void valueChanged(ListSelectionEvent e) {
+						//TODO
+						
+						
+					}
+        		});
         
         JLabel locationsLabel = new JLabel("Your Locations");
         locationsLabel.setBounds(10, 0, 200, 23);
@@ -832,6 +837,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         		//Adding an accept button
         		JButton btnAccept = new JButton("Accept");
         		btnAccept.setBounds(77, 65, 150, 23);
+        		locationAdder.add(btnAccept);
         		btnAccept.addActionListener(
         				new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
@@ -845,23 +851,16 @@ public class WeatherFrame extends JFrame implements ActionListener {
         						locationAdder.dispose();	//Close the frame when accept is clicked
         					}
         				});
-        		locationAdder.add(btnAccept);
-        		
-        		
        		}
        	});
         
 //        JButton btnRemove = new JButton("Remove");
 //        btnRemove.setBounds(86, 511, 101, 23);
         
-//        locationInputField = new JTextField();
-//        locationInputField.setBounds(10, 478, 177, 20);
-//        locationInputField.setColumns(10);
-//        LocationPanel.add(locationInputField);
-        
         LocationPanel.setLayout(null);
         LocationPanel.add(locationsLabel);
         LocationPanel.add(btnAdd);
+        LocationPanel.add(locationList);
 //        LocationPanel.add(btnRemove);
         contentPane.setLayout(gl_contentPane);
         
@@ -900,6 +899,14 @@ public class WeatherFrame extends JFrame implements ActionListener {
 			newWeatherDataArray[i] = locationNames[i];
 		}
 		newWeatherDataArray[i+1] = newWeatherData;
+	}
+	
+	public class ListCellRenderer extends DefaultListCellRenderer {
+		public Component getListCellRenderer(JList<WeatherData> locations, WeatherData weatherData) {
+			JLabel locationLabels = (JLabel)super.getListCellRendererComponent(locations, weatherData, 0, false, false);
+			locationLabels.setText(locationLabels.getText());
+			return locationLabels;
+		}
 	}
 	
     public void refreshGUI() {
