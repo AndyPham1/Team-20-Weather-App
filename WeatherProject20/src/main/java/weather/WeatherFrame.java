@@ -1210,6 +1210,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         locationList.setBackground(Color.gray);
         
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 //        locationList.setVisibleRowCount(10);	//Number of rows it will display
 //        locationList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); //Only one city can be selected at once
 //        add(new JScrollPane(locationList));
@@ -1222,6 +1223,8 @@ public class WeatherFrame extends JFrame implements ActionListener {
 //					}
 //        		});
 =======
+=======
+>>>>>>> Stashed changes
         locationList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); //Only one city can be selected at once
         add(new JScrollPane(locationList));
         locationList.addListSelectionListener(
@@ -1232,6 +1235,9 @@ public class WeatherFrame extends JFrame implements ActionListener {
 						
 					}
         		});
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
         
         JLabel locationsLabel = new JLabel("Your Locations");
