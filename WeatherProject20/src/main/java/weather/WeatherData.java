@@ -40,7 +40,6 @@ public class WeatherData {
 	 */
 	public WeatherData(String city, String countryCode){
 		getWeather(city, countryCode);
-		this.countryCode = countryCode;
 	}
 	
 	
