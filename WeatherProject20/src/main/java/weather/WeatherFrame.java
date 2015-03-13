@@ -31,6 +31,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
     private BufferedImage myPictureUpdate = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("update.png"));
     //VARIABLES
 	private WeatherData weatherData;
+<<<<<<< Updated upstream
 	private JTextField txtName;
 	private JLabel lblGreeting;
 	private JPanel contentPane;
@@ -45,6 +46,597 @@ public class WeatherFrame extends JFrame implements ActionListener {
 	public WeatherFrame() throws IOException {
 		
 		weatherData = new WeatherData("London", "Ca");	//THIS IS PRACTICE
+=======
+    private JLabel lastUpdatedLabel;
+    private JPanel contentPane;
+    private JList locationList;
+    private static WeatherData[] locationNames = new WeatherData[1];
+    private String userCityInput;
+    private String userCountryInput;
+    private DecimalFormat df;
+    
+    private BufferedImage myPictureSunny;
+    private BufferedImage myPictureCloudy;
+    private BufferedImage myPictureDrizzle;
+    private BufferedImage myPictureUpdate;
+    
+    private JLabel longTermDay1;
+    private JLabel longTermIcon1;
+    private JLabel longWeatherCondition1;
+    private JLabel longTermTemp1;
+    private JLabel longMaxTemp1;
+    private JLabel longMinTemp1;
+
+    private JLabel longTermDay2;
+    private JLabel longTermIcon2;
+    private JLabel longWeatherCondition2;
+    private JLabel longTermTemp2;
+    private JLabel longMaxTemp2;
+    private JLabel longMinTemp2;
+
+    private JLabel longTermDay3;
+    private JLabel longTermIcon3;
+    private JLabel longWeatherCondition3;
+    private JLabel longTermTemp3;
+    private JLabel longMaxTemp3;
+    private JLabel longMinTemp3;
+
+    private JLabel longTermDay4;
+    private JLabel longTermIcon4;
+    private JLabel longWeatherCondition4;
+    private JLabel longTermTemp4;
+    private JLabel longMaxTemp4;
+    private JLabel longMinTemp4;
+
+    private JLabel longTermDay5;
+    private JLabel longTermIcon5;
+    private JLabel longWeatherCondition5;
+    private JLabel longTermTemp5;
+    private JLabel longMaxTemp5;
+    private JLabel longMinTemp5;
+    
+    private JLabel shortTermTime1;
+    private JLabel shortTermIcon1;
+    private JLabel shortWeatherCondition1;
+    private JLabel shortTermTemp1;
+
+    private JLabel shortTermTime2;
+    private JLabel shortTermIcon2;
+    private JLabel shortWeatherCondition2;
+    private JLabel shortTermTemp2;
+
+    private JLabel shortTermTime3;
+    private JLabel shortTermIcon3;
+    private JLabel shortWeatherCondition3;
+    private JLabel shortTermTemp3;
+
+    private JLabel shortTermTime4;
+    private JLabel shortTermIcon4;
+    private JLabel shortWeatherCondition4;
+    private JLabel shortTermTemp4;
+
+    private JLabel shortTermTime5;
+    private JLabel shortTermIcon5;
+    private JLabel shortWeatherCondition5;
+    private JLabel shortTermTemp5;
+
+    private JLabel shortTermTime6;
+    private JLabel shortTermIcon6;
+    private JLabel shortWeatherCondition6;
+    private JLabel shortTermTemp6;
+
+    private JLabel shortTermTime7;
+    private JLabel shortTermIcon7;
+    private JLabel shortWeatherCondition7;
+    private JLabel shortTermTemp7;
+
+    private JLabel shortTermTime8;
+    private JLabel shortTermIcon8;
+    private JLabel shortWeatherCondition8;
+    private JLabel shortTermTemp8;
+
+    private JLabel currLocationLabel;
+    private JLabel currSunriseLabel;
+    private JLabel currSunsetLabel;
+    private JLabel currWeatherIcon;
+    private JLabel currWeatherConditionLabel;
+    private JLabel currHumidityLabel;
+    private JLabel currWindSpeedLabel;
+    private JLabel currWindDirection;
+    private JLabel currPressureLabel;
+    private JLabel currTempOutput;
+    private JLabel currLowestTemp;
+    private JLabel currHighestTemp;
+    
+    /* Constructor */
+    
+    public WeatherFrame() throws IOException {
+    	
+        weatherData = new WeatherData("London", "Ca");	//THIS IS PRACTICE
+    	
+    	/*****IMAGES*****/
+    	
+    	myPictureSunny = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("sunny.png"));
+        myPictureCloudy = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("cloudy.png"));
+        myPictureDrizzle = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("drizzle.png"));
+        myPictureUpdate = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("update.png"));
+
+        /******END IMAGES*****/
+        
+       
+        /*****PANELS*****/
+
+        
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, 800, 645);
+        contentPane = new JPanel();
+        contentPane.setBackground(new Color(51, 51, 51));
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setContentPane(contentPane);
+
+        JPanel LocationPanel = new JPanel();
+        LocationPanel.setBackground(SystemColor.inactiveCaptionText);
+
+        JPanel currWeatherPanel = new JPanel();
+        currWeatherPanel.setBackground(new Color(70, 130, 180));
+
+        JPanel shortTermFullPanel = new JPanel();
+        shortTermFullPanel.setBackground(new Color(255, 69, 0));
+
+        JPanel longTermFullPanel = new JPanel();
+        longTermFullPanel.setBackground(new Color(255, 69, 0));
+        GroupLayout gl_contentPane = new GroupLayout(contentPane);
+        gl_contentPane.setHorizontalGroup(
+                gl_contentPane.createParallelGroup(Alignment.LEADING)
+                        .addGroup(gl_contentPane.createSequentialGroup()
+                                .addComponent(LocationPanel, GroupLayout.PREFERRED_SIZE, 197, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(ComponentPlacement.RELATED)
+                                .addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+                                        .addComponent(longTermFullPanel, GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE)
+                                        .addComponent(shortTermFullPanel, GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE)
+                                        .addComponent(currWeatherPanel, GroupLayout.PREFERRED_SIZE, 571, GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap())
+        );
+        gl_contentPane.setVerticalGroup(
+                gl_contentPane.createParallelGroup(Alignment.LEADING)
+                        .addComponent(LocationPanel, GroupLayout.DEFAULT_SIZE, 577, Short.MAX_VALUE)
+                        .addGroup(gl_contentPane.createSequentialGroup()
+                                .addComponent(currWeatherPanel, GroupLayout.PREFERRED_SIZE, 256, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(ComponentPlacement.RELATED)
+                                .addComponent(shortTermFullPanel, GroupLayout.PREFERRED_SIZE, 138, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(ComponentPlacement.RELATED)
+                                .addComponent(longTermFullPanel, GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE))
+        );
+        longTermFullPanel.setLayout(null);
+
+        JPanel longTermPanel1 = new JPanel();
+        longTermPanel1.setBackground(new Color(255, 153, 0));
+        longTermPanel1.setBounds(10, 11, 102, 149);
+        longTermFullPanel.add(longTermPanel1);
+        longTermPanel1.setLayout(null);
+
+        /******END PANELS******/
+        
+        /******MENU BAR******/
+        
+        // Creates Menu bar
+        JMenuBar menubar = new JMenuBar();
+        JMenu mnuFile = new JMenu("File");
+        mnuFile.setMnemonic(KeyEvent.VK_F);
+        JMenuItem mniSave = new JMenuItem("Save");
+        mniSave.setMnemonic(KeyEvent.VK_S);
+        mniSave.setToolTipText("Save");
+        mniSave.addActionListener(new ActionListener() {
+            
+            public void actionPerformed(ActionEvent event) {
+                ;
+            }
+        });
+        mnuFile.add(mniSave);
+        JMenuItem mniLoad = new JMenuItem("Load");
+        mniLoad.setToolTipText("Load");
+        mniLoad.addActionListener(new ActionListener() {
+            
+            public void actionPerformed(ActionEvent event) {
+                ;
+            }
+        });
+        mnuFile.add(mniLoad);
+        JMenuItem mniFileExit = new JMenuItem("Exit");
+        mniFileExit.setMnemonic(KeyEvent.VK_E);
+        mniFileExit.setToolTipText("Exit application");
+        mniFileExit.addActionListener(new ActionListener() {
+          
+            public void actionPerformed(ActionEvent event) {
+                System.exit(0);
+            }
+        });
+        mnuFile.add(mniFileExit);
+        menubar.add(mnuFile);
+        // Creates menu item to choose units
+        JMenu mnuUnits = new JMenu("Units");
+        mnuUnits.setMnemonic(KeyEvent.VK_U);
+        JMenuItem mniMetric = new JMenuItem("Metric");
+        mniMetric.setMnemonic(KeyEvent.VK_M);
+        mniMetric.setToolTipText("Change units to Metric");
+        mniMetric.addActionListener(new ActionListener() {
+            
+            public void actionPerformed(ActionEvent event) {
+                ;
+            }
+        });
+        mnuUnits.add(mniMetric);
+        JMenuItem mniImperial = new JMenuItem("Imperial");
+        mniImperial.setMnemonic(KeyEvent.VK_I);
+        mniImperial.setToolTipText("Change units to Imperial");
+        mniImperial.addActionListener(new ActionListener() {
+            
+            public void actionPerformed(ActionEvent event) {
+                ;
+            }
+        });
+        mnuUnits.add(mniImperial);
+        menubar.add(mnuUnits);
+        setJMenuBar(menubar);
+
+        /******END MENU BAR******/
+        
+        /******LONG TERM WEATHER******/
+        
+        longTermDay1 = new JLabel("Monday");
+        longTermDay1.setHorizontalAlignment(SwingConstants.CENTER);
+        longTermDay1.setBounds(10, 11, 82, 14);
+        longTermPanel1.add(longTermDay1);
+
+        // Adds an image
+        longTermIcon1 = new JLabel(new ImageIcon(myPictureSunny));
+        longTermIcon1.setBounds(10, 30, 82, 50);
+        longTermPanel1.add(longTermIcon1);
+
+        longWeatherCondition1 = new JLabel("Cloudy");
+        longWeatherCondition1.setHorizontalAlignment(SwingConstants.CENTER);
+        longWeatherCondition1.setBounds(10, 84, 82, 14);
+        longTermPanel1.add(longWeatherCondition1);
+
+        longTermTemp1 = new JLabel("21\u00B0");
+        longTermTemp1.setFont(new Font("Tahoma", Font.BOLD, 16));
+        longTermTemp1.setHorizontalAlignment(SwingConstants.CENTER);
+        longTermTemp1.setBounds(10, 103, 82, 20);
+        longTermPanel1.add(longTermTemp1);
+
+        longMaxTemp1 = new JLabel("\u25B230");
+        longMaxTemp1.setBounds(10, 123, 40, 14);
+        longTermPanel1.add(longMaxTemp1);
+
+        longMinTemp1 = new JLabel("\u220715");
+        longMinTemp1.setHorizontalAlignment(SwingConstants.RIGHT);
+        longMinTemp1.setBounds(51, 123, 40, 15);
+        longTermPanel1.add(longMinTemp1);
+
+        JPanel longTermPanel2 = new JPanel();
+        longTermPanel2.setBackground(new Color(255, 153, 0));
+        longTermPanel2.setBounds(122, 11, 102, 149);
+        longTermFullPanel.add(longTermPanel2);
+        longTermPanel2.setLayout(null);
+
+        longTermDay2 = new JLabel("Tuesday");
+        longTermDay2.setHorizontalAlignment(SwingConstants.CENTER);
+        longTermDay2.setBounds(10, 11, 82, 14);
+        longTermPanel2.add(longTermDay2);
+        
+        // Adds an image
+        longTermIcon2 = new JLabel(new ImageIcon(myPictureSunny));
+        longTermIcon2.setBounds(10, 30, 82, 50);
+        longTermPanel2.add(longTermIcon2);
+
+        longWeatherCondition2 = new JLabel("Cloudy");
+        longWeatherCondition2.setHorizontalAlignment(SwingConstants.CENTER);
+        longWeatherCondition2.setBounds(10, 84, 82, 14);
+        longTermPanel2.add(longWeatherCondition2);
+
+        longTermTemp2 = new JLabel("21\u00B0");
+        longTermTemp2.setHorizontalAlignment(SwingConstants.CENTER);
+        longTermTemp2.setFont(new Font("Tahoma", Font.BOLD, 16));
+        longTermTemp2.setBounds(10, 103, 82, 20);
+        longTermPanel2.add(longTermTemp2);
+
+        longMaxTemp2 = new JLabel("\u25B230");
+        longMaxTemp2.setBounds(10, 123, 40, 14);
+        longTermPanel2.add(longMaxTemp2);
+
+        longMinTemp2 = new JLabel("\u220715");
+        longMinTemp2.setHorizontalAlignment(SwingConstants.RIGHT);
+        longMinTemp2.setBounds(51, 123, 40, 15);
+        longTermPanel2.add(longMinTemp2);
+
+        JPanel longTermPanel3 = new JPanel();
+        longTermPanel3.setBackground(new Color(255, 153, 0));
+        longTermPanel3.setBounds(234, 11, 102, 149);
+        longTermFullPanel.add(longTermPanel3);
+        longTermPanel3.setLayout(null);
+
+        longTermDay3 = new JLabel("Wednesday");
+        longTermDay3.setHorizontalAlignment(SwingConstants.CENTER);
+        longTermDay3.setBounds(10, 11, 82, 14);
+        longTermPanel3.add(longTermDay3);
+
+        // Adds an image
+        longTermIcon3 = new JLabel(new ImageIcon(myPictureSunny));
+        longTermIcon3.setBounds(10, 30, 82, 50);
+        longTermPanel3.add(longTermIcon3);
+
+        longWeatherCondition3 = new JLabel("Cloudy");
+        longWeatherCondition3.setHorizontalAlignment(SwingConstants.CENTER);
+        longWeatherCondition3.setBounds(10, 84, 82, 14);
+        longTermPanel3.add(longWeatherCondition3);
+
+        longTermTemp3 = new JLabel("21\u00B0");
+        longTermTemp3.setHorizontalAlignment(SwingConstants.CENTER);
+        longTermTemp3.setFont(new Font("Tahoma", Font.BOLD, 16));
+        longTermTemp3.setBounds(10, 103, 82, 20);
+        longTermPanel3.add(longTermTemp3);
+
+        longMaxTemp3 = new JLabel("\u25B230");
+        longMaxTemp3.setBounds(10, 123, 40, 14);
+        longTermPanel3.add(longMaxTemp3);
+
+        longMinTemp3 = new JLabel("\u220715");
+        longMinTemp3.setHorizontalAlignment(SwingConstants.RIGHT);
+        longMinTemp3.setBounds(51, 123, 40, 15);
+        longTermPanel3.add(longMinTemp3);
+
+        JPanel longTermPanel4 = new JPanel();
+        longTermPanel4.setBackground(new Color(255, 153, 0));
+        longTermPanel4.setBounds(346, 11, 102, 149);
+        longTermFullPanel.add(longTermPanel4);
+        longTermPanel4.setLayout(null);
+
+        longTermDay4 = new JLabel("Thursday");
+        longTermDay4.setHorizontalAlignment(SwingConstants.CENTER);
+        longTermDay4.setBounds(10, 11, 82, 14);
+        longTermPanel4.add(longTermDay4);
+
+        // Adds an image
+        longTermIcon4 = new JLabel(new ImageIcon(myPictureSunny));
+        longTermIcon4.setBounds(10, 30, 82, 50);
+        longTermPanel4.add(longTermIcon4);
+
+        longWeatherCondition4 = new JLabel("Cloudy");
+        longWeatherCondition4.setHorizontalAlignment(SwingConstants.CENTER);
+        longWeatherCondition4.setBounds(10, 84, 82, 14);
+        longTermPanel4.add(longWeatherCondition4);
+
+        longTermTemp4 = new JLabel("21\u00B0");
+        longTermTemp4.setHorizontalAlignment(SwingConstants.CENTER);
+        longTermTemp4.setFont(new Font("Tahoma", Font.BOLD, 16));
+        longTermTemp4.setBounds(10, 103, 82, 20);
+        longTermPanel4.add(longTermTemp4);
+
+        longMaxTemp4 = new JLabel("\u25B230");
+        longMaxTemp4.setBounds(10, 123, 40, 14);
+        longTermPanel4.add(longMaxTemp4);
+
+        longMinTemp4 = new JLabel("\u220715");
+        longMinTemp4.setHorizontalAlignment(SwingConstants.RIGHT);
+        longMinTemp4.setBounds(51, 123, 40, 15);
+        longTermPanel4.add(longMinTemp4);
+
+        JPanel longTermPanel5 = new JPanel();
+        longTermPanel5.setBackground(new Color(255, 153, 0));
+        longTermPanel5.setBounds(458, 11, 102, 149);
+        longTermFullPanel.add(longTermPanel5);
+        longTermPanel5.setLayout(null);
+
+        longTermDay5 = new JLabel("Friday");
+        longTermDay5.setHorizontalAlignment(SwingConstants.CENTER);
+        longTermDay5.setBounds(10, 11, 82, 14);
+        longTermPanel5.add(longTermDay5);
+
+        // Adds an image
+        longTermIcon5 = new JLabel(new ImageIcon(myPictureSunny));
+        longTermIcon5.setBounds(10, 30, 82, 50);
+        longTermPanel5.add(longTermIcon5);
+
+        longWeatherCondition5 = new JLabel("Cloudy");
+        longWeatherCondition5.setHorizontalAlignment(SwingConstants.CENTER);
+        longWeatherCondition5.setBounds(10, 84, 82, 14);
+        longTermPanel5.add(longWeatherCondition5);
+
+        longTermTemp5 = new JLabel("21\u00B0");
+        longTermTemp5.setHorizontalAlignment(SwingConstants.CENTER);
+        longTermTemp5.setFont(new Font("Tahoma", Font.BOLD, 16));
+        longTermTemp5.setBounds(10, 103, 82, 20);
+        longTermPanel5.add(longTermTemp5);
+
+        longMaxTemp5 = new JLabel("\u25B230");
+        longMaxTemp5.setBounds(10, 123, 40, 14);
+        longTermPanel5.add(longMaxTemp5);
+
+        longMinTemp5 = new JLabel("\u220715");
+        longMinTemp5.setHorizontalAlignment(SwingConstants.RIGHT);
+        longMinTemp5.setBounds(51, 123, 40, 15);
+        longTermPanel5.add(longMinTemp5);
+        shortTermFullPanel.setLayout(null);
+
+        /******END LONG TERM WEATHER******/
+        
+        /******SHORT TERM WEATHER******/
+        
+        JPanel shortTermPanel1 = new JPanel();
+        shortTermPanel1.setBackground(new Color(255, 153, 0));
+        shortTermPanel1.setBounds(10, 11, 60, 116);
+        shortTermFullPanel.add(shortTermPanel1);
+        shortTermPanel1.setLayout(null);
+
+        shortTermTime1 = new JLabel("3 PM");
+        shortTermTime1.setHorizontalAlignment(SwingConstants.CENTER);
+        shortTermTime1.setBounds(10, 11, 40, 14);
+        shortTermPanel1.add(shortTermTime1);
+
+        // Adds an image
+        shortTermIcon1 = new JLabel(new ImageIcon(myPictureCloudy));
+        shortTermIcon1.setBounds(10, 28, 40, 40);
+        shortTermPanel1.add(shortTermIcon1);
+
+        shortTermTemp1 = new JLabel("-12\u00B0");
+        shortTermTemp1.setFont(new Font("Tahoma", Font.BOLD, 13));
+        shortTermTemp1.setHorizontalAlignment(SwingConstants.CENTER);
+        shortTermTemp1.setBounds(10, 79, 40, 26);
+        shortTermPanel1.add(shortTermTemp1);
+
+        shortWeatherCondition1 = new JLabel("Cloudy");
+        shortWeatherCondition1.setHorizontalAlignment(SwingConstants.CENTER);
+        shortWeatherCondition1.setBounds(0, 68, 60, 14);
+        shortTermPanel1.add(shortWeatherCondition1);
+
+        JPanel shortTermPanel2 = new JPanel();
+        shortTermPanel2.setBackground(new Color(255, 153, 0));
+        shortTermPanel2.setBounds(80, 11, 60, 116);
+        shortTermFullPanel.add(shortTermPanel2);
+        shortTermPanel2.setLayout(null);
+
+        shortTermTime2 = new JLabel("6 PM");
+        shortTermTime2.setHorizontalAlignment(SwingConstants.CENTER);
+        shortTermTime2.setBounds(10, 11, 40, 14);
+        shortTermPanel2.add(shortTermTime2);
+
+        // Adds an image
+        shortTermIcon2 = new JLabel(new ImageIcon(myPictureCloudy));
+        shortTermIcon2.setBounds(10, 28, 40, 40);
+        shortTermPanel2.add(shortTermIcon2);
+
+        shortWeatherCondition2 = new JLabel("Cloudy");
+        shortWeatherCondition2.setHorizontalAlignment(SwingConstants.CENTER);
+        shortWeatherCondition2.setBounds(0, 68, 60, 14);
+        shortTermPanel2.add(shortWeatherCondition2);
+
+        shortTermTemp2 = new JLabel("-12\u00B0");
+        shortTermTemp2.setHorizontalAlignment(SwingConstants.CENTER);
+        shortTermTemp2.setFont(new Font("Tahoma", Font.BOLD, 13));
+        shortTermTemp2.setBounds(10, 79, 40, 26);
+        shortTermPanel2.add(shortTermTemp2);
+
+        JPanel shortTermPanel3 = new JPanel();
+        shortTermPanel3.setBackground(new Color(255, 153, 0));
+        shortTermPanel3.setBounds(150, 11, 60, 116);
+        shortTermFullPanel.add(shortTermPanel3);
+        shortTermPanel3.setLayout(null);
+
+        shortTermTime3 = new JLabel("9 PM");
+        shortTermTime3.setHorizontalAlignment(SwingConstants.CENTER);
+        shortTermTime3.setBounds(10, 11, 40, 14);
+        shortTermPanel3.add(shortTermTime3);
+
+        // Adds an image
+        shortTermIcon3 = new JLabel(new ImageIcon(myPictureCloudy));
+        shortTermIcon3.setBounds(10, 28, 40, 40);
+        shortTermPanel3.add(shortTermIcon3);
+
+        shortWeatherCondition3 = new JLabel("Cloudy");
+        shortWeatherCondition3.setHorizontalAlignment(SwingConstants.CENTER);
+        shortWeatherCondition3.setBounds(0, 68, 60, 14);
+        shortTermPanel3.add(shortWeatherCondition3);
+
+        shortTermTemp3 = new JLabel("-12\u00B0");
+        shortTermTemp3.setHorizontalAlignment(SwingConstants.CENTER);
+        shortTermTemp3.setFont(new Font("Tahoma", Font.BOLD, 13));
+        shortTermTemp3.setBounds(10, 79, 40, 26);
+        shortTermPanel3.add(shortTermTemp3);
+
+        JPanel shortTermPanel4 = new JPanel();
+        shortTermPanel4.setBackground(new Color(255, 153, 0));
+        shortTermPanel4.setBounds(220, 11, 60, 116);
+        shortTermFullPanel.add(shortTermPanel4);
+        shortTermPanel4.setLayout(null);
+
+        shortTermTime4 = new JLabel("12 AM");
+        shortTermTime4.setHorizontalAlignment(SwingConstants.CENTER);
+        shortTermTime4.setBounds(10, 11, 40, 14);
+        shortTermPanel4.add(shortTermTime4);
+
+        // Adds an image
+        shortTermIcon4 = new JLabel(new ImageIcon(myPictureCloudy));
+        shortTermIcon4.setBounds(10, 28, 40, 40);
+        shortTermPanel4.add(shortTermIcon4);
+
+        shortWeatherCondition4 = new JLabel("Cloudy");
+        shortWeatherCondition4.setHorizontalAlignment(SwingConstants.CENTER);
+        shortWeatherCondition4.setBounds(0, 68, 60, 14);
+        shortTermPanel4.add(shortWeatherCondition4);
+
+        shortTermTemp4 = new JLabel("-12\u00B0");
+        shortTermTemp4.setHorizontalAlignment(SwingConstants.CENTER);
+        shortTermTemp4.setFont(new Font("Tahoma", Font.BOLD, 13));
+        shortTermTemp4.setBounds(10, 79, 40, 26);
+        shortTermPanel4.add(shortTermTemp4);
+
+        JPanel shortTermPanel5 = new JPanel();
+        shortTermPanel5.setBackground(new Color(255, 153, 0));
+        shortTermPanel5.setBounds(290, 11, 60, 116);
+        shortTermFullPanel.add(shortTermPanel5);
+        shortTermPanel5.setLayout(null);
+
+        shortTermTime5 = new JLabel("3 AM");
+        shortTermTime5.setHorizontalAlignment(SwingConstants.CENTER);
+        shortTermTime5.setBounds(10, 11, 40, 14);
+        shortTermPanel5.add(shortTermTime5);
+
+        // Adds an image
+        shortTermIcon5 = new JLabel(new ImageIcon(myPictureCloudy));
+        shortTermIcon5.setBounds(10, 28, 40, 40);
+        shortTermPanel5.add(shortTermIcon5);
+
+        shortWeatherCondition5 = new JLabel("Cloudy");
+        shortWeatherCondition5.setHorizontalAlignment(SwingConstants.CENTER);
+        shortWeatherCondition5.setBounds(0, 68, 60, 14);
+        shortTermPanel5.add(shortWeatherCondition5);
+
+        shortTermTemp5 = new JLabel("-12\u00B0");
+        shortTermTemp5.setHorizontalAlignment(SwingConstants.CENTER);
+        shortTermTemp5.setFont(new Font("Tahoma", Font.BOLD, 13));
+        shortTermTemp5.setBounds(10, 79, 40, 26);
+        shortTermPanel5.add(shortTermTemp5);
+
+        JPanel shortTermPanel6 = new JPanel();
+        shortTermPanel6.setBackground(new Color(255, 153, 0));
+        shortTermPanel6.setBounds(360, 11, 60, 116);
+        shortTermFullPanel.add(shortTermPanel6);
+        shortTermPanel6.setLayout(null);
+
+        shortTermTime6 = new JLabel("6 AM");
+        shortTermTime6.setHorizontalAlignment(SwingConstants.CENTER);
+        shortTermTime6.setBounds(10, 11, 40, 14);
+        shortTermPanel6.add(shortTermTime6);
+
+        // Adds an image
+        shortTermIcon6 = new JLabel(new ImageIcon(myPictureCloudy));
+        shortTermIcon6.setBounds(10, 28, 40, 40);
+        shortTermPanel6.add(shortTermIcon6);
+
+        shortWeatherCondition6 = new JLabel("Cloudy");
+        shortWeatherCondition6.setHorizontalAlignment(SwingConstants.CENTER);
+        shortWeatherCondition6.setBounds(0, 68, 60, 14);
+        shortTermPanel6.add(shortWeatherCondition6);
+
+        shortTermTemp6 = new JLabel("-12\u00B0");
+        shortTermTemp6.setHorizontalAlignment(SwingConstants.CENTER);
+        shortTermTemp6.setFont(new Font("Tahoma", Font.BOLD, 13));
+        shortTermTemp6.setBounds(10, 79, 40, 26);
+        shortTermPanel6.add(shortTermTemp6);
+
+        JPanel shortTermPanel7 = new JPanel();
+        shortTermPanel7.setBackground(new Color(255, 153, 0));
+        shortTermPanel7.setBounds(430, 11, 60, 116);
+        shortTermFullPanel.add(shortTermPanel7);
+        shortTermPanel7.setLayout(null);
+
+        shortTermTime7 = new JLabel("9 AM");
+        shortTermTime7.setHorizontalAlignment(SwingConstants.CENTER);
+        shortTermTime7.setBounds(10, 11, 40, 14);
+        shortTermPanel7.add(shortTermTime7);
+
+        // Adds an image
+>>>>>>> Stashed changes
 
 		
 		/*****PANELS*****/
@@ -607,9 +1199,17 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		
 
         /******END CURRENT WEATHER******/
-        
+        ///////////////////////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////////////////////
         /******LOCATIONS******/
+        locationNames[0] = weatherData;
+        locationList = new JList<WeatherData>(locationNames);
+        locationList.setVisibleRowCount(10);	//Number of rows it will display
+        locationList.setBounds(12, 25, 150, 500);
+        locationList.setBackground(Color.gray);
         
+<<<<<<< Updated upstream
 //        locationList.setVisibleRowCount(10);	//Number of rows it will display
 //        locationList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); //Only one city can be selected at once
 //        add(new JScrollPane(locationList));
@@ -621,6 +1221,18 @@ public class WeatherFrame extends JFrame implements ActionListener {
 //						
 //					}
 //        		});
+=======
+        locationList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); //Only one city can be selected at once
+        add(new JScrollPane(locationList));
+        locationList.addListSelectionListener(
+        		new ListSelectionListener(){
+        			public void valueChanged(ListSelectionEvent e) {
+        				
+						
+						
+					}
+        		});
+>>>>>>> Stashed changes
         
         JLabel locationsLabel = new JLabel("Your Locations");
         locationsLabel.setBounds(10, 0, 200, 23);
@@ -692,7 +1304,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         LocationPanel.setLayout(null);
         LocationPanel.add(locationsLabel);
         LocationPanel.add(btnAdd);
-//        LocationPanel.add(btnRemove);
+        LocationPanel.add(locationList);
         contentPane.setLayout(gl_contentPane);
         
         /******END LOCATIONS******/
@@ -735,7 +1347,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		for (; i<locationNames.length; i++) {
 			newWeatherDataArray[i] = locationNames[i];
 		}
-		newWeatherDataArray[i+1] = newWeatherData;
+		newWeatherDataArray[locationNames.length+1] = newWeatherData;
 	}
 
 
