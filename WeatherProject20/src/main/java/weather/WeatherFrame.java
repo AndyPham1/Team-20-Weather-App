@@ -29,7 +29,8 @@ public class WeatherFrame extends JFrame implements ActionListener {
 	private WeatherData weatherData;
     private JLabel lastUpdatedLabel;
     private JPanel contentPane;
-    private JList<WeatherData> locationList;
+    private JList<JLabel> locationList;
+//    private JList<WeatherData> locationList;
     private static WeatherData[] locationNames = new WeatherData[1];
     private String userCityInput;
     private String userCountryInput;
@@ -133,7 +134,9 @@ public class WeatherFrame extends JFrame implements ActionListener {
     public WeatherFrame() throws IOException {
     	
         weatherData = new WeatherData("London", "Ca");	//THIS IS PRACTICE
-    	
+    	locationNames[0] = weatherData;
+    	weatherData = new WeatherData("Toronto","Ca");
+        
     	/*****IMAGES*****/
     	
     	myPictureSunny = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("sunny.png"));
@@ -702,7 +705,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         
         currLocationLabel = new JLabel(weatherData.getCurrentCity() + ", " +weatherData.getCountryCode());
         currLocationLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        currLocationLabel.setBounds(10, 11, 140, 24);
+        currLocationLabel.setBounds(10, 11, 400, 24);
         currLocationLabel.setHorizontalAlignment(SwingConstants.LEFT);
         currWeatherPanel.add(currLocationLabel);
 
@@ -783,22 +786,46 @@ public class WeatherFrame extends JFrame implements ActionListener {
         
         /******LOCATIONS******/
         
-        locationList = new JList<WeatherData>(locationNames);
-        locationList.setVisibleRowCount(4);	//Number of rows it will display
+        
+        locationList = new JList<JLabel>();
+        locationList.setVisibleRowCount(10);	//Number of rows it will display
         locationList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); //Only one city can be selected at once
         locationList.setBounds(10, 25, 180, 500);
         locationList.setFixedCellHeight(20);
-        locationList.setListData(locationNames);
-        locationList.setCellRenderer(new ListCellRenderer());
         add(new JScrollPane(locationList));
         locationList.addListSelectionListener(
         		new ListSelectionListener(){
         			public void valueChanged(ListSelectionEvent e) {
-						//TODO
+						for (int i=0; i<locationNames.length; i++) {
+							if (locationNames[i]!=null) {
+								JLabel newLabel = new JLabel(locationNames[i].getCurrentCity()+", "+locationNames[i].getCountryCode());
+								locationList.add(newLabel);
+							}
+						}
 						
 						
 					}
         		});
+        
+        //When user selects the location, it will be displayed
+        MouseListener weatherLocationSelector = new MouseAdapter() {
+        	public void mouseClicked(MouseEvent e) {
+        		String selectedItem = "";
+        		if (e.getClickCount()==1) {
+        			selectedItem = locationList.getSelectedValue().toString();
+        			System.out.println("User selected: "+selectedItem);
+        		}
+        		
+        		for (int i=0; i<locationNames.length; i++) {
+        			if (selectedItem == locationNames[i].getCurrentCity()+", "+locationNames[i].getCountryCode()) {
+        				weatherData = locationNames[i];
+        			}
+        		}
+        		refreshGUI();
+        	}
+        	
+        };
+        
         
         JLabel locationsLabel = new JLabel("Your Locations");
         locationsLabel.setBounds(10, 0, 200, 23);
@@ -849,19 +876,17 @@ public class WeatherFrame extends JFrame implements ActionListener {
         						addToLocationList(newWeatherData); //Adding the location to the myLocations list
         						locationAdder.setVisible(false);
         						locationAdder.dispose();	//Close the frame when accept is clicked
+        						refreshGUI();
         					}
         				});
        		}
        	});
         
-//        JButton btnRemove = new JButton("Remove");
-//        btnRemove.setBounds(86, 511, 101, 23);
         
         LocationPanel.setLayout(null);
         LocationPanel.add(locationsLabel);
         LocationPanel.add(btnAdd);
         LocationPanel.add(locationList);
-//        LocationPanel.add(btnRemove);
         contentPane.setLayout(gl_contentPane);
         
         /******END LOCATIONS******/
@@ -870,12 +895,11 @@ public class WeatherFrame extends JFrame implements ActionListener {
 	/**************METHODS*************/
     
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
     
 	public String changeToCountryCode(String country) {
-		//TODO: Must use if statements to change input string country into a country code
+		//TODO: Convert all spaces to hyphens (-)
 		return country;
 	}
 	
@@ -889,24 +913,30 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		}
 		if (check == false) {
 			arrayOverflow(newWeatherData);
+			updateLocationList();
 		}
+		updateLocationList();
 	}
 	
 	public void arrayOverflow(WeatherData newWeatherData) {
-		WeatherData[] newWeatherDataArray = new WeatherData[locationNames.length*2];
+		WeatherData[] newWeatherDataArray = new WeatherData[locationNames.length+1];
 		int i=0;
 		for (; i<locationNames.length; i++) {
 			newWeatherDataArray[i] = locationNames[i];
 		}
-		newWeatherDataArray[i+1] = newWeatherData;
+		newWeatherDataArray[locationNames.length] = newWeatherData;
+		locationNames = newWeatherDataArray;
 	}
 	
-	public class ListCellRenderer extends DefaultListCellRenderer {
-		public Component getListCellRenderer(JList<WeatherData> locations, WeatherData weatherData) {
-			JLabel locationLabels = (JLabel)super.getListCellRendererComponent(locations, weatherData, 0, false, false);
-			locationLabels.setText(locationLabels.getText());
-			return locationLabels;
+	
+	public void updateLocationList() {
+		for (int i=0; i<locationNames.length; i++) {
+			if (locationNames[i]!=null) {
+				JLabel newLabel = new JLabel(locationNames[i].getCurrentCity()+", "+locationNames[i].getCountryCode());
+				locationList.add(newLabel);
+			}
 		}
+		refreshGUI();
 	}
 	
     public void refreshGUI() {
