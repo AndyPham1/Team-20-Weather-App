@@ -7,9 +7,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
-
 import com.sun.media.jai.codec.PNGEncodeParam.Gray;
-
 import java.util.concurrent.TimeUnit;
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -26,9 +24,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 
 	/* Instance Variables */
 	
-	//TEST
 	private DefaultListModel<String> weatherList;
-	
 	private WeatherData weatherData;
     private JLabel lastUpdatedLabel;
     private JPanel contentPane;
@@ -790,53 +786,8 @@ public class WeatherFrame extends JFrame implements ActionListener {
         
         weatherList = new DefaultListModel<String>();
         locationList = new JList<>(weatherList);
-        JScrollPane pane = new JScrollPane(locationList);
-        for (int i=0; i<locationNames.length; i++) {
-            if (locationNames[i] != null) {
-                weatherList.addElement(locationNames[i].getCurrentCity() + ", " + locationNames[i].getCountryCode());
-                
-            }
-        }
-        pane.setBounds(10, 25, 180, 500);
-        
-//        locationList = new JList<JLabel>();
-//        locationList.setVisibleRowCount(10);	//Number of rows it will display
-//        locationList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); //Only one city can be selected at once
-//        locationList.setBounds(10, 25, 180, 500);
-//        locationList.setFixedCellHeight(20);
-//        add(new JScrollPane(locationList));
-//        locationList.addListSelectionListener(
-//        		new ListSelectionListener(){
-//        			public void valueChanged(ListSelectionEvent e) {
-//						for (int i=0; i<locationNames.length; i++) {
-//							if (locationNames[i]!=null) {
-//								JLabel newLabel = new JLabel(locationNames[i].getCurrentCity()+", "+locationNames[i].getCountryCode());
-//								locationList.add(newLabel);
-//							}
-//						}
-//						
-//						
-//					}
-//        		});
-//        
-//        //When user selects the location, it will be displayed
-//        MouseListener weatherLocationSelector = new MouseAdapter() {
-//        	public void mouseClicked(MouseEvent e) {
-//        		String selectedItem = "";
-//        		if (e.getClickCount()==1) {
-//        			selectedItem = locationList.getSelectedValue().toString();
-//        			System.out.println("User selected: "+selectedItem);
-//        		}
-//        		
-//        		for (int i=0; i<locationNames.length; i++) {
-//        			if (selectedItem == locationNames[i].getCurrentCity()+", "+locationNames[i].getCountryCode()) {
-//        				weatherData = locationNames[i];
-//        			}
-//        		}
-//        		refreshGUI();
-//        	}
-//        	
-//        };
+        final JScrollPane pane = new JScrollPane(locationList);
+        pane.setBounds(10, 25, 180, 520);
         
         
         JLabel locationsLabel = new JLabel("Your Locations");
@@ -886,9 +837,8 @@ public class WeatherFrame extends JFrame implements ActionListener {
         						userCountryInput = changeToCountryCode(userCountryInput);
         						WeatherData newWeatherData = new WeatherData(userCityInput, userCountryInput);
         						addToLocationList(newWeatherData); //Adding the location to the myLocations list
-        						locationAdder.setVisible(false);
         						locationAdder.dispose();	//Close the frame when accept is clicked
-        						refreshGUI();
+//        						updateLocationList();
         					}
         				});
        		}
@@ -898,10 +848,9 @@ public class WeatherFrame extends JFrame implements ActionListener {
         LocationPanel.setLayout(null);
         LocationPanel.add(locationsLabel);
         LocationPanel.add(btnAdd);
-        LocationPanel.add(locationList);
         LocationPanel.add(pane);
         contentPane.setLayout(gl_contentPane);
-        
+        updateLocationList();
         /******END LOCATIONS******/
     }
 
@@ -927,6 +876,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		if (check == false) {
 			arrayOverflow(newWeatherData);
 			updateLocationList();
+			return;
 		}
 		updateLocationList();
 	}
@@ -945,11 +895,9 @@ public class WeatherFrame extends JFrame implements ActionListener {
 	public void updateLocationList() {
 		for (int i=0; i<locationNames.length; i++) {
 			if (locationNames[i]!=null) {
-				JLabel newLabel = new JLabel(locationNames[i].getCurrentCity()+", "+locationNames[i].getCountryCode());
-				locationList.add(newLabel);
+				 weatherList.addElement(locationNames[i].getCurrentCity() + ", " + locationNames[i].getCountryCode());
 			}
 		}
-		refreshGUI();
 	}
 	
     public void refreshGUI() {

@@ -39,6 +39,8 @@ public class WeatherData {
 	 * Initializes the instance variables with the first fetch-data from the source 
 	 */
 	public WeatherData(String city, String countryCode){
+		this.currentCity = city;
+		this.countryCode = countryCode;
 		getWeather(city, countryCode);
 	}
 	
