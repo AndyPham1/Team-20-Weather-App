@@ -32,6 +32,7 @@ public class WeatherData {
 	private String countryCode;
 	private String sunrise;
 	private String sunset;
+	private String description;
 	private WeatherValue wv; 
 	
 	/*
@@ -73,7 +74,7 @@ public class WeatherData {
 			wv = gson.fromJson(jsonData, WeatherValue.class);
 			
 			//DecimalFormat df = new DecimalFormat("#");	//change to 1 decimal 
-
+			
 			setTemperature(wv.getMain().getTemp());
 			setMaxTemp(wv.getMain().getTemp_max());
 			setMinTemp(wv.getMain().getTemp_min());
@@ -85,20 +86,11 @@ public class WeatherData {
 			setCountryCode(wv.getSys().getCountry());
 			setSunrise(wv.getSys().getSunrise());
 			setSunset(wv.getSys().getSunset());
+//			//TODO: setDescription(wv.getClouds()
 			
 			setLastUpdatedTime(getTime());
 
 			changeTemperatureUnits("kelvin", "celsius"); changeWind(); changePressure(); changeSun();
-			/*
-			DecimalFormat df = new DecimalFormat("#.##");
-			System.out.println("Current Weather for [" + currentCity +"]");
-			System.out.println("\nTemperature : " + df.format(temperature) + "\'C");
-			System.out.println("MaxTemperature/MinTemperature: " + df.format(maxTemp) + "/" + df.format(minTemp) + "\'C");
-			System.out.println("Humidity: " + df.format(humidity) + " %"); 
-			System.out.println("Air Pressure: " + df.format(airPressure) + " kPa");
-			System.out.println("Wind is at: " + df.format(windSpeed) + "km/h " + windDirectionString);
-			System.out.println("\nLast updated : " + lastUpdatedTime);
-			*/
 			
 		} catch (JsonParseException e) {
 			// TODO Auto-generated catch block
@@ -199,12 +191,6 @@ public class WeatherData {
 		sunset = sbSunset.toString();
 	}
 	
-	/*
-	public static void main(String[] args)
-	{
-		WeatherData wd = new WeatherData("Toronto", "CA");
-	}
-	*/
 	
 	
 	
@@ -317,6 +303,10 @@ public class WeatherData {
 
 	public void setSunset(String sunset) {
 		this.sunset = sunset;
+	}
+	
+	public void setDescription(String description) {
+		this.description = description;
 	}
 }
 

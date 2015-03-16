@@ -24,7 +24,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 
 	/* Instance Variables */
 	
-	private DefaultListModel<String> weatherList;
+	private DefaultListModel weatherList;
 	private WeatherData weatherData;
     private JLabel lastUpdatedLabel;
     private JPanel contentPane;
@@ -234,6 +234,25 @@ public class WeatherFrame extends JFrame implements ActionListener {
         });
         mnuFile.add(mniFileExit);
         menubar.add(mnuFile);
+        
+        
+        JMenu menuEdit = new JMenu("Edit");
+        JMenuItem menuEditRemove = new JMenuItem("Remove");
+        menuEditRemove.setToolTipText("Choose a location you wish to remove.");
+        menuEditRemove.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent event) {
+        		
+        		JFrame locationsFrame = new JFrame();
+        		
+        		
+        	};
+        });
+        
+        
+        menuEdit.add(menuEditRemove);
+        menubar.add(menuEdit);
+        
+        
         // Creates menu item to choose units
         JMenu mnuUnits = new JMenu("Units");
         mnuUnits.setMnemonic(KeyEvent.VK_U);
@@ -784,8 +803,8 @@ public class WeatherFrame extends JFrame implements ActionListener {
         
         /******LOCATIONS******/
         
-        weatherList = new DefaultListModel<String>();
-        locationList = new JList<>(weatherList);
+        weatherList = new DefaultListModel();
+        locationList = new JList(weatherList);
         final JScrollPane pane = new JScrollPane(locationList);
         pane.setBounds(10, 25, 180, 520);
         

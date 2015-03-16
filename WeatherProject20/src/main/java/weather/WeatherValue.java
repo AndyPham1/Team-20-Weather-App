@@ -235,6 +235,8 @@ public class WeatherValue {
 			this.all = all;
 		}
 	}
+	
+	///////////////////GETTERS///////////////////////
 	public Coord getCoord() {
 		return coord;
 	}
@@ -268,13 +270,15 @@ public class WeatherValue {
 	public String getCod() {
 		return cod;
 	}
+	
+	
+	//////////////////////SETTERS//////////////////////////
 	public void setCoord(Coord coord) {
 		this.coord = coord;
 	}
 	public void setSys(Sys sys) {
 		this.sys = sys;
 	}
-	
 	public void setWeather(List<Weather> weather)
 	{
 		this.weather = weather;
