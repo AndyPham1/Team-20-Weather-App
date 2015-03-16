@@ -789,6 +789,20 @@ public class WeatherFrame extends JFrame implements ActionListener {
         final JScrollPane pane = new JScrollPane(locationList);
         pane.setBounds(10, 25, 180, 520);
         
+        //Switching the current weatherData when JList object is selected
+        locationList.addMouseListener(new MouseAdapter() {
+        	public void mouseClicked(MouseEvent e) {
+        		JList locationList = (JList)e.getSource();
+        		if (e.getClickCount()==1) {		//If an object is clicked then: 
+        			
+        			String s = (String) locationList.getSelectedValue();
+        			weatherData = changeWeatherLocation(s, weatherData);
+        			
+        		}
+        		refreshGUI();
+        	}
+        });
+        
         
         JLabel locationsLabel = new JLabel("Your Locations");
         locationsLabel.setBounds(10, 0, 200, 23);
@@ -859,6 +873,22 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		
 	}
     
+	public WeatherData changeWeatherLocation(String s, WeatherData weatherData) {
+		for (int i=0; i<locationNames.length; i++) {
+			String checkString = new String(locationNames[i].getCurrentCity()+", "+locationNames[i].getCountryCode());
+			System.out.println(s);
+			System.out.println(checkString);
+			
+			if (checkString.equals(s)) {
+				weatherData = locationNames[i];
+				return weatherData;
+			}
+			
+		}
+		return null;
+	}
+	
+	
 	public String changeToCountryCode(String country) {
 		//TODO: Convert all spaces to hyphens (-)
 		return country;
