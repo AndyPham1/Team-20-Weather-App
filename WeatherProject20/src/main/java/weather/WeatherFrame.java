@@ -7,7 +7,9 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
 import com.sun.media.jai.codec.PNGEncodeParam.Gray;
+
 import java.util.concurrent.TimeUnit;
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -813,10 +815,26 @@ public class WeatherFrame extends JFrame implements ActionListener {
         	public void mouseClicked(MouseEvent e) {
         		JList locationList = (JList)e.getSource();
         		if (e.getClickCount()==1) {		//If an object is clicked then: 
-        			
-        			String s = (String) locationList.getSelectedValue();
-        			weatherData = changeWeatherLocation(s, weatherData);
-        			
+        			if (e.getButton() == MouseEvent.BUTTON1) {
+        				String s = (String) locationList.getSelectedValue();
+        				weatherData = changeWeatherLocation(s, weatherData);
+        				System.out.println(s);
+        			}
+        			if (e.getButton() == MouseEvent.BUTTON3) {
+            			JPopupMenu deleteMenu = new JPopupMenu("Delete");
+            			JMenuItem deleteButton = new JMenuItem("Delete");
+            			deleteMenu.add(deleteButton);
+            			deleteMenu.setVisible(true);
+            			deleteButton.addActionListener(new ActionListener() {
+            				public void actionPerformed(ActionEvent e) {
+            					locationList.remove(locationList.getSelectedIndex());
+            					weatherList.remove(locationList.getSelectedIndex());
+            					deleteMenu.setVisible(false);
+            					
+            				}
+            			});
+            			
+        			}
         		}
         		refreshGUI();
         	}
@@ -866,7 +884,6 @@ public class WeatherFrame extends JFrame implements ActionListener {
 							public void actionPerformed(ActionEvent e) {
         						userCityInput = cityInput.getText();
         						userCountryInput = countryInput.getText();
-        						System.out.println(userCityInput + ", "+userCountryInput);
         						userCountryInput = changeToCountryCode(userCountryInput);
         						WeatherData newWeatherData = new WeatherData(userCityInput, userCountryInput);
         						addToLocationList(newWeatherData); //Adding the location to the myLocations list
@@ -895,8 +912,6 @@ public class WeatherFrame extends JFrame implements ActionListener {
 	public WeatherData changeWeatherLocation(String s, WeatherData weatherData) {
 		for (int i=0; i<locationNames.length; i++) {
 			String checkString = new String(locationNames[i].getCurrentCity()+", "+locationNames[i].getCountryCode());
-			System.out.println(s);
-			System.out.println(checkString);
 			
 			if (checkString.equals(s)) {
 				weatherData = locationNames[i];
@@ -912,6 +927,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		//TODO: Convert all spaces to hyphens (-)
 		return country;
 	}
+	
 	
 	public void addToLocationList(WeatherData newWeatherData) {
 		boolean check = false;
