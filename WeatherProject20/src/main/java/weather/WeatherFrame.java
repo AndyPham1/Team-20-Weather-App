@@ -131,9 +131,9 @@ public class WeatherFrame extends JFrame implements ActionListener {
     
     public WeatherFrame() throws IOException {
     	
-        weatherData = new WeatherData("London", "Ca");	//THIS IS PRACTICE
+        weatherData = new WeatherData("Toronto", "Ca");	//THIS IS PRACTICE
     	locationNames[0] = weatherData;
-    	weatherData = new WeatherData("Toronto","Ca");
+    	weatherData = new WeatherData("London","Ca");
         
     	/*****IMAGES*****/
     	
@@ -831,14 +831,13 @@ public class WeatherFrame extends JFrame implements ActionListener {
         		btnAccept.addActionListener(
         				new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
-        						/*TODO: Take user input and add city data based on input */
-        						userCityInput = cityInput.getName();
-        						userCountryInput = countryInput.getName();
+        						userCityInput = cityInput.getText();
+        						userCountryInput = countryInput.getText();
+        						System.out.println(userCityInput + ", "+userCountryInput);
         						userCountryInput = changeToCountryCode(userCountryInput);
         						WeatherData newWeatherData = new WeatherData(userCityInput, userCountryInput);
         						addToLocationList(newWeatherData); //Adding the location to the myLocations list
         						locationAdder.dispose();	//Close the frame when accept is clicked
-//        						updateLocationList();
         					}
         				});
        		}
@@ -893,6 +892,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 	
 	
 	public void updateLocationList() {
+		weatherList.removeAllElements();
 		for (int i=0; i<locationNames.length; i++) {
 			if (locationNames[i]!=null) {
 				 weatherList.addElement(locationNames[i].getCurrentCity() + ", " + locationNames[i].getCountryCode());
