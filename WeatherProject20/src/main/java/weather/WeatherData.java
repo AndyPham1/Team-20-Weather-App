@@ -9,6 +9,8 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import weather.WeatherValue.Weather;
+
 import com.google.gson.*;
 
 /**
@@ -86,7 +88,7 @@ public class WeatherData {
 			setCountryCode(wv.getSys().getCountry());
 			setSunrise(wv.getSys().getSunrise());
 			setSunset(wv.getSys().getSunset());
-//			//TODO: setDescription(wv.getClouds()
+			setDescription(wv.getWeather().get(0).getDescription());
 			
 			setLastUpdatedTime(getTime());
 
@@ -305,8 +307,8 @@ public class WeatherData {
 		this.sunset = sunset;
 	}
 	
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDescription(String weather) {
+		this.description = weather;
 	}
 }
 

@@ -13,6 +13,7 @@ import com.sun.media.jai.codec.PNGEncodeParam.Gray;
 import java.util.concurrent.TimeUnit;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.net.URL;
 import java.text.DecimalFormat;
 import java.awt.event.*;
 import java.awt.*;
@@ -36,10 +37,20 @@ public class WeatherFrame extends JFrame implements ActionListener {
     private String userCountryInput;
     private DecimalFormat df;
     
-    private BufferedImage myPictureSunny;
-    private BufferedImage myPictureCloudy;
-    private BufferedImage myPictureDrizzle;
-    private BufferedImage myPictureUpdate;
+//    private BufferedImage myPictureSunny;
+//    private BufferedImage myPictureCloudy;
+//    private BufferedImage myPictureDrizzle;
+    private BufferedImage refreshImage;
+    private BufferedImage clearSkyImage;
+    private BufferedImage fewCloudsImage;
+    private BufferedImage scatteredCloudsImage;
+    private BufferedImage brokenCloudsImage;
+    private BufferedImage showerRainImage;
+    private BufferedImage thunderstormImage;
+    private BufferedImage rainImage;
+    private BufferedImage snowImage;
+    private BufferedImage mistImage;
+    
     
     private JLabel longTermDay1;
     private JLabel longTermIcon1;
@@ -136,13 +147,36 @@ public class WeatherFrame extends JFrame implements ActionListener {
         weatherData = new WeatherData("Toronto", "Ca");	//THIS IS PRACTICE
     	locationNames[0] = weatherData;
     	weatherData = new WeatherData("London","Ca");
-        
     	/*****IMAGES*****/
     	
-    	myPictureSunny = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("sunny.png"));
-        myPictureCloudy = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("cloudy.png"));
-        myPictureDrizzle = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("drizzle.png"));
-        myPictureUpdate = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("update.png"));
+    	URL url = new URL ("http://openweathermap.org/img/w/01d.png");
+    	clearSkyImage = ImageIO.read(url); 
+    	
+    	url = new URL("http://openweathermap.org/img/w/02d.png");
+    	fewCloudsImage = ImageIO.read(url);
+    	
+    	url = new URL("http://openweathermap.org/img/w/03d.png");
+    	scatteredCloudsImage = ImageIO.read(url);
+    	
+    	url = new URL("http://openweathermap.org/img/w/04d.png");
+    	brokenCloudsImage = ImageIO.read(url);
+    	
+    	url = new URL("http://openweathermap.org/img/w/09d.png");
+    	showerRainImage = ImageIO.read(url);
+    	
+    	url = new URL("http://openweathermap.org/img/w/10d.png");
+    	rainImage = ImageIO.read(url);
+    	
+    	url = new URL("http://openweathermap.org/img/w/11d.png");
+    	thunderstormImage = ImageIO.read(url);
+    	
+    	url = new URL("http://openweathermap.org/img/w/13d.png");
+    	snowImage = ImageIO.read(url);
+    	
+    	url = new URL("http://openweathermap.org/img/w/50d.png");
+    	mistImage = ImageIO.read(url);
+    	
+        refreshImage = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("update.png"));
 
         /******END IMAGES*****/
         
@@ -243,8 +277,8 @@ public class WeatherFrame extends JFrame implements ActionListener {
         menuEditRemove.setToolTipText("Choose a location you wish to remove.");
         menuEditRemove.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent event) {
-        		
-        		JFrame locationsFrame = new JFrame();
+        		//TODO
+        		//JFrame locationsFrame = new JFrame();
         		
         		
         	};
@@ -291,7 +325,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         longTermPanel1.add(longTermDay1);
 
         // Adds an image
-        longTermIcon1 = new JLabel(new ImageIcon(myPictureSunny));
+        longTermIcon1 = new JLabel(new ImageIcon(rainImage));
         longTermIcon1.setBounds(10, 30, 82, 50);
         longTermPanel1.add(longTermIcon1);
 
@@ -327,7 +361,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         longTermPanel2.add(longTermDay2);
         
         // Adds an image
-        longTermIcon2 = new JLabel(new ImageIcon(myPictureSunny));
+        longTermIcon2 = new JLabel(new ImageIcon(rainImage));
         longTermIcon2.setBounds(10, 30, 82, 50);
         longTermPanel2.add(longTermIcon2);
 
@@ -363,7 +397,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         longTermPanel3.add(longTermDay3);
 
         // Adds an image
-        longTermIcon3 = new JLabel(new ImageIcon(myPictureSunny));
+        longTermIcon3 = new JLabel(new ImageIcon(rainImage));
         longTermIcon3.setBounds(10, 30, 82, 50);
         longTermPanel3.add(longTermIcon3);
 
@@ -399,7 +433,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         longTermPanel4.add(longTermDay4);
 
         // Adds an image
-        longTermIcon4 = new JLabel(new ImageIcon(myPictureSunny));
+        longTermIcon4 = new JLabel(new ImageIcon(rainImage));
         longTermIcon4.setBounds(10, 30, 82, 50);
         longTermPanel4.add(longTermIcon4);
 
@@ -435,7 +469,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         longTermPanel5.add(longTermDay5);
 
         // Adds an image
-        longTermIcon5 = new JLabel(new ImageIcon(myPictureSunny));
+        longTermIcon5 = new JLabel(new ImageIcon(rainImage));
         longTermIcon5.setBounds(10, 30, 82, 50);
         longTermPanel5.add(longTermIcon5);
 
@@ -476,7 +510,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         shortTermPanel1.add(shortTermTime1);
 
         // Adds an image
-        shortTermIcon1 = new JLabel(new ImageIcon(myPictureCloudy));
+        shortTermIcon1 = new JLabel(new ImageIcon(rainImage));
         shortTermIcon1.setBounds(10, 28, 40, 40);
         shortTermPanel1.add(shortTermIcon1);
 
@@ -503,7 +537,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         shortTermPanel2.add(shortTermTime2);
 
         // Adds an image
-        shortTermIcon2 = new JLabel(new ImageIcon(myPictureCloudy));
+        shortTermIcon2 = new JLabel(new ImageIcon(rainImage));
         shortTermIcon2.setBounds(10, 28, 40, 40);
         shortTermPanel2.add(shortTermIcon2);
 
@@ -530,7 +564,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         shortTermPanel3.add(shortTermTime3);
 
         // Adds an image
-        shortTermIcon3 = new JLabel(new ImageIcon(myPictureCloudy));
+        shortTermIcon3 = new JLabel(new ImageIcon(rainImage));
         shortTermIcon3.setBounds(10, 28, 40, 40);
         shortTermPanel3.add(shortTermIcon3);
 
@@ -557,7 +591,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         shortTermPanel4.add(shortTermTime4);
 
         // Adds an image
-        shortTermIcon4 = new JLabel(new ImageIcon(myPictureCloudy));
+        shortTermIcon4 = new JLabel(new ImageIcon(rainImage));
         shortTermIcon4.setBounds(10, 28, 40, 40);
         shortTermPanel4.add(shortTermIcon4);
 
@@ -584,7 +618,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         shortTermPanel5.add(shortTermTime5);
 
         // Adds an image
-        shortTermIcon5 = new JLabel(new ImageIcon(myPictureCloudy));
+        shortTermIcon5 = new JLabel(new ImageIcon(rainImage));
         shortTermIcon5.setBounds(10, 28, 40, 40);
         shortTermPanel5.add(shortTermIcon5);
 
@@ -611,7 +645,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         shortTermPanel6.add(shortTermTime6);
 
         // Adds an image
-        shortTermIcon6 = new JLabel(new ImageIcon(myPictureCloudy));
+        shortTermIcon6 = new JLabel(new ImageIcon(rainImage));
         shortTermIcon6.setBounds(10, 28, 40, 40);
         shortTermPanel6.add(shortTermIcon6);
 
@@ -671,7 +705,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 //        lblSunset.setBounds(181, 227, 57, 14);
 //        panel_1.add(lblSunset);
 
-        shortTermIcon7 = new JLabel(new ImageIcon(myPictureCloudy));
+        shortTermIcon7 = new JLabel(new ImageIcon(rainImage));
         shortTermIcon7.setBounds(10, 28, 40, 40);
         shortTermPanel7.add(shortTermIcon7);
 
@@ -699,7 +733,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 
 
         // Adds an image
-        shortTermIcon8 = new JLabel(new ImageIcon(myPictureCloudy));
+        shortTermIcon8 = new JLabel(new ImageIcon(rainImage));
         shortTermIcon8.setBounds(10, 28, 40, 40);
         shortTermPanel8.add(shortTermIcon8);
 
@@ -739,7 +773,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         currWeatherPanel.add(currSunsetLabel);
 
         // Adds an image
-        currWeatherIcon = new JLabel(new ImageIcon(myPictureDrizzle));
+        currWeatherIcon = new JLabel(new ImageIcon(rainImage));
         currWeatherIcon.setBounds(10, 40, 100, 100);
         currWeatherPanel.add(currWeatherIcon);
 
@@ -789,7 +823,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         lastUpdatedLabel.setBounds(443, 238, 200, 14);
         currWeatherPanel.add(lastUpdatedLabel);
         
-        JButton currRefreshButton = new JButton(new ImageIcon(myPictureUpdate));
+        JButton currRefreshButton = new JButton(new ImageIcon(refreshImage));
         currRefreshButton.setContentAreaFilled(false);
         currRefreshButton.setBounds(519, 11, 40, 40);
         currWeatherPanel.add(currRefreshButton);
@@ -925,6 +959,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 	
 	public String changeToCountryCode(String country) {
 		//TODO: Convert all spaces to hyphens (-)
+		country = country.replace(' ', '-');
 		return country;
 	}
 	
