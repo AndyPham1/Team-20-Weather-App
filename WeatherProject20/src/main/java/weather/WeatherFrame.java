@@ -749,9 +749,17 @@ public class WeatherFrame extends JFrame implements ActionListener {
         shortTermPanel8.add(shortTermTemp8);
         currWeatherPanel.setLayout(null);
 
+        
+        
         /******END SHORT TERM WEATHER******/
         
+        ////////////////////////////////////////////
+        
         /******CURRENT WEATHER*****/
+        
+        
+        
+        
         //To keep certain variables to one decimal place
         df = new DecimalFormat(); 
         df.setMaximumFractionDigits(1);
@@ -773,8 +781,10 @@ public class WeatherFrame extends JFrame implements ActionListener {
         currWeatherPanel.add(currSunsetLabel);
 
         // Adds an image
-        currWeatherIcon = new JLabel(new ImageIcon(rainImage));
+        
+        currWeatherIcon = new JLabel(new ImageIcon(displayCorrectImage(weatherData.getDescription())));
         currWeatherIcon.setBounds(10, 40, 100, 100);
+        
         currWeatherPanel.add(currWeatherIcon);
 
         currWeatherConditionLabel = new JLabel("Current Weather Conditions");
@@ -957,6 +967,96 @@ public class WeatherFrame extends JFrame implements ActionListener {
 	}
 	
 	
+    public BufferedImage displayCorrectImage(String description) {
+        if (description.equals("clear sky") ||
+        	description.equals("calm") ||
+        	description.equals("light breeze") ||
+        	description.equals("gentle breeze") ||
+        	description.equals("moderate breeze") ||
+        	description.equals("fresh breeze")
+            ) {
+        	return clearSkyImage;
+        }
+        else if (description.equals("few clouds")) {
+        	return fewCloudsImage;
+        }
+        else if (description.equals("scattered clouds")) {
+        	return scatteredCloudsImage;
+        }
+        else if (description.equals("broken clouds")) {
+        	return brokenCloudsImage;
+        }
+        else if (description.equals("shower rain") ||
+        		description.equals("heavy intensity drizzle") ||
+        		description.equals("heavy intensity drizzle rain") ||
+        		description.equals("heavy shower rain and drizzle") ||
+        		description.equals("shower drizzle") ||
+        		description.equals("shower rain and drizzle")
+                 ) {
+        	return showerRainImage; 
+        }
+        else if (description.equals("rain") ||
+        		description.equals("light intensity drizzle") ||
+        		description.equals("drizzle") ||
+        		description.equals("light intensity drizzle rain") ||
+        		description.equals("drizzle rain")
+        		) {
+        	return rainImage;
+        }
+        else if (description.equals("thunderstorm") ||
+                description.equals("thunderstorm with light rain") ||
+                description.equals("thunderstorm with rain") ||
+                description.equals("thunderstorm with heavy rain")  ||
+                description.equals("light thunderstorm") ||
+                description.equals("heavy thunderstorm") ||
+                description.equals("ragged thunderstorm") ||
+                description.equals("thunderstorm with light drizzle") ||
+                description.equals("thunderstorm with drizzle") ||
+                description.equals("thunderstorm with heavy drizzle")
+                ) {
+            return thunderstormImage;
+        }
+        else if (description.equals("snow") ||
+                description.equals("light snow") ||
+                description.equals("heavy snow") ||
+                description.equals("sleet") ||
+                description.equals("shower sleet") ||
+                description.equals("light rain and snow") ||
+                description.equals("rain and snow") ||
+                description.equals("light shower snow") ||
+                description.equals("shower snow") ||
+                description.equals("heavy shower snow")
+                ) {
+        	return snowImage;
+        }
+        else if (description.equals("mist") ||
+                 description.equals("smoke") ||
+                 description.equals("haze") ||
+                 description.equals("sand, dust whirls") ||
+                 description.equals("fog") ||
+                 description.equals("sand") ||
+                 description.equals("dust") ||
+                 description.equals("volcanic ash") ||
+                 description.equals("squalls") ||
+                 description.equals("tornado") ||
+                 description.equals("tropical storm") ||
+                 description.equals("hurricane") ||
+                 description.equals("windy") ||
+                 description.equals("cold") ||
+                 description.equals("hot") ||
+                 description.equals("strong breeze") ||
+                 description.equals("high wind, near gale") ||
+                 description.equals("gale") ||
+                 description.equals("severe gale") ||
+                 description.equals("storm") ||
+                 description.equals("violent storm")
+                 ) {
+        	return mistImage;
+        }
+        return null;
+    }
+    
+    
 	public String changeToCountryCode(String country) {
 		//TODO: Convert all spaces to hyphens (-)
 		country = country.replace(' ', '-');

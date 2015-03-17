@@ -254,6 +254,12 @@ public class WeatherData {
 	public String getSunrise() {
 		return sunrise;
 	}
+	
+	public String getDescription() {
+		return description;
+	}
+	
+	
 
 	public void setWindSpeed(double windSpeed) {
 		this.windSpeed = windSpeed;
