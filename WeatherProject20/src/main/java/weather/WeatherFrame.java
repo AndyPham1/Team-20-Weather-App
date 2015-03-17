@@ -37,9 +37,6 @@ public class WeatherFrame extends JFrame implements ActionListener {
     private String userCountryInput;
     private DecimalFormat df;
     
-//    private BufferedImage myPictureSunny;
-//    private BufferedImage myPictureCloudy;
-//    private BufferedImage myPictureDrizzle;
     private BufferedImage refreshImage;
     private BufferedImage clearSkyImage;
     private BufferedImage fewCloudsImage;
@@ -50,7 +47,6 @@ public class WeatherFrame extends JFrame implements ActionListener {
     private BufferedImage rainImage;
     private BufferedImage snowImage;
     private BufferedImage mistImage;
-    
     
     private JLabel longTermDay1;
     private JLabel longTermIcon1;
@@ -128,6 +124,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
     private JLabel shortTermTemp8;
 
     private JLabel currLocationLabel;
+    private JLabel currWeatherDescriptionLabel;
     private JLabel currSunriseLabel;
     private JLabel currSunsetLabel;
     private JLabel currWeatherIcon;
@@ -779,17 +776,22 @@ public class WeatherFrame extends JFrame implements ActionListener {
         currSunsetLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
         currSunsetLabel.setBounds(181, 227, 200, 14);
         currWeatherPanel.add(currSunsetLabel);
-
-        // Adds an image
         
+        currWeatherDescriptionLabel = new JLabel("Currently: "+weatherData.getDescription());
+        currWeatherDescriptionLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        currWeatherDescriptionLabel.setBounds(10, 151, 170, 24);
+        currWeatherPanel.add(currWeatherDescriptionLabel);
+        
+        
+        // Adds an image
         currWeatherIcon = new JLabel(new ImageIcon(displayCorrectImage(weatherData.getDescription())));
         currWeatherIcon.setBounds(10, 40, 100, 100);
         
         currWeatherPanel.add(currWeatherIcon);
 
-        currWeatherConditionLabel = new JLabel("Current Weather Conditions");
-        currWeatherConditionLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        currWeatherConditionLabel.setBounds(10, 150, 250, 24);
+        currWeatherConditionLabel = new JLabel("Weather Conditions");
+        currWeatherConditionLabel.setFont(new Font("Tahoma", Font.PLAIN, 24));
+        currWeatherConditionLabel.setBounds(10, 120, 250, 24);
         currWeatherPanel.add(currWeatherConditionLabel);
 
         currHumidityLabel = new JLabel("Humidity: " + weatherData.getHumidity() + "%\r\n");
