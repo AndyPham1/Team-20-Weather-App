@@ -141,8 +141,8 @@ public class WeatherFrame extends JFrame implements ActionListener {
     
     public WeatherFrame() throws IOException {
     	
-        weatherData = new WeatherData("Toronto", "Ca");	//THIS IS PRACTICE
-    	locationNames[0] = weatherData;
+//        weatherData = new WeatherData("Toronto", "Ca");	//THIS IS PRACTICE
+//    	locationNames[0] = weatherData;
     	weatherData = new WeatherData("London","Ca");
     	/*****IMAGES*****/
     	
@@ -777,13 +777,14 @@ public class WeatherFrame extends JFrame implements ActionListener {
         currSunsetLabel.setBounds(181, 227, 200, 14);
         currWeatherPanel.add(currSunsetLabel);
         
-        currWeatherDescriptionLabel = new JLabel("Currently: "+weatherData.getDescription());
+        currWeatherDescriptionLabel = new JLabel("Conditions: "+weatherData.getDescription());
         currWeatherDescriptionLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        currWeatherDescriptionLabel.setBounds(10, 151, 170, 24);
+        currWeatherDescriptionLabel.setBounds(10, 151, 400, 24);
         currWeatherPanel.add(currWeatherDescriptionLabel);
         
         
         // Adds an image
+        System.out.println(weatherData.getDescription());
         currWeatherIcon = new JLabel(new ImageIcon(displayCorrectImage(weatherData.getDescription())));
         currWeatherIcon.setBounds(10, 40, 100, 100);
         
@@ -975,7 +976,8 @@ public class WeatherFrame extends JFrame implements ActionListener {
         	description.equals("light breeze") ||
         	description.equals("gentle breeze") ||
         	description.equals("moderate breeze") ||
-        	description.equals("fresh breeze")
+        	description.equals("fresh breeze") ||
+            description.equals("Sky is Clear")
             ) {
         	return clearSkyImage;
         }
@@ -1114,7 +1116,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
     	currSunriseLabel.setText("Sunrise: "+ weatherData.getSunrise());
     	currSunsetLabel.setText("Sunset: " + weatherData.getSunset());
     	//currWeatherIcon.setText(new ImageIcon(myPictureDrizzle));
-    	currWeatherConditionLabel.setText("Current Weather Conditions");
+    	currWeatherConditionLabel.setText("Weather Conditions");
     	currHumidityLabel.setText("Humidity: " + weatherData.getHumidity() + "%\r\n");
     	currWindSpeedLabel.setText("Wind Speed: "+df.format(weatherData.getWindSpeed())+" km/h\r\n");
     	currWindDirection.setText("Wind Direction: "+weatherData.getWindDirectionString());
@@ -1123,7 +1125,10 @@ public class WeatherFrame extends JFrame implements ActionListener {
     	currLowestTemp.setText("\u2207"+df.format(weatherData.getMinTemp())+"\u00B0");
     	currHighestTemp.setText("\u25B2"+df.format(weatherData.getMaxTemp())+"\u00B0");
 		lastUpdatedLabel.setText("Last updated: " + weatherData.getLastUpdatedTime());
-    }
+		System.out.println(weatherData.getDescription());
+		currWeatherDescriptionLabel.setText("Conditions: "+weatherData.getDescription());
+		currWeatherIcon.setIcon(new ImageIcon(displayCorrectImage(weatherData.getDescription())));
+		}
     
 }
 
