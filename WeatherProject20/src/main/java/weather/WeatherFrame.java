@@ -7,9 +7,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
-
 import com.sun.media.jai.codec.PNGEncodeParam.Gray;
-
 import java.util.concurrent.TimeUnit;
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -977,7 +975,8 @@ public class WeatherFrame extends JFrame implements ActionListener {
         	description.equals("gentle breeze") ||
         	description.equals("moderate breeze") ||
         	description.equals("fresh breeze") ||
-            description.equals("Sky is Clear")
+            description.equals("Sky is Clear") ||
+            description.equals("sky is clear")
             ) {
         	return clearSkyImage;
         }
@@ -1092,6 +1091,26 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		}
 		newWeatherDataArray[locationNames.length] = newWeatherData;
 		locationNames = newWeatherDataArray;
+	}
+	
+	public WeatherData[] removeLocationList(String cityName) {
+		WeatherData[] newWeatherDataArray = new WeatherData[locationNames.length-1];
+		for (int i=0; i<locationNames.length; i++) {
+			if ((locationNames[i].getCurrentCity()+", "+locationNames[i].getCountryCode()).equals(cityName)) {
+				locationNames[i] = null;
+			}
+		}
+		boolean check = false;
+		for (int i=0; i<locationNames.length; i++) {
+			if (locationNames[i] != null) {
+				
+			}
+			else 
+				check = true;
+		}
+		//TODO: Create new array with size decremented by 1
+		return null;
+		
 	}
 	
 	
