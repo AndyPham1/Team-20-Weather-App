@@ -873,9 +873,10 @@ public class WeatherFrame extends JFrame implements ActionListener {
             			deleteButton.addActionListener(new ActionListener() {
             				public void actionPerformed(ActionEvent e) {
             					locationList.remove(locationList.getSelectedIndex());
-            					weatherList.remove(locationList.getSelectedIndex());
+            					weatherList.removeElementAt(locationList.getSelectedIndex());
+            					removeLocationList((String)locationList.getSelectedValue());
             					deleteMenu.setVisible(false);
-            					
+            					updateLocationList();
             				}
             			});
             			
@@ -948,6 +949,16 @@ public class WeatherFrame extends JFrame implements ActionListener {
         /******END LOCATIONS******/
     }
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 	/**************METHODS*************/
     
 	public void actionPerformed(ActionEvent e) {
@@ -1093,6 +1104,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		locationNames = newWeatherDataArray;
 	}
 	
+	
 	public WeatherData[] removeLocationList(String cityName) {
 		WeatherData[] newWeatherDataArray = new WeatherData[locationNames.length-1];
 		for (int i=0; i<locationNames.length; i++) {
@@ -1103,13 +1115,18 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		boolean check = false;
 		for (int i=0; i<locationNames.length; i++) {
 			if (locationNames[i] != null) {
+				if (!check) {
+					newWeatherDataArray[i] = locationNames[i];
+				}
+				else {
+					newWeatherDataArray[i-1] = locationNames[i];
+				}
 				
 			}
 			else 
 				check = true;
 		}
-		//TODO: Create new array with size decremented by 1
-		return null;
+		return newWeatherDataArray;
 		
 	}
 	
