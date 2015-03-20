@@ -858,7 +858,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         //Switching the current weatherData when JList object is selected
         locationList.addMouseListener(new MouseAdapter() {
         	public void mouseClicked(MouseEvent e) {
-        		JList locationList = (JList)e.getSource();
+        		final JList locationList = (JList)e.getSource();
         		if (e.getClickCount()==1) {		//If an object is clicked then: 
         			if (e.getButton() == MouseEvent.BUTTON1) {
         				String s = (String) locationList.getSelectedValue();
@@ -866,7 +866,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         				System.out.println(s);
         			}
         			if (e.getButton() == MouseEvent.BUTTON3) {
-            			JPopupMenu deleteMenu = new JPopupMenu("Delete");
+            			final JPopupMenu deleteMenu = new JPopupMenu("Delete");
             			JMenuItem deleteButton = new JMenuItem("Delete");
             			deleteMenu.add(deleteButton);
             			deleteMenu.setVisible(true);
@@ -991,7 +991,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
             ) {
         	return clearSkyImage;
         }
-        else if (description.equals("few clouds")) {
+        else if (description.equals("few clouds") || description.equals("overcast clouds")) {
         	return fewCloudsImage;
         }
         else if (description.equals("scattered clouds")) {
@@ -1013,7 +1013,9 @@ public class WeatherFrame extends JFrame implements ActionListener {
         		description.equals("light intensity drizzle") ||
         		description.equals("drizzle") ||
         		description.equals("light intensity drizzle rain") ||
-        		description.equals("drizzle rain")
+        		description.equals("light rain") ||
+        		description.equals("drizzle rain") ||
+        		description.equals("moderate rain")
         		) {
         	return rainImage;
         }
@@ -1161,7 +1163,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
     	currLowestTemp.setText("\u2207"+df.format(weatherData.getMinTemp())+"\u00B0");
     	currHighestTemp.setText("\u25B2"+df.format(weatherData.getMaxTemp())+"\u00B0");
 		lastUpdatedLabel.setText("Last updated: " + weatherData.getLastUpdatedTime());
-		System.out.println(weatherData.getDescription());
+		//System.out.println(weatherData.getDescription());
 		currWeatherDescriptionLabel.setText("Conditions: "+weatherData.getDescription());
 		currWeatherIcon.setIcon(new ImageIcon(displayCorrectImage(weatherData.getDescription())));
 		}
