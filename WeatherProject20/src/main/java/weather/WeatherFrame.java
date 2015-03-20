@@ -858,7 +858,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         //Switching the current weatherData when JList object is selected
         locationList.addMouseListener(new MouseAdapter() {
         	public void mouseClicked(MouseEvent e) {
-        		final JList locationList = (JList)e.getSource();
+        		locationList = (JList)e.getSource();
         		if (e.getClickCount()==1) {		//If an object is clicked then: 
         			if (e.getButton() == MouseEvent.BUTTON1) {
         				String s = (String) locationList.getSelectedValue();
@@ -1108,7 +1108,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 	
 	
 	public WeatherData[] removeLocationList(String cityName) {
-		WeatherData[] newWeatherDataArray = new WeatherData[locationNames.length-1];
+		WeatherData[] newWeatherDataArray = new WeatherData[locationNames.length];
 		for (int i=0; i<locationNames.length; i++) {
 			if ((locationNames[i].getCurrentCity()+", "+locationNames[i].getCountryCode()).equals(cityName)) {
 				locationNames[i] = null;
