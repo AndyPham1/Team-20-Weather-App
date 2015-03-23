@@ -860,30 +860,30 @@ public class WeatherFrame extends JFrame implements ActionListener {
         	public void mouseClicked(MouseEvent e) {
         		locationList = (JList)e.getSource();
         		if (e.getClickCount()==1) {		//If an object is clicked then: 
-        			if (e.getButton() == MouseEvent.BUTTON1) {
+        			if (SwingUtilities.isLeftMouseButton(e)) {
         				String s = (String) locationList.getSelectedValue();
         				weatherData = changeWeatherLocation(s, weatherData);
-        				System.out.println(s);
+        				refreshGUI();
         			}
-        			if (e.getButton() == MouseEvent.BUTTON3) {
-            			final JPopupMenu deleteMenu = new JPopupMenu("Delete");
-            			JMenuItem deleteButton = new JMenuItem("Delete");
-            			deleteMenu.add(deleteButton);
-            			deleteMenu.setVisible(true);
-            			deleteButton.addActionListener(new ActionListener() {
-            				public void actionPerformed(ActionEvent e) {
-            					locationList.remove(locationList.getSelectedIndex());
-            					weatherList.removeElementAt(locationList.getSelectedIndex());
-            					removeLocationList((String)locationList.getSelectedValue());
-            					deleteMenu.setVisible(false);
-            					updateLocationList();
-            				}
-            			});
-            			
-        			}
-        		}
-        		refreshGUI();
-        	}
+        			else if (SwingUtilities.isRightMouseButton(e)) {
+        				final JPopupMenu deleteMenu = new JPopupMenu("Delete");
+        				JMenuItem deleteButton = new JMenuItem("Delete");
+        				deleteMenu.add(deleteButton);
+        				deleteMenu.setVisible(true);
+        				System.out.println(locationList.getSelectedIndex());
+        				locationList.setSelectedIndex(locationList.getSelectedIndex());
+        				final boolean check = false;
+        				deleteButton.addActionListener(new ActionListener() {
+        					public void actionPerformed(ActionEvent e) {
+       							deleteMenu.setVisible(false);
+       							weatherList.removeElementAt(locationList.getSelectedIndex());
+       							updateLocationList();
+       						}
+       					});
+       				}
+                }
+       		}
+ 
         });
         
         
@@ -1074,7 +1074,6 @@ public class WeatherFrame extends JFrame implements ActionListener {
     
     
 	public String changeToCountryCode(String country) {
-		//TODO: Convert all spaces to hyphens (-)
 		country = country.replace(' ', '-');
 		return country;
 	}
@@ -1153,7 +1152,6 @@ public class WeatherFrame extends JFrame implements ActionListener {
     	currLocationLabel.setText(weatherData.getCurrentCity() + ", " +weatherData.getCountryCode());
     	currSunriseLabel.setText("Sunrise: "+ weatherData.getSunrise());
     	currSunsetLabel.setText("Sunset: " + weatherData.getSunset());
-    	//currWeatherIcon.setText(new ImageIcon(myPictureDrizzle));
     	currWeatherConditionLabel.setText("Weather Conditions");
     	currHumidityLabel.setText("Humidity: " + weatherData.getHumidity() + "%\r\n");
     	currWindSpeedLabel.setText("Wind Speed: "+df.format(weatherData.getWindSpeed())+" km/h\r\n");
@@ -1163,7 +1161,6 @@ public class WeatherFrame extends JFrame implements ActionListener {
     	currLowestTemp.setText("\u2207"+df.format(weatherData.getMinTemp())+"\u00B0");
     	currHighestTemp.setText("\u25B2"+df.format(weatherData.getMaxTemp())+"\u00B0");
 		lastUpdatedLabel.setText("Last updated: " + weatherData.getLastUpdatedTime());
-		//System.out.println(weatherData.getDescription());
 		currWeatherDescriptionLabel.setText("Conditions: "+weatherData.getDescription());
 		currWeatherIcon.setIcon(new ImageIcon(displayCorrectImage(weatherData.getDescription())));
 		}
