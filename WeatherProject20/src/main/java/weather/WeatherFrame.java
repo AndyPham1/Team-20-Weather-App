@@ -139,7 +139,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
     
     public WeatherFrame() throws IOException {
     	
-//        weatherData = new WeatherData("Toronto", "Ca");	//THIS IS PRACTICE
+//      weatherData = new WeatherData("Toronto", "Ca");	//THIS IS PRACTICE
 //    	locationNames[0] = weatherData;
     	weatherData = new WeatherData("London","Ca");
     	/*****IMAGES*****/
@@ -951,20 +951,18 @@ public class WeatherFrame extends JFrame implements ActionListener {
 
     
     
-    
-    
-    
-    
-    
-    
-    
-    
 	/**************METHODS*************/
-    
+  
 	public void actionPerformed(ActionEvent e) {
 		
 	}
     
+	/**
+	 * changeWeatherLocation method changes the weather for the new location
+	 * @param s take in a string with City and Country Code
+	 * @param weatherData get the weatherData
+	 * @return a new WeatherData object of the new location
+	 */
 	public WeatherData changeWeatherLocation(String s, WeatherData weatherData) {
 		for (int i=0; i<locationNames.length; i++) {
 			String checkString = new String(locationNames[i].getCurrentCity()+", "+locationNames[i].getCountryCode());
@@ -978,7 +976,11 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		return null;
 	}
 	
-	
+	/**
+	 * displayCorrectImage displays the correct image for the weather conditions
+	 * @param description Takes in a description to be found a picture of
+	 * @return The corresponding image is returned according to the description
+	 */
     public BufferedImage displayCorrectImage(String description) {
         if (description.equals("clear sky") ||
         	description.equals("calm") ||
@@ -1073,13 +1075,20 @@ public class WeatherFrame extends JFrame implements ActionListener {
         return null;
     }
     
-    
+   /**
+    * changeToCountryCode method changes country to country code 
+    * @param take in a string country
+    * @return country code
+    */
 	public String changeToCountryCode(String country) {
 		country = country.replace(' ', '-');
 		return country;
 	}
 	
-	
+	/**
+	 * addToLocationList method adds weather to location list
+	 * @param newWeatherData takes in WeatherData to add into location list
+	 */
 	public void addToLocationList(WeatherData newWeatherData) {
 		boolean check = false;
 		for (int i=0; i<locationNames.length; i++) {
@@ -1096,17 +1105,24 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		updateLocationList();
 	}
 	
+	/**
+	 * arrayOverflow method is to expand the array of WeatherData when its full
+	 * @param newWeatherData take in WeatherData
+	 */
 	public void arrayOverflow(WeatherData newWeatherData) {
 		WeatherData[] newWeatherDataArray = new WeatherData[locationNames.length+1];
-		int i=0;
-		for (; i<locationNames.length; i++) {
+		for (int i=0; i<locationNames.length; i++) {
 			newWeatherDataArray[i] = locationNames[i];
 		}
 		newWeatherDataArray[locationNames.length] = newWeatherData;
 		locationNames = newWeatherDataArray;
 	}
 	
-	
+	/**
+	 * removeLocationList removes the location from the list 
+	 * @param cityName takes in a cityName 
+	 * @return a new array with the location removed
+	 */
 	public WeatherData[] removeLocationList(String cityName) {
 		WeatherData[] newWeatherDataArray = new WeatherData[locationNames.length];
 		for (int i=0; i<locationNames.length; i++) {
@@ -1131,8 +1147,10 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		return newWeatherDataArray;
 		
 	}
-	
-	
+
+	/**
+	 * updateLocationList method updates the location list 
+	 */
 	public void updateLocationList() {
 		weatherList.removeAllElements();
 		for (int i=0; i<locationNames.length; i++) {
@@ -1141,7 +1159,9 @@ public class WeatherFrame extends JFrame implements ActionListener {
 			}
 		}
 	}
-	
+	/**
+	 * refreshGUI method refreshes the GUI
+	 */
     public void refreshGUI() {
     	try {
 			weatherData.update();
