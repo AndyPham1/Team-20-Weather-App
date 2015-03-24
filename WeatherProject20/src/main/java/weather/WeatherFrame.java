@@ -1015,7 +1015,8 @@ public class WeatherFrame extends JFrame implements ActionListener {
         		description.equals("light intensity drizzle rain") ||
         		description.equals("light rain") ||
         		description.equals("drizzle rain") ||
-        		description.equals("moderate rain")
+        		description.equals("moderate rain") ||
+        		description.equals("proximity shower rain")
         		) {
         	return rainImage;
         }
