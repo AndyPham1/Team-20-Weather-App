@@ -979,7 +979,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 	/**
 	 * displayCorrectImage displays the correct image for the weather conditions
 	 * @param description Takes in a description to be found a picture of
-	 * @return The corresponding image according to the description
+	 * @return The corresponding image is returned according to the description
 	 */
     public BufferedImage displayCorrectImage(String description) {
         if (description.equals("clear sky") ||
@@ -1076,15 +1076,18 @@ public class WeatherFrame extends JFrame implements ActionListener {
     
    /**
     * changeToCountryCode method changes country to country code 
-    * @param country 
-    * @return
+    * @param take in a string country
+    * @return country code
     */
 	public String changeToCountryCode(String country) {
 		country = country.replace(' ', '-');
 		return country;
 	}
 	
-	
+	/**
+	 * addToLocationList method adds weather to location list
+	 * @param newWeatherData takes in WeatherData to add into location list
+	 */
 	public void addToLocationList(WeatherData newWeatherData) {
 		boolean check = false;
 		for (int i=0; i<locationNames.length; i++) {
@@ -1143,8 +1146,10 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		return newWeatherDataArray;
 		
 	}
-	
-	
+
+	/**
+	 * updateLocationList method updates the location list 
+	 */
 	public void updateLocationList() {
 		weatherList.removeAllElements();
 		for (int i=0; i<locationNames.length; i++) {
@@ -1153,7 +1158,9 @@ public class WeatherFrame extends JFrame implements ActionListener {
 			}
 		}
 	}
-	
+	/**
+	 * refreshGUI method refreshes the GUI
+	 */
     public void refreshGUI() {
     	try {
 			weatherData.update();
