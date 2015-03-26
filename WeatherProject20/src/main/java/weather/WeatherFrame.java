@@ -782,7 +782,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         
         
         // Adds an image
-        System.out.println(weatherData.getDescription());
+//        System.out.println(weatherData.getDescription());
         currWeatherIcon = new JLabel(new ImageIcon(displayCorrectImage(weatherData.getDescription())));
         currWeatherIcon.setBounds(10, 40, 100, 100);
         
@@ -944,7 +944,6 @@ public class WeatherFrame extends JFrame implements ActionListener {
         LocationPanel.add(btnAdd);
         LocationPanel.add(pane);
         contentPane.setLayout(gl_contentPane);
-//        updateLocationList();
         /******END LOCATIONS******/
     }
 
@@ -1028,7 +1027,8 @@ public class WeatherFrame extends JFrame implements ActionListener {
         		description.equals("light rain") ||
         		description.equals("drizzle rain") ||
         		description.equals("moderate rain") ||
-        		description.equals("proximity shower rain")
+        		description.equals("proximity shower rain") ||
+        		description.equals("light intensity shower rain")
         		) {
         	return rainImage;
         }

@@ -53,6 +53,7 @@ public class WeatherValue {
 
 		public String getCountry() {
 			return country;
+			
 		}
 
 		public String getSunrise() {

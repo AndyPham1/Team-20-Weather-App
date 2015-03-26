@@ -69,7 +69,11 @@ public class WeatherData {
 	{
 
 		String urlSkeleton = "http://api.openweathermap.org/data/2.5/weather?q=";
-		String fullURL = urlSkeleton + city + "," + countryCode; 
+		String fullURL;
+		if (countryCode.equals(""))  
+			fullURL = urlSkeleton + city;
+		else
+			fullURL = urlSkeleton + city + "," + countryCode; 
 		try {
 			String jsonData = readUrl(fullURL);
 			Gson gson = new Gson();
@@ -85,6 +89,7 @@ public class WeatherData {
 			setWindSpeed(wv.getWind().getSpeed());
 			setWindDirectionDegrees(wv.getWind().getDeg());
 			setCurrentCity(wv.getName());
+			System.out.println("    "+wv.getSys().getCountry());
 			setCountryCode(wv.getSys().getCountry());
 			setSunrise(wv.getSys().getSunrise());
 			setSunset(wv.getSys().getSunset());
