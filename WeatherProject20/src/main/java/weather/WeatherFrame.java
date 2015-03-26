@@ -1,32 +1,32 @@
 package weather;
 
 import javax.imageio.ImageIO;
-import javax.swing.border.EmptyBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
-//import com.sun.media.jai.codec.PNGEncodeParam.Gray; /* Unused, crashes my (Paul's) project) */
-import java.util.concurrent.TimeUnit;
+import javax.swing.border.EmptyBorder;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
-import java.io.*;
 import java.net.URL;
 import java.text.DecimalFormat;
-import java.awt.event.*;
-import java.awt.*;
+import java.io.IOException;
+
+
+//import com.sun.media.jai.codec.PNGEncodeParam.Gray; /* Unused, crashes my (Paul's) project) */
 
 /**
  * Weather Frame is the GUI for the app
+ *
  * @author Team 20
  */
 
 public class WeatherFrame extends JFrame implements ActionListener {
 
 	/* Instance Variables */
-	
-	private DefaultListModel weatherList;
-	private WeatherData weatherData;
+
+    private DefaultListModel weatherList;
+    private WeatherData weatherData;
     private JLabel lastUpdatedLabel;
     private JPanel contentPane;
     private JList locationList;
@@ -34,12 +34,12 @@ public class WeatherFrame extends JFrame implements ActionListener {
     private String userCityInput;
     private String userCountryInput;
     private DecimalFormat df;
-    
+
     private BufferedImage myPictureSunny;
     private BufferedImage myPictureCloudy;
     private BufferedImage myPictureDrizzle;
     private BufferedImage myPictureUpdate;
-    
+
     private BufferedImage refreshImage;
 
     /* Daytime images */
@@ -63,7 +63,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
     private BufferedImage icon10n;
     private BufferedImage icon13n;
     private BufferedImage icon50n;
-    
+
     private JLabel longTermDay1;
     private JLabel longTermIcon1;
     private JLabel longWeatherCondition1;
@@ -98,7 +98,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
     private JLabel longTermTemp5;
     private JLabel longMaxTemp5;
     private JLabel longMinTemp5;
-    
+
     private JLabel shortTermTime1;
     private JLabel shortTermIcon1;
     private JLabel shortWeatherCondition1;
@@ -154,46 +154,46 @@ public class WeatherFrame extends JFrame implements ActionListener {
     private JLabel currHighestTemp;
     
     /* Constructor */
-    
+
     public WeatherFrame() throws IOException {
-    	
+
 //        weatherData = new WeatherData("Toronto", "Ca");	//THIS IS PRACTICE
 //    	locationNames[0] = weatherData;
-    	weatherData = new WeatherData("London","Ca");
-    	/*****IMAGES*****/
-    	
+        weatherData = new WeatherData("London", "Ca");
+        /*****IMAGES*****/
+
 //    	myPictureSunny = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("sunny.png"));
 //        myPictureCloudy = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("cloudy.png"));
 //        myPictureDrizzle = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("drizzle.png"));
 //        myPictureUpdate = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("update.png"));
-    	URL url = new URL ("http://openweathermap.org/img/w/01d.png");
-    	icon01d = ImageIO.read(url); 
-    	
-    	url = new URL("http://openweathermap.org/img/w/02d.png");
-    	icon02d = ImageIO.read(url);
-    	
-    	url = new URL("http://openweathermap.org/img/w/03d.png");
-    	icon03d = ImageIO.read(url);
-    	
-    	url = new URL("http://openweathermap.org/img/w/04d.png");
-    	icon04d = ImageIO.read(url);
-    	
-    	url = new URL("http://openweathermap.org/img/w/09d.png");
-    	icon09d = ImageIO.read(url);
-    	
-    	url = new URL("http://openweathermap.org/img/w/10d.png");
-    	icon10d = ImageIO.read(url);
-    	
-    	url = new URL("http://openweathermap.org/img/w/11d.png");
-    	icon11d = ImageIO.read(url);
-    	
-    	url = new URL("http://openweathermap.org/img/w/13d.png");
-    	icon13d = ImageIO.read(url);
-    	
-    	url = new URL("http://openweathermap.org/img/w/50d.png");
-    	icon50d = ImageIO.read(url);
+        URL url = new URL("http://openweathermap.org/img/w/01d.png");
+        icon01d = ImageIO.read(url);
 
-        url = new URL ("http://openweathermap.org/img/w/01n.png");
+        url = new URL("http://openweathermap.org/img/w/02d.png");
+        icon02d = ImageIO.read(url);
+
+        url = new URL("http://openweathermap.org/img/w/03d.png");
+        icon03d = ImageIO.read(url);
+
+        url = new URL("http://openweathermap.org/img/w/04d.png");
+        icon04d = ImageIO.read(url);
+
+        url = new URL("http://openweathermap.org/img/w/09d.png");
+        icon09d = ImageIO.read(url);
+
+        url = new URL("http://openweathermap.org/img/w/10d.png");
+        icon10d = ImageIO.read(url);
+
+        url = new URL("http://openweathermap.org/img/w/11d.png");
+        icon11d = ImageIO.read(url);
+
+        url = new URL("http://openweathermap.org/img/w/13d.png");
+        icon13d = ImageIO.read(url);
+
+        url = new URL("http://openweathermap.org/img/w/50d.png");
+        icon50d = ImageIO.read(url);
+
+        url = new URL("http://openweathermap.org/img/w/01n.png");
         icon01n = ImageIO.read(url);
 
         url = new URL("http://openweathermap.org/img/w/02n.png");
@@ -219,15 +219,15 @@ public class WeatherFrame extends JFrame implements ActionListener {
 
         url = new URL("http://openweathermap.org/img/w/50n.png");
         icon50n = ImageIO.read(url);
-    	
-        refreshImage = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("update.png"));
 
+        //refreshImage = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("update.png"));
+        refreshImage=null;
         /******END IMAGES*****/
-        
-       
+
+
         /*****PANELS*****/
 
-        
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 800, 645);
         contentPane = new JPanel();
@@ -277,9 +277,9 @@ public class WeatherFrame extends JFrame implements ActionListener {
         longTermPanel1.setLayout(null);
 
         /******END PANELS******/
-        
+
         /******MENU BAR******/
-        
+
         // Creates Menu bar
         JMenuBar menubar = new JMenuBar();
         JMenu mnuFile = new JMenu("File");
@@ -288,7 +288,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         mniSave.setMnemonic(KeyEvent.VK_S);
         mniSave.setToolTipText("Save");
         mniSave.addActionListener(new ActionListener() {
-            
+
             public void actionPerformed(ActionEvent event) {
                 ;
             }
@@ -297,7 +297,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         JMenuItem mniLoad = new JMenuItem("Load");
         mniLoad.setToolTipText("Load");
         mniLoad.addActionListener(new ActionListener() {
-            
+
             public void actionPerformed(ActionEvent event) {
                 ;
             }
@@ -307,32 +307,34 @@ public class WeatherFrame extends JFrame implements ActionListener {
         mniFileExit.setMnemonic(KeyEvent.VK_E);
         mniFileExit.setToolTipText("Exit application");
         mniFileExit.addActionListener(new ActionListener() {
-          
+
             public void actionPerformed(ActionEvent event) {
                 System.exit(0);
             }
         });
         mnuFile.add(mniFileExit);
         menubar.add(mnuFile);
-        
-        
+
+
         JMenu menuEdit = new JMenu("Edit");
         JMenuItem menuEditRemove = new JMenuItem("Remove");
         menuEditRemove.setToolTipText("Choose a location you wish to remove.");
         menuEditRemove.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent event) {
-        		//TODO
-        		//JFrame locationsFrame = new JFrame();
-        		
-        		
-        	};
+            public void actionPerformed(ActionEvent event) {
+                //TODO
+                //JFrame locationsFrame = new JFrame();
+
+
+            }
+
+            ;
         });
-        
-        
+
+
         menuEdit.add(menuEditRemove);
         menubar.add(menuEdit);
-        
-        
+
+
         // Creates menu item to choose units
         JMenu mnuUnits = new JMenu("Units");
         mnuUnits.setMnemonic(KeyEvent.VK_U);
@@ -340,7 +342,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         mniMetric.setMnemonic(KeyEvent.VK_M);
         mniMetric.setToolTipText("Change units to Metric");
         mniMetric.addActionListener(new ActionListener() {
-            
+
             public void actionPerformed(ActionEvent event) {
                 ;
             }
@@ -350,7 +352,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         mniImperial.setMnemonic(KeyEvent.VK_I);
         mniImperial.setToolTipText("Change units to Imperial");
         mniImperial.addActionListener(new ActionListener() {
-            
+
             public void actionPerformed(ActionEvent event) {
                 ;
             }
@@ -360,7 +362,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         setJMenuBar(menubar);
 
         /******END MENU BAR******/
-        
+
         /******LONG TERM WEATHER******/
 
 
@@ -384,17 +386,17 @@ public class WeatherFrame extends JFrame implements ActionListener {
         longWeatherCondition1.setBounds(10, 84, 82, 14);
         longTermPanel1.add(longWeatherCondition1);
 
-        longTermTemp1 = new JLabel(df.format(weatherData.longTermWeather[0].getTemperature())+"\u00B0");
+        longTermTemp1 = new JLabel(df.format(weatherData.longTermWeather[0].getTemperature()) + "\u00B0");
         longTermTemp1.setFont(new Font("Tahoma", Font.BOLD, 16));
         longTermTemp1.setHorizontalAlignment(SwingConstants.CENTER);
         longTermTemp1.setBounds(10, 103, 82, 20);
         longTermPanel1.add(longTermTemp1);
 
-        longMaxTemp1 = new JLabel("\u25B2"+df.format(weatherData.longTermWeather[0].getMax()));
+        longMaxTemp1 = new JLabel("\u25B2" + df.format(weatherData.longTermWeather[0].getMax()));
         longMaxTemp1.setBounds(10, 123, 40, 14);
         longTermPanel1.add(longMaxTemp1);
 
-        longMinTemp1 = new JLabel("\u2207"+df.format(weatherData.longTermWeather[0].getMin()));
+        longMinTemp1 = new JLabel("\u2207" + df.format(weatherData.longTermWeather[0].getMin()));
         longMinTemp1.setHorizontalAlignment(SwingConstants.RIGHT);
         longMinTemp1.setBounds(51, 123, 40, 15);
         longTermPanel1.add(longMinTemp1);
@@ -409,7 +411,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         longTermDay2.setHorizontalAlignment(SwingConstants.CENTER);
         longTermDay2.setBounds(10, 11, 82, 14);
         longTermPanel2.add(longTermDay2);
-        
+
         // Adds an image
         longTermIcon2 = new JLabel(new ImageIcon(displayCorrectImage(weatherData.longTermWeather[1].getIcon())));
         longTermIcon2.setBounds(10, 30, 82, 50);
@@ -420,17 +422,17 @@ public class WeatherFrame extends JFrame implements ActionListener {
         longWeatherCondition2.setBounds(10, 84, 82, 14);
         longTermPanel2.add(longWeatherCondition2);
 
-        longTermTemp2 = new JLabel(df.format(weatherData.longTermWeather[1].getTemperature())+"\u00B0");
+        longTermTemp2 = new JLabel(df.format(weatherData.longTermWeather[1].getTemperature()) + "\u00B0");
         longTermTemp2.setHorizontalAlignment(SwingConstants.CENTER);
         longTermTemp2.setFont(new Font("Tahoma", Font.BOLD, 16));
         longTermTemp2.setBounds(10, 103, 82, 20);
         longTermPanel2.add(longTermTemp2);
 
-        longMaxTemp2 = new JLabel("\u25B2"+df.format(weatherData.longTermWeather[1].getMax()));
+        longMaxTemp2 = new JLabel("\u25B2" + df.format(weatherData.longTermWeather[1].getMax()));
         longMaxTemp2.setBounds(10, 123, 40, 14);
         longTermPanel2.add(longMaxTemp2);
 
-        longMinTemp2 = new JLabel("\u2207"+df.format(weatherData.longTermWeather[1].getMin()));
+        longMinTemp2 = new JLabel("\u2207" + df.format(weatherData.longTermWeather[1].getMin()));
         longMinTemp2.setHorizontalAlignment(SwingConstants.RIGHT);
         longMinTemp2.setBounds(51, 123, 40, 15);
         longTermPanel2.add(longMinTemp2);
@@ -457,17 +459,17 @@ public class WeatherFrame extends JFrame implements ActionListener {
         longWeatherCondition3.setBounds(10, 84, 82, 14);
         longTermPanel3.add(longWeatherCondition3);
 
-        longTermTemp3 = new JLabel(df.format(weatherData.longTermWeather[2].getTemperature())+"\u00B0");
+        longTermTemp3 = new JLabel(df.format(weatherData.longTermWeather[2].getTemperature()) + "\u00B0");
         longTermTemp3.setHorizontalAlignment(SwingConstants.CENTER);
         longTermTemp3.setFont(new Font("Tahoma", Font.BOLD, 16));
         longTermTemp3.setBounds(10, 103, 82, 20);
         longTermPanel3.add(longTermTemp3);
 
-        longMaxTemp3 = new JLabel("\u25B2"+df.format(weatherData.longTermWeather[2].getMax()));
+        longMaxTemp3 = new JLabel("\u25B2" + df.format(weatherData.longTermWeather[2].getMax()));
         longMaxTemp3.setBounds(10, 123, 40, 14);
         longTermPanel3.add(longMaxTemp3);
 
-        longMinTemp3 = new JLabel("\u2207"+df.format(weatherData.longTermWeather[2].getMin()));
+        longMinTemp3 = new JLabel("\u2207" + df.format(weatherData.longTermWeather[2].getMin()));
         longMinTemp3.setHorizontalAlignment(SwingConstants.RIGHT);
         longMinTemp3.setBounds(51, 123, 40, 15);
         longTermPanel3.add(longMinTemp3);
@@ -494,17 +496,17 @@ public class WeatherFrame extends JFrame implements ActionListener {
         longWeatherCondition4.setBounds(10, 84, 82, 14);
         longTermPanel4.add(longWeatherCondition4);
 
-        longTermTemp4 = new JLabel(df.format(weatherData.longTermWeather[3].getTemperature())+"\u00B0");
+        longTermTemp4 = new JLabel(df.format(weatherData.longTermWeather[3].getTemperature()) + "\u00B0");
         longTermTemp4.setHorizontalAlignment(SwingConstants.CENTER);
         longTermTemp4.setFont(new Font("Tahoma", Font.BOLD, 16));
         longTermTemp4.setBounds(10, 103, 82, 20);
         longTermPanel4.add(longTermTemp4);
 
-        longMaxTemp4 = new JLabel("\u25B2"+df.format(weatherData.longTermWeather[3].getMax()));
+        longMaxTemp4 = new JLabel("\u25B2" + df.format(weatherData.longTermWeather[3].getMax()));
         longMaxTemp4.setBounds(10, 123, 40, 14);
         longTermPanel4.add(longMaxTemp4);
 
-        longMinTemp4 = new JLabel("\u2207"+df.format(weatherData.longTermWeather[3].getMin()));
+        longMinTemp4 = new JLabel("\u2207" + df.format(weatherData.longTermWeather[3].getMin()));
         longMinTemp4.setHorizontalAlignment(SwingConstants.RIGHT);
         longMinTemp4.setBounds(51, 123, 40, 15);
         longTermPanel4.add(longMinTemp4);
@@ -531,26 +533,26 @@ public class WeatherFrame extends JFrame implements ActionListener {
         longWeatherCondition5.setBounds(10, 84, 82, 14);
         longTermPanel5.add(longWeatherCondition5);
 
-        longTermTemp5 = new JLabel(df.format(weatherData.longTermWeather[4].getTemperature())+"\u00B0");
+        longTermTemp5 = new JLabel(df.format(weatherData.longTermWeather[4].getTemperature()) + "\u00B0");
         longTermTemp5.setHorizontalAlignment(SwingConstants.CENTER);
         longTermTemp5.setFont(new Font("Tahoma", Font.BOLD, 16));
         longTermTemp5.setBounds(10, 103, 82, 20);
         longTermPanel5.add(longTermTemp5);
 
-        longMaxTemp5 = new JLabel("\u25B2"+df.format(weatherData.longTermWeather[4].getMax()));
+        longMaxTemp5 = new JLabel("\u25B2" + df.format(weatherData.longTermWeather[4].getMax()));
         longMaxTemp5.setBounds(10, 123, 40, 14);
         longTermPanel5.add(longMaxTemp5);
 
-        longMinTemp5 = new JLabel("\u2207"+df.format(weatherData.longTermWeather[4].getMin()));
+        longMinTemp5 = new JLabel("\u2207" + df.format(weatherData.longTermWeather[4].getMin()));
         longMinTemp5.setHorizontalAlignment(SwingConstants.RIGHT);
         longMinTemp5.setBounds(51, 123, 40, 15);
         longTermPanel5.add(longMinTemp5);
         shortTermFullPanel.setLayout(null);
 
         /******END LONG TERM WEATHER******/
-        
+
         /******SHORT TERM WEATHER******/
-        
+
         JPanel shortTermPanel1 = new JPanel();
         shortTermPanel1.setBackground(new Color(255, 153, 0));
         shortTermPanel1.setBounds(10, 11, 60, 116);
@@ -568,7 +570,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         shortTermIcon1.setBounds(10, 28, 40, 40);
         shortTermPanel1.add(shortTermIcon1);
 
-        shortTermTemp1 = new JLabel(df.format(weatherData.shortTermWeather[0].getTemperature())+"\u00B0");
+        shortTermTemp1 = new JLabel(df.format(weatherData.shortTermWeather[0].getTemperature()) + "\u00B0");
         shortTermTemp1.setFont(new Font("Tahoma", Font.BOLD, 13));
         shortTermTemp1.setHorizontalAlignment(SwingConstants.CENTER);
         shortTermTemp1.setBounds(10, 79, 40, 26);
@@ -601,7 +603,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         shortWeatherCondition2.setBounds(0, 68, 60, 14);
         shortTermPanel2.add(shortWeatherCondition2);
 
-        shortTermTemp2 = new JLabel(df.format(weatherData.shortTermWeather[1].getTemperature())+"\u00B0");
+        shortTermTemp2 = new JLabel(df.format(weatherData.shortTermWeather[1].getTemperature()) + "\u00B0");
         shortTermTemp2.setHorizontalAlignment(SwingConstants.CENTER);
         shortTermTemp2.setFont(new Font("Tahoma", Font.BOLD, 13));
         shortTermTemp2.setBounds(10, 79, 40, 26);
@@ -629,7 +631,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         shortWeatherCondition3.setBounds(0, 68, 60, 14);
         shortTermPanel3.add(shortWeatherCondition3);
 
-        shortTermTemp3 = new JLabel(df.format(weatherData.shortTermWeather[3].getTemperature())+"\u00B0");
+        shortTermTemp3 = new JLabel(df.format(weatherData.shortTermWeather[3].getTemperature()) + "\u00B0");
         shortTermTemp3.setHorizontalAlignment(SwingConstants.CENTER);
         shortTermTemp3.setFont(new Font("Tahoma", Font.BOLD, 13));
         shortTermTemp3.setBounds(10, 79, 40, 26);
@@ -657,7 +659,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         shortWeatherCondition4.setBounds(0, 68, 60, 14);
         shortTermPanel4.add(shortWeatherCondition4);
 
-        shortTermTemp4 = new JLabel(df.format(weatherData.shortTermWeather[3].getTemperature())+"\u00B0");
+        shortTermTemp4 = new JLabel(df.format(weatherData.shortTermWeather[3].getTemperature()) + "\u00B0");
         shortTermTemp4.setHorizontalAlignment(SwingConstants.CENTER);
         shortTermTemp4.setFont(new Font("Tahoma", Font.BOLD, 13));
         shortTermTemp4.setBounds(10, 79, 40, 26);
@@ -685,7 +687,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         shortWeatherCondition5.setBounds(0, 68, 60, 14);
         shortTermPanel5.add(shortWeatherCondition5);
 
-        shortTermTemp5 = new JLabel(df.format(weatherData.shortTermWeather[4].getTemperature())+"\u00B0");
+        shortTermTemp5 = new JLabel(df.format(weatherData.shortTermWeather[4].getTemperature()) + "\u00B0");
         shortTermTemp5.setHorizontalAlignment(SwingConstants.CENTER);
         shortTermTemp5.setFont(new Font("Tahoma", Font.BOLD, 13));
         shortTermTemp5.setBounds(10, 79, 40, 26);
@@ -713,7 +715,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         shortWeatherCondition6.setBounds(0, 68, 60, 14);
         shortTermPanel6.add(shortWeatherCondition6);
 
-        shortTermTemp6 = new JLabel(df.format(weatherData.shortTermWeather[5].getTemperature())+"\u00B0");
+        shortTermTemp6 = new JLabel(df.format(weatherData.shortTermWeather[5].getTemperature()) + "\u00B0");
         shortTermTemp6.setHorizontalAlignment(SwingConstants.CENTER);
         shortTermTemp6.setFont(new Font("Tahoma", Font.BOLD, 13));
         shortTermTemp6.setBounds(10, 79, 40, 26);
@@ -741,7 +743,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         shortWeatherCondition7.setBounds(0, 68, 60, 14);
         shortTermPanel7.add(shortWeatherCondition7);
 
-        shortTermTemp7 = new JLabel(df.format(weatherData.shortTermWeather[6].getTemperature())+"\u00B0");
+        shortTermTemp7 = new JLabel(df.format(weatherData.shortTermWeather[6].getTemperature()) + "\u00B0");
         shortTermTemp7.setHorizontalAlignment(SwingConstants.CENTER);
         shortTermTemp7.setFont(new Font("Tahoma", Font.BOLD, 13));
         shortTermTemp7.setBounds(10, 79, 40, 26);
@@ -770,30 +772,28 @@ public class WeatherFrame extends JFrame implements ActionListener {
         shortWeatherCondition8.setBounds(0, 68, 60, 14);
         shortTermPanel8.add(shortWeatherCondition8);
 
-        shortTermTemp8 = new JLabel(df.format(weatherData.shortTermWeather[7].getTemperature())+"\u00B0");
+        shortTermTemp8 = new JLabel(df.format(weatherData.shortTermWeather[7].getTemperature()) + "\u00B0");
         shortTermTemp8.setHorizontalAlignment(SwingConstants.CENTER);
         shortTermTemp8.setFont(new Font("Tahoma", Font.BOLD, 13));
         shortTermTemp8.setBounds(10, 79, 40, 26);
         shortTermPanel8.add(shortTermTemp8);
         currWeatherPanel.setLayout(null);
 
-        
-        
+
         /******END SHORT TERM WEATHER******/
-        
+
         ////////////////////////////////////////////
-        
+
         /******CURRENT WEATHER*****/
-        
 
 
-        currLocationLabel = new JLabel(weatherData.getCurrentWeather().getCurrentCity() + ", " +weatherData.getCurrentWeather().getCountryCode());
+        currLocationLabel = new JLabel(weatherData.getCurrentWeather().getCurrentCity() + ", " + weatherData.getCurrentWeather().getCountryCode());
         currLocationLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
         currLocationLabel.setBounds(10, 11, 400, 24);
         currLocationLabel.setHorizontalAlignment(SwingConstants.LEFT);
         currWeatherPanel.add(currLocationLabel);
 
-        currSunriseLabel = new JLabel("Sunrise: "+ weatherData.getCurrentWeather().getSunrise());
+        currSunriseLabel = new JLabel("Sunrise: " + weatherData.getCurrentWeather().getSunrise());
         currSunriseLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
         currSunriseLabel.setBounds(181, 202, 200, 14);
         currWeatherPanel.add(currSunriseLabel);
@@ -803,18 +803,18 @@ public class WeatherFrame extends JFrame implements ActionListener {
         currSunsetLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
         currSunsetLabel.setBounds(181, 227, 200, 14);
         currWeatherPanel.add(currSunsetLabel);
-        
-        currWeatherDescriptionLabel = new JLabel("Conditions: "+weatherData.getCurrentWeather().getDescription());
+
+        currWeatherDescriptionLabel = new JLabel("Conditions: " + weatherData.getCurrentWeather().getDescription());
         currWeatherDescriptionLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
         currWeatherDescriptionLabel.setBounds(10, 151, 400, 24);
         currWeatherPanel.add(currWeatherDescriptionLabel);
-        
-        
+
+
         // Adds an image
 
         currWeatherIcon = new JLabel(new ImageIcon(displayCorrectImage(weatherData.getCurrentWeather().getIcon())));
         currWeatherIcon.setBounds(10, 40, 100, 100);
-        
+
         currWeatherPanel.add(currWeatherIcon);
 
 
@@ -829,19 +829,19 @@ public class WeatherFrame extends JFrame implements ActionListener {
         currWeatherPanel.add(currHumidityLabel);
 
 
-        currWindSpeedLabel = new JLabel("Wind Speed: "+df.format(weatherData.getCurrentWeather().getWindSpeed())+" km/h\r\n");
+        currWindSpeedLabel = new JLabel("Wind Speed: " + df.format(weatherData.getCurrentWeather().getWindSpeed()) + " km/h\r\n");
         currWindSpeedLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
         currWindSpeedLabel.setBounds(10, 174, 170, 24);
         currWeatherPanel.add(currWindSpeedLabel);
 
 
-        currWindDirection = new JLabel("Wind Direction: "+weatherData.getCurrentWeather().getWindDirectionString());
+        currWindDirection = new JLabel("Wind Direction: " + weatherData.getCurrentWeather().getWindDirectionString());
         currWindDirection.setFont(new Font("Tahoma", Font.PLAIN, 14));
         currWindDirection.setBounds(181, 174, 200, 24);
         currWeatherPanel.add(currWindDirection);
-        
 
-        currPressureLabel = new JLabel("Pressure: "+ df.format(weatherData.getCurrentWeather().getAirPressure()) +" kPa\r\n");
+
+        currPressureLabel = new JLabel("Pressure: " + df.format(weatherData.getCurrentWeather().getAirPressure()) + " kPa\r\n");
         currPressureLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
         currPressureLabel.setBounds(10, 221, 150, 24);
         currWeatherPanel.add(currPressureLabel);
@@ -849,7 +849,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         JLabel currTemp = new JLabel("Current Temperature: ");
         currTemp.setBounds(330, 22, 150, 50);
         currWeatherPanel.add(currTemp);
-        
+
 
         currTempOutput = new JLabel(df.format(weatherData.getCurrentWeather().getTemperature()) + "\u00B0");
         currTempOutput.setFont(new Font("Tahoma", Font.PLAIN, 56));
@@ -857,124 +857,125 @@ public class WeatherFrame extends JFrame implements ActionListener {
         currWeatherPanel.add(currTempOutput);
 
 
-        currLowestTemp = new JLabel("\u2207"+df.format(weatherData.getCurrentWeather().getMinTemp())+"\u00B0");
+        currLowestTemp = new JLabel("\u2207" + df.format(weatherData.getCurrentWeather().getMinTemp()) + "\u00B0");
         currLowestTemp.setBounds(397, 125, 60, 15);
         currWeatherPanel.add(currLowestTemp);
 
-        currHighestTemp = new JLabel("\u25B2"+df.format(weatherData.getCurrentWeather().getMaxTemp())+"\u00B0");
+        currHighestTemp = new JLabel("\u25B2" + df.format(weatherData.getCurrentWeather().getMaxTemp()) + "\u00B0");
         currHighestTemp.setBounds(330, 125, 60, 14);
         currWeatherPanel.add(currHighestTemp);
 
         lastUpdatedLabel = new JLabel("Last updated: " + weatherData.getCurrentWeather().getLastUpdatedTime());
         lastUpdatedLabel.setBounds(443, 238, 200, 14);
         currWeatherPanel.add(lastUpdatedLabel);
-        
-        JButton currRefreshButton = new JButton(new ImageIcon(refreshImage));
+
+//        JButton currRefreshButton = new JButton(new ImageIcon(refreshImage));
+        JButton currRefreshButton = new JButton();
         currRefreshButton.setContentAreaFilled(false);
         currRefreshButton.setBounds(519, 11, 40, 40);
         currWeatherPanel.add(currRefreshButton);
         currRefreshButton.addActionListener(
-        		new ActionListener() {
-        			public void actionPerformed(ActionEvent e) {
-        				lastUpdatedLabel.setText("Updating ...");
-        				refreshGUI();
-        			}
-        		});
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        lastUpdatedLabel.setText("Updating ...");
+                        refreshGUI();
+                    }
+                });
 
         /******END CURRENT WEATHER******/
-        
+
         /******LOCATIONS******/
-        
+
         weatherList = new DefaultListModel();
         locationList = new JList(weatherList);
         final JScrollPane pane = new JScrollPane(locationList);
         pane.setBounds(10, 25, 180, 520);
-        
+
         //Switching the current weatherData when JList object is selected
         locationList.addMouseListener(new MouseAdapter() {
-        	public void mouseClicked(MouseEvent e) {
-        		locationList = (JList)e.getSource();
-        		if (e.getClickCount()==1) {		//If an object is clicked then: 
-        			if (e.getButton() == MouseEvent.BUTTON1) {
-        				String s = (String) locationList.getSelectedValue();
-        				weatherData = changeWeatherLocation(s, weatherData);
-        				System.out.println(s);
-        			}
-        			if (e.getButton() == MouseEvent.BUTTON3) {
-            			final JPopupMenu deleteMenu = new JPopupMenu("Delete");
-            			JMenuItem deleteButton = new JMenuItem("Delete");
-            			deleteMenu.add(deleteButton);
-            			deleteMenu.setVisible(true);
-            			deleteButton.addActionListener(new ActionListener() {
-            				public void actionPerformed(ActionEvent e) {
-            					locationList.remove(locationList.getSelectedIndex());
-            					weatherList.removeElementAt(locationList.getSelectedIndex());
-            					removeLocationList((String)locationList.getSelectedValue());
-            					deleteMenu.setVisible(false);
-            					updateLocationList();
-            				}
-            			});
-            			
-        			}
-        		}
-        		refreshGUI();
-        	}
+            public void mouseClicked(MouseEvent e) {
+                locationList = (JList) e.getSource();
+                if (e.getClickCount() == 1) {        //If an object is clicked then:
+                    if (e.getButton() == MouseEvent.BUTTON1) {
+                        String s = (String) locationList.getSelectedValue();
+                        weatherData = changeWeatherLocation(s, weatherData);
+                        System.out.println(s);
+                    }
+                    if (e.getButton() == MouseEvent.BUTTON3) {
+                        final JPopupMenu deleteMenu = new JPopupMenu("Delete");
+                        JMenuItem deleteButton = new JMenuItem("Delete");
+                        deleteMenu.add(deleteButton);
+                        deleteMenu.setVisible(true);
+                        deleteButton.addActionListener(new ActionListener() {
+                            public void actionPerformed(ActionEvent e) {
+                                locationList.remove(locationList.getSelectedIndex());
+                                weatherList.removeElementAt(locationList.getSelectedIndex());
+                                removeLocationList((String) locationList.getSelectedValue());
+                                deleteMenu.setVisible(false);
+                                updateLocationList();
+                            }
+                        });
+
+                    }
+                }
+                refreshGUI();
+            }
         });
-        
-        
+
+
         JLabel locationsLabel = new JLabel("Your Locations");
         locationsLabel.setBounds(10, 0, 200, 23);
         locationsLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        
-        
+
+
         JButton btnAdd = new JButton("Add Location");
         btnAdd.setBounds(10, 560, 180, 23);
         btnAdd.addActionListener(
-        new ActionListener() {
-       		public void actionPerformed(ActionEvent e) {
-       			final JFrame locationAdder = new JFrame("Add Location");
-        		locationAdder.setSize(310,120);
-        		locationAdder.setLocationRelativeTo(null);
-        		locationAdder.setVisible(true);
-        		locationAdder.getContentPane().setLayout(null);
-        		
-        		//Adding Text
-        		JLabel cityInputLabel = new JLabel("Input a city: ");
-        		cityInputLabel.setBounds(4, 5, 150, 23);
-        		locationAdder.add(cityInputLabel);
-        		
-        		JLabel countryInputLabel = new JLabel("Input a country: ");
-        		countryInputLabel.setBounds(4, 30, 150, 23);
-        		locationAdder.add(countryInputLabel);
-        		
-        		//Adding a text field
-        		final JTextField cityInput = new JTextField();
-        		cityInput.setBounds(107, 5, 200, 23);
-        		locationAdder.add(cityInput);
-        		
-        		final JTextField countryInput = new JTextField();
-        		countryInput.setBounds(107, 30, 200, 23);
-        		locationAdder.add(countryInput);
-        		
-        		//Adding an accept button
-        		JButton btnAccept = new JButton("Accept");
-        		btnAccept.setBounds(77, 65, 150, 23);
-        		locationAdder.add(btnAccept);
-        		btnAccept.addActionListener(
-        				new ActionListener() {
-							public void actionPerformed(ActionEvent e) {
-        						userCityInput = cityInput.getText();
-        						userCountryInput = countryInput.getText();
-        						userCountryInput = changeToCountryCode(userCountryInput);
-        						WeatherData newWeatherData = new WeatherData(userCityInput, userCountryInput);
-        						addToLocationList(newWeatherData); //Adding the location to the myLocations list
-        						locationAdder.dispose();	//Close the frame when accept is clicked
-        					}
-        				});
-       		}
-       	});
-        
-        
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        final JFrame locationAdder = new JFrame("Add Location");
+                        locationAdder.setSize(310, 120);
+                        locationAdder.setLocationRelativeTo(null);
+                        locationAdder.setVisible(true);
+                        locationAdder.getContentPane().setLayout(null);
+
+                        //Adding Text
+                        JLabel cityInputLabel = new JLabel("Input a city: ");
+                        cityInputLabel.setBounds(4, 5, 150, 23);
+                        locationAdder.add(cityInputLabel);
+
+                        JLabel countryInputLabel = new JLabel("Input a country: ");
+                        countryInputLabel.setBounds(4, 30, 150, 23);
+                        locationAdder.add(countryInputLabel);
+
+                        //Adding a text field
+                        final JTextField cityInput = new JTextField();
+                        cityInput.setBounds(107, 5, 200, 23);
+                        locationAdder.add(cityInput);
+
+                        final JTextField countryInput = new JTextField();
+                        countryInput.setBounds(107, 30, 200, 23);
+                        locationAdder.add(countryInput);
+
+                        //Adding an accept button
+                        JButton btnAccept = new JButton("Accept");
+                        btnAccept.setBounds(77, 65, 150, 23);
+                        locationAdder.add(btnAccept);
+                        btnAccept.addActionListener(
+                                new ActionListener() {
+                                    public void actionPerformed(ActionEvent e) {
+                                        userCityInput = cityInput.getText();
+                                        userCountryInput = countryInput.getText();
+                                        userCountryInput = changeToCountryCode(userCountryInput);
+                                        WeatherData newWeatherData = new WeatherData(userCityInput, userCountryInput);
+                                        addToLocationList(newWeatherData); //Adding the location to the myLocations list
+                                        locationAdder.dispose();    //Close the frame when accept is clicked
+                                    }
+                                });
+                    }
+                });
+
+
         LocationPanel.setLayout(null);
         LocationPanel.add(locationsLabel);
         LocationPanel.add(btnAdd);
@@ -984,185 +985,160 @@ public class WeatherFrame extends JFrame implements ActionListener {
         /******END LOCATIONS******/
     }
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-	/**************METHODS*************/
-    
-	public void actionPerformed(ActionEvent e) {
-		
-	}
-    
-	public WeatherData changeWeatherLocation(String s, WeatherData weatherData) {
-		for (int i=0; i<locationNames.length; i++) {
-			String checkString = new String(locationNames[i].getCurrentWeather().getCurrentCity()+", "+locationNames[i].getCurrentWeather().getCountryCode());
-			
-			if (checkString.equals(s)) {
-				weatherData = locationNames[i];
-				return weatherData;
-			}
-			
-		}
-		return null;
-	}
-	
-	
+
+    /**
+     * ***********METHODS************
+     */
+
+    public void actionPerformed(ActionEvent e) {
+
+    }
+
+    public WeatherData changeWeatherLocation(String s, WeatherData weatherData) {
+        for (int i = 0; i < locationNames.length; i++) {
+            String checkString = new String(locationNames[i].getCurrentWeather().getCurrentCity() + ", " + locationNames[i].getCurrentWeather().getCountryCode());
+
+            if (checkString.equals(s)) {
+                weatherData = locationNames[i];
+                return weatherData;
+            }
+
+        }
+        return null;
+    }
+
+
     public BufferedImage displayCorrectImage(String description) {
         if (description.equals("01d")) {
-        	return icon01d;
-        }
-        else if (description.equals("02d")) {
-        	return icon02d;
-        }
-        else if (description.equals("03d")) {
-        	return icon03d;
-        }
-        else if (description.equals("04d")) {
-        	return icon04d;
-        }
-        else if (description.equals("09d")) {
-        	return icon09d; 
-        }
-        else if (description.equals("10d")) {
-        	return icon10d;
-        }
-        else if (description.equals("11d")) {
+            return icon01d;
+        } else if (description.equals("02d")) {
+            return icon02d;
+        } else if (description.equals("03d")) {
+            return icon03d;
+        } else if (description.equals("04d")) {
+            return icon04d;
+        } else if (description.equals("09d")) {
+            return icon09d;
+        } else if (description.equals("10d")) {
+            return icon10d;
+        } else if (description.equals("11d")) {
             return icon11d;
-        }
-        else if (description.equals("13d")) {
-        	return icon13d;
-        }
-        else if (description.equals("50d")) {
-        	return icon50d;
-        }
-        else if (description.equals("01n")) {
+        } else if (description.equals("13d")) {
+            return icon13d;
+        } else if (description.equals("50d")) {
+            return icon50d;
+        } else if (description.equals("01n")) {
             return icon01n;
-        }
-        else if (description.equals("02n")) {
+        } else if (description.equals("02n")) {
             return icon02n;
-        }
-        else if (description.equals("03n")) {
+        } else if (description.equals("03n")) {
             return icon03n;
-        }
-        else if (description.equals("04n")) {
+        } else if (description.equals("04n")) {
             return icon04n;
-        }
-        else if (description.equals("09n")) {
+        } else if (description.equals("09n")) {
             return icon09n;
-        }
-        else if (description.equals("10n")) {
+        } else if (description.equals("10n")) {
             return icon10n;
-        }
-        else if (description.equals("11n")) {
+        } else if (description.equals("11n")) {
             return icon11n;
-        }
-        else if (description.equals("13n")) {
+        } else if (description.equals("13n")) {
             return icon13n;
-        }
-        else if (description.equals("50n")) {
+        } else if (description.equals("50n")) {
             return icon50n;
         }
         return null;
     }
-    
-    
-	public String changeToCountryCode(String country) {
-		//TODO: Convert all spaces to hyphens (-)
-		country = country.replace(' ', '-');
-		return country;
-	}
-	
-	
-	public void addToLocationList(WeatherData newWeatherData) {
-		boolean check = false;
-		for (int i=0; i<locationNames.length; i++) {
-			if (locationNames[i] == null) {
-				locationNames[i] = newWeatherData;
-				check = true;
-			}
-		}
-		if (check == false) {
-			arrayOverflow(newWeatherData);
-			updateLocationList();
-			return;
-		}
-		updateLocationList();
-	}
-	
-	public void arrayOverflow(WeatherData newWeatherData) {
-		WeatherData[] newWeatherDataArray = new WeatherData[locationNames.length*2];
-		int i=0;
-		for (; i<locationNames.length; i++) {
-			newWeatherDataArray[i] = locationNames[i];
-		}
-		newWeatherDataArray[locationNames.length] = newWeatherData;
-		locationNames = newWeatherDataArray;
-	}
-	
-	
-	public WeatherData[] removeLocationList(String cityName) {
-		WeatherData[] newWeatherDataArray = new WeatherData[locationNames.length];
-		for (int i=0; i<locationNames.length; i++) {
-			if ((locationNames[i].getCurrentWeather().getCurrentCity()+", "+locationNames[i].getCurrentWeather().getCountryCode()).equals(cityName)) {
-				locationNames[i] = null;
-			}
-		}
-		boolean check = false;
-		for (int i=0; i<locationNames.length; i++) {
-			if (locationNames[i] != null) {
-				if (!check) {
-					newWeatherDataArray[i] = locationNames[i];
-				}
-				else {
-					newWeatherDataArray[i-1] = locationNames[i];
-				}
-				
-			}
-			else 
-				check = true;
-		}
-		return newWeatherDataArray;
-		
-	}
-	
-	
-	public void updateLocationList() {
-		weatherList.removeAllElements();
-		for (int i=0; i<locationNames.length; i++) {
-			if (locationNames[i]!=null) {
-				 weatherList.addElement(locationNames[i].getCurrentWeather().getCurrentCity() + ", " + locationNames[i].getCurrentWeather().getCountryCode());
-			}
-		}
-	}
-	
+
+
+    public String changeToCountryCode(String country) {
+        //TODO: Convert all spaces to hyphens (-)
+        country = country.replace(' ', '-');
+        return country;
+    }
+
+
+    public void addToLocationList(WeatherData newWeatherData) {
+        boolean check = false;
+        for (int i = 0; i < locationNames.length; i++) {
+            if (locationNames[i] == null) {
+                locationNames[i] = newWeatherData;
+                check = true;
+            }
+        }
+        if (check == false) {
+            arrayOverflow(newWeatherData);
+            updateLocationList();
+            return;
+        }
+        updateLocationList();
+    }
+
+    public void arrayOverflow(WeatherData newWeatherData) {
+        WeatherData[] newWeatherDataArray = new WeatherData[locationNames.length * 2];
+        int i = 0;
+        for (; i < locationNames.length; i++) {
+            newWeatherDataArray[i] = locationNames[i];
+        }
+        newWeatherDataArray[locationNames.length] = newWeatherData;
+        locationNames = newWeatherDataArray;
+    }
+
+
+    public WeatherData[] removeLocationList(String cityName) {
+        WeatherData[] newWeatherDataArray = new WeatherData[locationNames.length];
+        for (int i = 0; i < locationNames.length; i++) {
+            if ((locationNames[i].getCurrentWeather().getCurrentCity() + ", " + locationNames[i].getCurrentWeather().getCountryCode()).equals(cityName)) {
+                locationNames[i] = null;
+            }
+        }
+        boolean check = false;
+        for (int i = 0; i < locationNames.length; i++) {
+            if (locationNames[i] != null) {
+                if (!check) {
+                    newWeatherDataArray[i] = locationNames[i];
+                } else {
+                    newWeatherDataArray[i - 1] = locationNames[i];
+                }
+
+            } else
+                check = true;
+        }
+        return newWeatherDataArray;
+
+    }
+
+
+    public void updateLocationList() {
+        weatherList.removeAllElements();
+        for (int i = 0; i < locationNames.length; i++) {
+            if (locationNames[i] != null) {
+                weatherList.addElement(locationNames[i].getCurrentWeather().getCurrentCity() + ", " + locationNames[i].getCurrentWeather().getCountryCode());
+            }
+        }
+    }
+
     public void refreshGUI() {
-    	try {
-			weatherData.update();
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}       	currLocationLabel.setText(weatherData.getCurrentWeather().getCurrentCity() + ", " +weatherData.getCurrentWeather().getCountryCode());
-    	currSunriseLabel.setText("Sunrise: "+ weatherData.getCurrentWeather().getSunrise());
-    	currSunsetLabel.setText("Sunset: " + weatherData.getCurrentWeather().getSunset());
-    	currWeatherConditionLabel.setText("Weather Conditions");
-    	currHumidityLabel.setText("Humidity: " + weatherData.getCurrentWeather().getHumidity() + "%\r\n");
-    	currWindSpeedLabel.setText("Wind Speed: "+df.format(weatherData.getCurrentWeather().getWindSpeed())+" km/h\r\n");
-    	currWindDirection.setText("Wind Direction: "+weatherData.getCurrentWeather().getWindDirectionString());
-    	currPressureLabel.setText("Pressure: "+ df.format(weatherData.getCurrentWeather().getAirPressure()) +" kPa\r\n");
-    	currTempOutput.setText(df.format(weatherData.getCurrentWeather().getTemperature()) + "\u00B0");
-    	currLowestTemp.setText("\u2207"+df.format(weatherData.getCurrentWeather().getMinTemp())+"\u00B0");
-    	currHighestTemp.setText("\u25B2"+df.format(weatherData.getCurrentWeather().getMaxTemp())+"\u00B0");
-		lastUpdatedLabel.setText("Last updated: " + weatherData.getCurrentWeather().getLastUpdatedTime());
-		currWeatherDescriptionLabel.setText("Conditions: "+weatherData.getCurrentWeather().getDescription());
-		currWeatherIcon.setIcon(new ImageIcon(displayCorrectImage(weatherData.getCurrentWeather().getIcon())));
+        try {
+            weatherData.update();
+
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        currLocationLabel.setText(weatherData.getCurrentWeather().getCurrentCity() + ", " + weatherData.getCurrentWeather().getCountryCode());
+        currSunriseLabel.setText("Sunrise: " + weatherData.getCurrentWeather().getSunrise());
+        currSunsetLabel.setText("Sunset: " + weatherData.getCurrentWeather().getSunset());
+        currWeatherConditionLabel.setText("Weather Conditions");
+        currHumidityLabel.setText("Humidity: " + weatherData.getCurrentWeather().getHumidity() + "%\r\n");
+        currWindSpeedLabel.setText("Wind Speed: " + df.format(weatherData.getCurrentWeather().getWindSpeed()) + " km/h\r\n");
+        currWindDirection.setText("Wind Direction: " + weatherData.getCurrentWeather().getWindDirectionString());
+        currPressureLabel.setText("Pressure: " + df.format(weatherData.getCurrentWeather().getAirPressure()) + " kPa\r\n");
+        currTempOutput.setText(df.format(weatherData.getCurrentWeather().getTemperature()) + "\u00B0");
+        currLowestTemp.setText("\u2207" + df.format(weatherData.getCurrentWeather().getMinTemp()) + "\u00B0");
+        currHighestTemp.setText("\u25B2" + df.format(weatherData.getCurrentWeather().getMaxTemp()) + "\u00B0");
+        lastUpdatedLabel.setText("Last updated: " + weatherData.getCurrentWeather().getLastUpdatedTime());
+        currWeatherDescriptionLabel.setText("Conditions: " + weatherData.getCurrentWeather().getDescription());
+        currWeatherIcon.setIcon(new ImageIcon(displayCorrectImage(weatherData.getCurrentWeather().getIcon())));
         longTermIcon1.setIcon(new ImageIcon(displayCorrectImage(weatherData.longTermWeather[0].getIcon())));
         longWeatherCondition1.setText(weatherData.longTermWeather[0].getCondition());
         longTermTemp1.setText(df.format(weatherData.longTermWeather[0].getTemperature()) + "\u00B0");
@@ -1172,22 +1148,22 @@ public class WeatherFrame extends JFrame implements ActionListener {
         longWeatherCondition2.setText(weatherData.longTermWeather[1].getCondition());
         longTermTemp2.setText(df.format(weatherData.longTermWeather[1].getTemperature()) + "\u00B0");
         longMaxTemp2.setText("\u25B2" + df.format(weatherData.longTermWeather[1].getMax()));
-        longMinTemp2.setText("\u2207"+df.format(weatherData.longTermWeather[1].getMin()));
+        longMinTemp2.setText("\u2207" + df.format(weatherData.longTermWeather[1].getMin()));
         longTermIcon3.setIcon(new ImageIcon(displayCorrectImage(weatherData.longTermWeather[2].getIcon())));
         longWeatherCondition3.setText(weatherData.longTermWeather[2].getCondition());
         longTermTemp3.setText(df.format(weatherData.longTermWeather[2].getTemperature()) + "\u00B0");
         longMaxTemp3.setText("\u25B2" + df.format(weatherData.longTermWeather[2].getMax()));
-        longMinTemp3.setText("\u2207"+df.format(weatherData.longTermWeather[2].getMin()));
+        longMinTemp3.setText("\u2207" + df.format(weatherData.longTermWeather[2].getMin()));
         longTermIcon4.setIcon(new ImageIcon(displayCorrectImage(weatherData.longTermWeather[3].getIcon())));
         longWeatherCondition4.setText(weatherData.longTermWeather[3].getCondition());
         longTermTemp4.setText(df.format(weatherData.longTermWeather[3].getTemperature()) + "\u00B0");
         longMaxTemp4.setText("\u25B2" + df.format(weatherData.longTermWeather[3].getMax()));
-        longMinTemp4.setText("\u2207"+df.format(weatherData.longTermWeather[3].getMin()));
+        longMinTemp4.setText("\u2207" + df.format(weatherData.longTermWeather[3].getMin()));
         longTermIcon5.setIcon(new ImageIcon(displayCorrectImage(weatherData.longTermWeather[4].getIcon())));
         longWeatherCondition5.setText(weatherData.longTermWeather[4].getCondition());
         longTermTemp5.setText(df.format(weatherData.longTermWeather[4].getTemperature()) + "\u00B0");
         longMaxTemp5.setText("\u25B2" + df.format(weatherData.longTermWeather[4].getMax()));
-        longMinTemp5.setText("\u2207"+df.format(weatherData.longTermWeather[4].getMin()));
+        longMinTemp5.setText("\u2207" + df.format(weatherData.longTermWeather[4].getMin()));
         shortTermIcon1.setIcon(new ImageIcon(displayCorrectImage(weatherData.shortTermWeather[0].getIcon())));
         shortTermTemp1.setText(df.format(weatherData.shortTermWeather[0].getTemperature()) + "\u00B0");
         shortWeatherCondition1.setText(weatherData.shortTermWeather[0].getCondition());
@@ -1214,6 +1190,6 @@ public class WeatherFrame extends JFrame implements ActionListener {
         shortWeatherCondition8.setText(weatherData.shortTermWeather[7].getCondition());
     }
 
-    
+
 }
 
