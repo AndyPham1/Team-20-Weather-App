@@ -30,7 +30,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
     private JLabel lastUpdatedLabel;
     private JPanel contentPane;
     private JList locationList;
-    private static WeatherData[] locationNames = new WeatherData[1];
+    private static WeatherData[] locationNames = new WeatherData[10];
     private String userCityInput;
     private String userCountryInput;
     private DecimalFormat df;
@@ -862,22 +862,21 @@ public class WeatherFrame extends JFrame implements ActionListener {
         		if (e.getClickCount()==1) {		//If an object is clicked then: 
         			if (SwingUtilities.isLeftMouseButton(e)) {
         				String s = (String) locationList.getSelectedValue();
-        				weatherData = changeWeatherLocation(s, weatherData);
+        				weatherData = changeWeatherLocation(s);
         				refreshGUI();
+                        System.out.println(locationList.getSelectedValue());
+                        test();
         			}
         			else if (SwingUtilities.isRightMouseButton(e)) {
         				final JPopupMenu deleteMenu = new JPopupMenu("Delete");
         				JMenuItem deleteButton = new JMenuItem("Delete");
         				deleteMenu.add(deleteButton);
         				deleteMenu.setVisible(true);
-        				System.out.println(locationList.getSelectedIndex());
         				locationList.setSelectedIndex(locationList.getSelectedIndex());
-        				final boolean check = false;
         				deleteButton.addActionListener(new ActionListener() {
         					public void actionPerformed(ActionEvent e) {
        							deleteMenu.setVisible(false);
-       							weatherList.removeElementAt(locationList.getSelectedIndex());
-       							updateLocationList();
+       							weatherList.remove(locationList.getSelectedIndex());
        						}
        					});
        				}
@@ -945,7 +944,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         LocationPanel.add(btnAdd);
         LocationPanel.add(pane);
         contentPane.setLayout(gl_contentPane);
-        updateLocationList();
+//        updateLocationList();
         /******END LOCATIONS******/
     }
 
@@ -957,22 +956,33 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		
 	}
     
+    public String test() {
+        for (int i=0; i<locationNames.length; i++) {
+        	if (locationNames[i]!=null) 
+        		System.out.println(locationNames[i].getCurrentCity()+", "+locationNames[i].getCountryCode());
+        }
+        return null;
+    }
+    
+    
 	/**
 	 * changeWeatherLocation method changes the weather for the new location
 	 * @param s take in a string with City and Country Code
 	 * @param weatherData get the weatherData
 	 * @return a new WeatherData object of the new location
 	 */
-	public WeatherData changeWeatherLocation(String s, WeatherData weatherData) {
+	public WeatherData changeWeatherLocation(String location) {
 		for (int i=0; i<locationNames.length; i++) {
-			String checkString = new String(locationNames[i].getCurrentCity()+", "+locationNames[i].getCountryCode());
-			
-			if (checkString.equals(s)) {
+			String checkString = " ";		//String can't be empty
+			if (locationNames[i] != null)
+				checkString = locationNames[i].getCurrentCity()+", "+locationNames[i].getCountryCode();
+			if (checkString.equals(location)) {
 				weatherData = locationNames[i];
 				return weatherData;
 			}
-			
+			checkString = " ";
 		}
+        System.out.println("Location not found.");
 		return null;
 	}
 	
@@ -1092,17 +1102,16 @@ public class WeatherFrame extends JFrame implements ActionListener {
 	public void addToLocationList(WeatherData newWeatherData) {
 		boolean check = false;
 		for (int i=0; i<locationNames.length; i++) {
-			if (locationNames[i] == null) {
+			if (locationNames[i] == null && check == false) {
 				locationNames[i] = newWeatherData;
+				weatherList.addElement(locationNames[i].getCurrentCity()+", "+locationNames[i].getCountryCode());
 				check = true;
 			}
 		}
 		if (check == false) {
 			arrayOverflow(newWeatherData);
-			updateLocationList();
 			return;
 		}
-		updateLocationList();
 	}
 	
 	/**
@@ -1110,7 +1119,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 	 * @param newWeatherData take in WeatherData
 	 */
 	public void arrayOverflow(WeatherData newWeatherData) {
-		WeatherData[] newWeatherDataArray = new WeatherData[locationNames.length+1];
+		WeatherData[] newWeatherDataArray = new WeatherData[locationNames.length*2];
 		for (int i=0; i<locationNames.length; i++) {
 			newWeatherDataArray[i] = locationNames[i];
 		}
@@ -1130,35 +1139,21 @@ public class WeatherFrame extends JFrame implements ActionListener {
 				locationNames[i] = null;
 			}
 		}
-		boolean check = false;
-		for (int i=0; i<locationNames.length; i++) {
-			if (locationNames[i] != null) {
-				if (!check) {
-					newWeatherDataArray[i] = locationNames[i];
-				}
-				else {
-					newWeatherDataArray[i-1] = locationNames[i];
-				}
-				
-			}
-			else 
-				check = true;
-		}
-		return newWeatherDataArray;
+		return locationNames;
 		
 	}
 
-	/**
-	 * updateLocationList method updates the location list 
-	 */
-	public void updateLocationList() {
-		weatherList.removeAllElements();
-		for (int i=0; i<locationNames.length; i++) {
-			if (locationNames[i]!=null) {
-				 weatherList.addElement(locationNames[i].getCurrentCity() + ", " + locationNames[i].getCountryCode());
-			}
-		}
-	}
+//	/**
+//	 * updateLocationList method updates the location list 
+//	 */
+//	public void updateLocationList() {
+//		weatherList.removeAllElements();
+//		for (int i=0; i<locationNames.length; i++) {
+//			if (locationNames[i]!=null) {
+//				 weatherList.addElement(locationNames[i].getCurrentCity() + ", " + locationNames[i].getCountryCode());
+//			}
+//		}
+//	}
 	/**
 	 * refreshGUI method refreshes the GUI
 	 */
@@ -1166,7 +1161,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
     	try {
 			weatherData.update();
 			
-		} catch (IOException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}   
