@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Built-By: stanleychin
+Build-Jdk: 1.6.0_65
+Created-By: Apache Maven 3.2.5
+Main-Class: main.java.weather.Swing
+Archiver-Version: Plexus Archiver
+
