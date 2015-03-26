@@ -696,19 +696,41 @@ public class WeatherFrame extends JFrame implements ActionListener {
         
         /******LOCATIONS******/
         
-//        locationList = new JList<WeatherData>(locationNames);
-//        locationList.setVisibleRowCount(4);	//Number of rows it will display
-//        locationList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); //Only one city can be selected at once
-//        add(new JScrollPane(locationList));
-//        locationList.addListSelectionListener(
-//        		new ListSelectionListener(){
-//					
-//        			public void valueChanged(ListSelectionEvent e) {
-//						
-//						
-//						
-//					}
-//        		});
+        weatherList = new DefaultListModel();
+        locationList = new JList(weatherList);
+        final JScrollPane pane = new JScrollPane(locationList);
+        pane.setBounds(10, 25, 180, 520);
+        
+        //Switching the current weatherData when JList object is selected
+        locationList.addMouseListener(new MouseAdapter() {
+        	public void mouseClicked(MouseEvent e) {
+        		locationList = (JList)e.getSource();
+        		if (e.getClickCount()==1) {		//If an object is clicked then: 
+        			if (SwingUtilities.isLeftMouseButton(e)) {
+        				String s = (String) locationList.getSelectedValue();
+        				weatherData = changeWeatherLocation(s);
+        				refreshGUI();
+                        System.out.println(locationList.getSelectedValue());
+                        test();
+        			}
+        			else if (SwingUtilities.isRightMouseButton(e)) {
+        				final JPopupMenu deleteMenu = new JPopupMenu("Delete");
+        				JMenuItem deleteButton = new JMenuItem("Delete");
+        				deleteMenu.add(deleteButton);
+        				deleteMenu.setVisible(true);
+        				locationList.setSelectedIndex(locationList.getSelectedIndex());
+        				deleteButton.addActionListener(new ActionListener() {
+        					public void actionPerformed(ActionEvent e) {
+       							deleteMenu.setVisible(false);
+       							weatherList.remove(locationList.getSelectedIndex());
+       						}
+       					});
+       				}
+                }
+       		}
+ 
+        });
+        
         
         JLabel locationsLabel = new JLabel("Your Locations");
         locationsLabel.setBounds(10, 0, 200, 23);
@@ -747,41 +769,32 @@ public class WeatherFrame extends JFrame implements ActionListener {
         		//Adding an accept button
         		JButton btnAccept = new JButton("Accept");
         		btnAccept.setBounds(77, 65, 150, 23);
+        		locationAdder.add(btnAccept);
         		btnAccept.addActionListener(
         				new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
-        						/*TODO: Take user input and add city data based on input */
-        						userCityInput = cityInput.getName();
-        						userCountryInput = countryInput.getName();
+        						userCityInput = cityInput.getText();
+        						userCountryInput = countryInput.getText();
         						userCountryInput = changeToCountryCode(userCountryInput);
         						WeatherData newWeatherData = new WeatherData(userCityInput, userCountryInput);
         						addToLocationList(newWeatherData); //Adding the location to the myLocations list
-        						locationAdder.setVisible(false);
         						locationAdder.dispose();	//Close the frame when accept is clicked
         					}
         				});
-        		locationAdder.add(btnAccept);
-        		
-        		
        		}
        	});
         
-//        JButton btnRemove = new JButton("Remove");
-//        btnRemove.setBounds(86, 511, 101, 23);
-        
-//        locationInputField = new JTextField();
-//        locationInputField.setBounds(10, 478, 177, 20);
-//        locationInputField.setColumns(10);
-//        LocationPanel.add(locationInputField);
         
         LocationPanel.setLayout(null);
         LocationPanel.add(locationsLabel);
         LocationPanel.add(btnAdd);
-//        LocationPanel.add(btnRemove);
+        LocationPanel.add(pane);
         contentPane.setLayout(gl_contentPane);
+        
         
         /******END LOCATIONS******/
     }
+        
 
 	/**************METHODS*************/
     
