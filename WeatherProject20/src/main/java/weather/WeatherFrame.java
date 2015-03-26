@@ -11,6 +11,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import java.util.concurrent.TimeUnit;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.net.URL;
 import java.text.DecimalFormat;
 import java.awt.event.*;
 import java.awt.*;
@@ -24,6 +25,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 
 	/* Instance Variables */
 	
+	private DefaultListModel weatherList;
 	private WeatherData weatherData;
     private JLabel lastUpdatedLabel;
     private JPanel contentPane;
@@ -33,10 +35,16 @@ public class WeatherFrame extends JFrame implements ActionListener {
     private String userCountryInput;
     private DecimalFormat df;
     
-    private BufferedImage myPictureSunny;
-    private BufferedImage myPictureCloudy;
-    private BufferedImage myPictureDrizzle;
-    private BufferedImage myPictureUpdate;
+    private BufferedImage refreshImage;
+    private BufferedImage clearSkyImage;
+    private BufferedImage fewCloudsImage;
+    private BufferedImage scatteredCloudsImage;
+    private BufferedImage brokenCloudsImage;
+    private BufferedImage showerRainImage;
+    private BufferedImage thunderstormImage;
+    private BufferedImage rainImage;
+    private BufferedImage snowImage;
+    private BufferedImage mistImage;
     
     private JLabel longTermDay1;
     private JLabel longTermIcon1;
@@ -114,6 +122,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
     private JLabel shortTermTemp8;
 
     private JLabel currLocationLabel;
+    private JLabel currWeatherDescriptionLabel;
     private JLabel currSunriseLabel;
     private JLabel currSunsetLabel;
     private JLabel currWeatherIcon;
@@ -134,10 +143,35 @@ public class WeatherFrame extends JFrame implements ActionListener {
     	
     	/*****IMAGES*****/
     	
-    	myPictureSunny = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("sunny.png"));
-        myPictureCloudy = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("cloudy.png"));
-        myPictureDrizzle = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("drizzle.png"));
-        myPictureUpdate = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("update.png"));
+    	URL url = new URL ("http://openweathermap.org/img/w/01d.png");
+    	clearSkyImage = ImageIO.read(url); 
+    	
+    	url = new URL("http://openweathermap.org/img/w/02d.png");
+    	fewCloudsImage = ImageIO.read(url);
+    	
+    	url = new URL("http://openweathermap.org/img/w/03d.png");
+    	scatteredCloudsImage = ImageIO.read(url);
+    	
+    	url = new URL("http://openweathermap.org/img/w/04d.png");
+    	brokenCloudsImage = ImageIO.read(url);
+    	
+    	url = new URL("http://openweathermap.org/img/w/09d.png");
+    	showerRainImage = ImageIO.read(url);
+    	
+    	url = new URL("http://openweathermap.org/img/w/10d.png");
+    	rainImage = ImageIO.read(url);
+    	
+    	url = new URL("http://openweathermap.org/img/w/11d.png");
+    	thunderstormImage = ImageIO.read(url);
+    	
+    	url = new URL("http://openweathermap.org/img/w/13d.png");
+    	snowImage = ImageIO.read(url);
+    	
+    	url = new URL("http://openweathermap.org/img/w/50d.png");
+    	mistImage = ImageIO.read(url);
+    	
+        refreshImage = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("update.png"));
+        
 
         /******END IMAGES*****/
         
@@ -267,7 +301,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         longTermPanel1.add(longTermDay1);
 
         // Adds an image
-        longTermIcon1 = new JLabel(new ImageIcon(myPictureSunny));
+        longTermIcon1 = new JLabel(new ImageIcon(rainImage));
         longTermIcon1.setBounds(10, 30, 82, 50);
         longTermPanel1.add(longTermIcon1);
 
@@ -303,7 +337,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         longTermPanel2.add(longTermDay2);
         
         // Adds an image
-        longTermIcon2 = new JLabel(new ImageIcon(myPictureSunny));
+        longTermIcon2 = new JLabel(new ImageIcon(rainImage));
         longTermIcon2.setBounds(10, 30, 82, 50);
         longTermPanel2.add(longTermIcon2);
 
@@ -339,7 +373,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         longTermPanel3.add(longTermDay3);
 
         // Adds an image
-        longTermIcon3 = new JLabel(new ImageIcon(myPictureSunny));
+        longTermIcon3 = new JLabel(new ImageIcon(rainImage));
         longTermIcon3.setBounds(10, 30, 82, 50);
         longTermPanel3.add(longTermIcon3);
 
@@ -375,7 +409,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         longTermPanel4.add(longTermDay4);
 
         // Adds an image
-        longTermIcon4 = new JLabel(new ImageIcon(myPictureSunny));
+        longTermIcon4 = new JLabel(new ImageIcon(rainImage));
         longTermIcon4.setBounds(10, 30, 82, 50);
         longTermPanel4.add(longTermIcon4);
 
@@ -411,7 +445,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         longTermPanel5.add(longTermDay5);
 
         // Adds an image
-        longTermIcon5 = new JLabel(new ImageIcon(myPictureSunny));
+        longTermIcon5 = new JLabel(new ImageIcon(rainImage));
         longTermIcon5.setBounds(10, 30, 82, 50);
         longTermPanel5.add(longTermIcon5);
 
@@ -452,7 +486,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         shortTermPanel1.add(shortTermTime1);
 
         // Adds an image
-        shortTermIcon1 = new JLabel(new ImageIcon(myPictureCloudy));
+        shortTermIcon1 = new JLabel(new ImageIcon(rainImage));
         shortTermIcon1.setBounds(10, 28, 40, 40);
         shortTermPanel1.add(shortTermIcon1);
 
@@ -479,7 +513,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         shortTermPanel2.add(shortTermTime2);
 
         // Adds an image
-        shortTermIcon2 = new JLabel(new ImageIcon(myPictureCloudy));
+        shortTermIcon2 = new JLabel(new ImageIcon(rainImage));
         shortTermIcon2.setBounds(10, 28, 40, 40);
         shortTermPanel2.add(shortTermIcon2);
 
@@ -506,7 +540,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         shortTermPanel3.add(shortTermTime3);
 
         // Adds an image
-        shortTermIcon3 = new JLabel(new ImageIcon(myPictureCloudy));
+        shortTermIcon3 = new JLabel(new ImageIcon(rainImage));
         shortTermIcon3.setBounds(10, 28, 40, 40);
         shortTermPanel3.add(shortTermIcon3);
 
@@ -533,7 +567,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         shortTermPanel4.add(shortTermTime4);
 
         // Adds an image
-        shortTermIcon4 = new JLabel(new ImageIcon(myPictureCloudy));
+        shortTermIcon4 = new JLabel(new ImageIcon(rainImage));
         shortTermIcon4.setBounds(10, 28, 40, 40);
         shortTermPanel4.add(shortTermIcon4);
 
@@ -560,7 +594,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         shortTermPanel5.add(shortTermTime5);
 
         // Adds an image
-        shortTermIcon5 = new JLabel(new ImageIcon(myPictureCloudy));
+        shortTermIcon5 = new JLabel(new ImageIcon(rainImage));
         shortTermIcon5.setBounds(10, 28, 40, 40);
         shortTermPanel5.add(shortTermIcon5);
 
@@ -587,7 +621,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         shortTermPanel6.add(shortTermTime6);
 
         // Adds an image
-        shortTermIcon6 = new JLabel(new ImageIcon(myPictureCloudy));
+        shortTermIcon6 = new JLabel(new ImageIcon(rainImage));
         shortTermIcon6.setBounds(10, 28, 40, 40);
         shortTermPanel6.add(shortTermIcon6);
 
@@ -647,7 +681,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 //        lblSunset.setBounds(181, 227, 57, 14);
 //        panel_1.add(lblSunset);
 
-        shortTermIcon7 = new JLabel(new ImageIcon(myPictureCloudy));
+        shortTermIcon7 = new JLabel(new ImageIcon(rainImage));
         shortTermIcon7.setBounds(10, 28, 40, 40);
         shortTermPanel7.add(shortTermIcon7);
 
@@ -675,7 +709,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 
 
         // Adds an image
-        shortTermIcon8 = new JLabel(new ImageIcon(myPictureCloudy));
+        shortTermIcon8 = new JLabel(new ImageIcon(rainImage));
         shortTermIcon8.setBounds(10, 28, 40, 40);
         shortTermPanel8.add(shortTermIcon8);
 
@@ -693,14 +727,17 @@ public class WeatherFrame extends JFrame implements ActionListener {
 
         /******END SHORT TERM WEATHER******/
         
-        /******CURRENT WEATHER*****/
+        
+        
+        /******* CURRENT WEATHER ********/
+        
         //To keep certain variables to one decimal place
         df = new DecimalFormat(); 
         df.setMaximumFractionDigits(1);
         
         currLocationLabel = new JLabel(weatherData.getCurrentCity() + ", " +weatherData.getCountryCode());
         currLocationLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        currLocationLabel.setBounds(10, 11, 140, 24);
+        currLocationLabel.setBounds(10, 11, 400, 24);
         currLocationLabel.setHorizontalAlignment(SwingConstants.LEFT);
         currWeatherPanel.add(currLocationLabel);
 
@@ -713,15 +750,23 @@ public class WeatherFrame extends JFrame implements ActionListener {
         currSunsetLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
         currSunsetLabel.setBounds(181, 227, 200, 14);
         currWeatherPanel.add(currSunsetLabel);
-
+        
+        currWeatherDescriptionLabel = new JLabel("Conditions: "+weatherData.getDescription());
+        currWeatherDescriptionLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        currWeatherDescriptionLabel.setBounds(10, 151, 400, 24);
+        currWeatherPanel.add(currWeatherDescriptionLabel);
+        
+        
         // Adds an image
-        currWeatherIcon = new JLabel(new ImageIcon(myPictureDrizzle));
+//        System.out.println(weatherData.getDescription());
+        currWeatherIcon = new JLabel(new ImageIcon(displayCorrectImage(weatherData.getDescription())));
         currWeatherIcon.setBounds(10, 40, 100, 100);
+        
         currWeatherPanel.add(currWeatherIcon);
 
-        currWeatherConditionLabel = new JLabel("Current Weather Conditions");
-        currWeatherConditionLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        currWeatherConditionLabel.setBounds(10, 150, 250, 24);
+        currWeatherConditionLabel = new JLabel("Weather Conditions");
+        currWeatherConditionLabel.setFont(new Font("Tahoma", Font.PLAIN, 24));
+        currWeatherConditionLabel.setBounds(10, 120, 250, 24);
         currWeatherPanel.add(currWeatherConditionLabel);
 
         currHumidityLabel = new JLabel("Humidity: " + weatherData.getHumidity() + "%\r\n");
@@ -765,7 +810,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         lastUpdatedLabel.setBounds(443, 238, 200, 14);
         currWeatherPanel.add(lastUpdatedLabel);
         
-        JButton currRefreshButton = new JButton(new ImageIcon(myPictureUpdate));
+        JButton currRefreshButton = new JButton(new ImageIcon(refreshImage));
         currRefreshButton.setContentAreaFilled(false);
         currRefreshButton.setBounds(519, 11, 40, 40);
         currWeatherPanel.add(currRefreshButton);
@@ -776,7 +821,9 @@ public class WeatherFrame extends JFrame implements ActionListener {
         				refreshGUI();
         			}
         		});
-
+        
+        
+        
         /******END CURRENT WEATHER******/
         
         /******LOCATIONS******/
@@ -881,6 +928,9 @@ public class WeatherFrame extends JFrame implements ActionListener {
     }
         
 
+    
+    
+    
 	/**************METHODS*************/
     
 	public void actionPerformed(ActionEvent e) {
@@ -888,32 +938,204 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		
 	}
     
-	public String changeToCountryCode(String country) {
-		//TODO: Must use if statements to change input string country into a country code
-		return country;
+	////////////////////TEST
+    public String test() {
+        for (int i=0; i<locationNames.length; i++) {
+        	if (locationNames[i]!=null) 
+        		System.out.println(locationNames[i].getCurrentCity()+", "+locationNames[i].getCountryCode());
+        }
+        return null;
+    }
+	////////////////////TEST
+	
+    
+    
+    /**
+     * changeToCountryCode method changes country to country code 
+     * @param take in a string country
+     * @return country code
+     */
+ 	public String changeToCountryCode(String country) {
+ 		country = country.replace(' ', '-');
+ 		return country;
+ 	}
+	
+
+	
+	/**
+	 * changeWeatherLocation method changes the weather for the new location
+	 * @param s take in a string with City and Country Code
+	 * @param weatherData get the weatherData
+	 * @return a new WeatherData object of the new location
+	 */
+	public WeatherData changeWeatherLocation(String location) {
+		for (int i=0; i<locationNames.length; i++) {
+			String checkString = " ";		//String can't be empty
+			if (locationNames[i] != null)
+				checkString = locationNames[i].getCurrentCity()+", "+locationNames[i].getCountryCode();
+			if (checkString.equals(location)) {
+				weatherData = locationNames[i];
+				return weatherData;
+			}
+			checkString = " ";
+		}
+        System.out.println("Location not found.");
+		return null;
 	}
 	
+	
+	/**
+	 * displayCorrectImage displays the correct image for the weather conditions
+	 * @param description Takes in a description to be found a picture of
+	 * @return The corresponding image is returned according to the description
+	 */
+    public BufferedImage displayCorrectImage(String description) {
+        if (description.equals("clear sky") ||
+        	description.equals("calm") ||
+        	description.equals("light breeze") ||
+        	description.equals("gentle breeze") ||
+        	description.equals("moderate breeze") ||
+        	description.equals("fresh breeze") ||
+            description.equals("Sky is Clear") ||
+            description.equals("sky is clear")
+            ) {
+        	return clearSkyImage;
+        }
+        else if (description.equals("few clouds") || description.equals("overcast clouds")) {
+        	return fewCloudsImage;
+        }
+        else if (description.equals("scattered clouds")) {
+        	return scatteredCloudsImage;
+        }
+        else if (description.equals("broken clouds")) {
+        	return brokenCloudsImage;
+        }
+        else if (description.equals("shower rain") ||
+        		description.equals("heavy intensity drizzle") ||
+        		description.equals("heavy intensity drizzle rain") ||
+        		description.equals("heavy shower rain and drizzle") ||
+        		description.equals("shower drizzle") ||
+        		description.equals("shower rain and drizzle")
+                 ) {
+        	return showerRainImage; 
+        }
+        else if (description.equals("rain") ||
+        		description.equals("light intensity drizzle") ||
+        		description.equals("drizzle") ||
+        		description.equals("light intensity drizzle rain") ||
+        		description.equals("light rain") ||
+        		description.equals("drizzle rain") ||
+        		description.equals("moderate rain") ||
+        		description.equals("proximity shower rain") ||
+        		description.equals("light intensity shower rain")
+        		) {
+        	return rainImage;
+        }
+        else if (description.equals("thunderstorm") ||
+                description.equals("thunderstorm with light rain") ||
+                description.equals("thunderstorm with rain") ||
+                description.equals("thunderstorm with heavy rain")  ||
+                description.equals("light thunderstorm") ||
+                description.equals("heavy thunderstorm") ||
+                description.equals("ragged thunderstorm") ||
+                description.equals("thunderstorm with light drizzle") ||
+                description.equals("thunderstorm with drizzle") ||
+                description.equals("thunderstorm with heavy drizzle")
+                ) {
+            return thunderstormImage;
+        }
+        else if (description.equals("snow") ||
+                description.equals("light snow") ||
+                description.equals("heavy snow") ||
+                description.equals("sleet") ||
+                description.equals("shower sleet") ||
+                description.equals("light rain and snow") ||
+                description.equals("rain and snow") ||
+                description.equals("light shower snow") ||
+                description.equals("shower snow") ||
+                description.equals("heavy shower snow")
+                ) {
+        	return snowImage;
+        }
+        else if (description.equals("mist") ||
+                 description.equals("smoke") ||
+                 description.equals("haze") ||
+                 description.equals("sand, dust whirls") ||
+                 description.equals("fog") ||
+                 description.equals("sand") ||
+                 description.equals("dust") ||
+                 description.equals("volcanic ash") ||
+                 description.equals("squalls") ||
+                 description.equals("tornado") ||
+                 description.equals("tropical storm") ||
+                 description.equals("hurricane") ||
+                 description.equals("windy") ||
+                 description.equals("cold") ||
+                 description.equals("hot") ||
+                 description.equals("strong breeze") ||
+                 description.equals("high wind, near gale") ||
+                 description.equals("gale") ||
+                 description.equals("severe gale") ||
+                 description.equals("storm") ||
+                 description.equals("violent storm")
+                 ) {
+        	return mistImage;
+        }
+        return null;
+    }
+	
+    
+	/**
+	 * addToLocationList method adds weather to location list
+	 * @param newWeatherData takes in WeatherData to add into location list
+	 */
 	public void addToLocationList(WeatherData newWeatherData) {
 		boolean check = false;
 		for (int i=0; i<locationNames.length; i++) {
-			if (locationNames[i] == null) {
+			if (locationNames[i] == null && check == false) {
 				locationNames[i] = newWeatherData;
+				weatherList.addElement(locationNames[i].getCurrentCity()+", "+locationNames[i].getCountryCode());
 				check = true;
 			}
 		}
 		if (check == false) {
 			arrayOverflow(newWeatherData);
+			return;
 		}
 	}
 	
+	
+	
+	/**
+	 * arrayOverflow method is to expand the array of WeatherData when its full
+	 * @param newWeatherData take in WeatherData
+	 */
 	public void arrayOverflow(WeatherData newWeatherData) {
 		WeatherData[] newWeatherDataArray = new WeatherData[locationNames.length*2];
-		int i=0;
-		for (; i<locationNames.length; i++) {
+		for (int i=0; i<locationNames.length; i++) {
 			newWeatherDataArray[i] = locationNames[i];
 		}
-		newWeatherDataArray[i+1] = newWeatherData;
+		newWeatherDataArray[locationNames.length] = newWeatherData;
+		locationNames = newWeatherDataArray;
 	}
+	
+	
+	
+	/**
+	 * removeLocationList removes the location from the list 
+	 * @param cityName takes in a cityName 
+	 * @return a new array with the location removed
+	 */
+	public WeatherData[] removeLocationList(String cityName) {
+		for (int i=0; i<locationNames.length; i++) {
+			if ((locationNames[i].getCurrentCity()+", "+locationNames[i].getCountryCode()).equals(cityName)) {
+				locationNames[i] = null;
+			}
+		}
+		return locationNames;
+		
+	}
+	
 	
     public void refreshGUI() {
     	try {
@@ -936,6 +1158,8 @@ public class WeatherFrame extends JFrame implements ActionListener {
     	currLowestTemp.setText("\u2207"+df.format(weatherData.getMinTemp())+"\u00B0");
     	currHighestTemp.setText("\u25B2"+df.format(weatherData.getMaxTemp())+"\u00B0");
 		lastUpdatedLabel.setText("Last updated: " + weatherData.getLastUpdatedTime());
+		currWeatherDescriptionLabel.setText("Conditions: "+weatherData.getDescription());
+		currWeatherIcon.setIcon(new ImageIcon(displayCorrectImage(weatherData.getDescription())));
     }
     
 }
