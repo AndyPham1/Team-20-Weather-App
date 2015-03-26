@@ -19,6 +19,11 @@ public class Unit {
 	double temperature;
 	
 	/* Constructor */
+	public Unit()
+	{
+		this.temperature = 0.0;
+		this.current_unit = "";
+	}
 	public Unit(double temp, String unit)
 	{
 		this.temperature = temp;
