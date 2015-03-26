@@ -193,6 +193,9 @@ public class WeatherFrame extends JFrame implements ActionListener {
     	url = new URL("http://openweathermap.org/img/w/50d.png");
     	icon50d = ImageIO.read(url);
 
+        url = new URL ("http://openweathermap.org/img/w/01n.png");
+        icon01n = ImageIO.read(url);
+
         url = new URL("http://openweathermap.org/img/w/02n.png");
         icon02n = ImageIO.read(url);
 
@@ -672,7 +675,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         shortTermPanel5.add(shortTermTime5);
 
         // Adds an image
-
+        System.out.println(weatherData.shortTermWeather[4].getIcon());
         shortTermIcon5 = new JLabel(new ImageIcon(displayCorrectImage(weatherData.shortTermWeather[4].getIcon())));
         shortTermIcon5.setBounds(10, 28, 40, 40);
         shortTermPanel5.add(shortTermIcon5);
