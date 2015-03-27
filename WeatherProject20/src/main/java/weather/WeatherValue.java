@@ -1,6 +1,5 @@
 package weather;
 
-
 import java.util.List;
 
 public class WeatherValue {
@@ -14,7 +13,7 @@ public class WeatherValue {
 	private Clouds clouds;
 	private String dt, id, name, cod;
 
-	public static class Coord
+	public class Coord
 	{
 		private double lon, lat;
 
@@ -34,7 +33,7 @@ public class WeatherValue {
 		}
 	}
 	
-	public static class Sys
+	public class Sys
 	{
 		private double type, id, message;
 		private String country, sunrise, sunset;
@@ -87,7 +86,7 @@ public class WeatherValue {
 		}
 
 	}
-	public static class Weather
+	public class Weather
 	{
 
 		private String id, main, description, icon;
@@ -124,7 +123,7 @@ public class WeatherValue {
 		}
 	}
 	
-	public static class Main
+	public class Main
 	{
 		private double temp, pressure, humidity, temp_min, temp_max;
 
@@ -179,7 +178,7 @@ public class WeatherValue {
 			
 		}
 	}
-	public static class Wind
+	public class Wind
 	{
 		private double speed, deg, varbeg, varend;
 
@@ -222,7 +221,7 @@ public class WeatherValue {
 			return sb.toString();
 		} 
 	}
-	public static class Clouds
+	public class Clouds
 	{
 		private int all;
 		
@@ -235,6 +234,8 @@ public class WeatherValue {
 			this.all = all;
 		}
 	}
+	
+	///////////////////GETTERS///////////////////////
 	public Coord getCoord() {
 		return coord;
 	}
@@ -268,13 +269,15 @@ public class WeatherValue {
 	public String getCod() {
 		return cod;
 	}
+	
+	
+	//////////////////////SETTERS//////////////////////////
 	public void setCoord(Coord coord) {
 		this.coord = coord;
 	}
 	public void setSys(Sys sys) {
 		this.sys = sys;
 	}
-	
 	public void setWeather(List<Weather> weather)
 	{
 		this.weather = weather;

@@ -19,6 +19,11 @@ public class Unit {
 	double temperature;
 	
 	/* Constructor */
+	public Unit()
+	{
+		this.temperature = 0.0;
+		this.current_unit = "";
+	}
 	public Unit(double temp, String unit)
 	{
 		this.temperature = temp;
@@ -39,7 +44,6 @@ public class Unit {
 	}
 	/**
 	 * convertTemperature converts the temperature from Celsius, Kelvin or Fahrenheit to its corresponding temperature
-	 * @param from_Unit,to_Unit,temp 
 	 * @return temp the temperature that has been converted
 	 */
 	private void convertTemperature()
