@@ -1031,6 +1031,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 										userCountryInput = countryInput.getText();
 										userCountryInput = changeToCountryCode(userCountryInput);
 										WeatherData newWeatherData = new WeatherData(userCityInput, userCountryInput);
+										weatherList.addElement(newWeatherData.getCurrentWeather().getCurrentCity() +", "+newWeatherData.getCurrentWeather().getCountryCode());
 										addToLocationList(newWeatherData); //Adding the location to the myLocations list
 										locationAdder.dispose();	//Close the frame when accept is clicked
 									}
