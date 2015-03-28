@@ -163,10 +163,8 @@ public class WeatherFrame extends JFrame implements ActionListener {
 	/* Constructor */
 
 	public WeatherFrame() throws IOException {
-
-		//        weatherData = new WeatherData("Toronto", "Ca");	//THIS IS PRACTICE
-		//    	locationNames[0] = weatherData;
-		weatherData = new WeatherData("London", "Ca");
+		
+		weatherData = new WeatherData("London", "CA");
 		/*****IMAGES*****/
 
 		//        myPictureUpdate = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("update.png"));
@@ -225,18 +223,18 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		icon50n = ImageIO.read(url);
 
 		//refreshImage = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("update.png"));
-		refreshImage=null;
+		refreshImage = null;
 		/******END IMAGES*****/
 
-        /******DF FUNCTION******/
+		/******DF FUNCTION******/
 
-        //To keep certain variables to 0 decimal place
-        df = new DecimalFormat();
-        df.setMaximumFractionDigits(0);
+		//To keep certain variables to 0 decimal place
+		df = new DecimalFormat();
+		df.setMaximumFractionDigits(0);
 
-        /******END OF DF FUNCTION******/
+		/******END OF DF FUNCTION******/
 
-        /******WEATHER PANE******/
+		/******WEATHER PANE******/
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 840, 667);
@@ -255,28 +253,28 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		tabbedWeatherPane.setForeground(Color.DARK_GRAY);
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addComponent(LocationPanel, GroupLayout.PREFERRED_SIZE, 197, GroupLayout.PREFERRED_SIZE)
-					.addGap(1)
-					.addComponent(tabbedWeatherPane, GroupLayout.DEFAULT_SIZE, 621, Short.MAX_VALUE))
+				gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+								.addComponent(LocationPanel, GroupLayout.PREFERRED_SIZE, 197, GroupLayout.PREFERRED_SIZE)
+								.addGap(1)
+								.addComponent(tabbedWeatherPane, GroupLayout.DEFAULT_SIZE, 621, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addComponent(LocationPanel, GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
-				.addComponent(tabbedWeatherPane, GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
+				gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(LocationPanel, GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
+						.addComponent(tabbedWeatherPane, GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
 		);
-		
-				JPanel panel = new JPanel();
-				panel.setBackground(Color.DARK_GRAY);
-				tabbedWeatherPane.addTab("Earth", null, panel, null);
-				tabbedWeatherPane.setBackgroundAt(0, new Color(0, 142, 165));
+
+		JPanel panel = new JPanel();
+		panel.setBackground(Color.DARK_GRAY);
+		tabbedWeatherPane.addTab("Earth", null, panel, null);
+		tabbedWeatherPane.setBackgroundAt(0, new Color(0, 142, 165));
 		panel.setLayout(null);
 
-        /******END OF WEATHER PANE******/
+		/******END OF WEATHER PANE******/
 
 
-        /*****CURRENT WEATHER*****/
+		/*****CURRENT WEATHER*****/
 
 		JPanel currWeatherPanel = new JPanel();
 		currWeatherPanel.setBounds(0, 0, 621, 262);
@@ -367,12 +365,12 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		currRefreshButton.setBounds(561, 11, 40, 40);
 		currWeatherPanel.add(currRefreshButton);
 
-        /******END OF CURRENT WEATHER******/
+		/******END OF CURRENT WEATHER******/
 
-        /////////////////////////////////////////////////
+		/////////////////////////////////////////////////
 
-        /******SHORT TERM WEATHER******/
-		int shortTermCounter=0; //counts the getNext_24 method which will give the next (3hours) time in the next 24
+		/******SHORT TERM WEATHER******/
+		int shortTermCounter = 0; //counts the getNext_24 method which will give the next (3hours) time in the next 24
 		JPanel shortTermFullPanel = new JPanel();
 		shortTermFullPanel.setBounds(0, 264, 621, 139);
 		panel.add(shortTermFullPanel);
@@ -385,7 +383,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		shortTermFullPanel.add(shortTermPanel1);
 		shortTermPanel1.setLayout(null);
 
-		shortTermTime1 = new JLabel(""+weatherData.getNext_24()[shortTermCounter++]);
+		shortTermTime1 = new JLabel("" + weatherData.getNext_24()[shortTermCounter++]);
 		shortTermTime1.setHorizontalAlignment(SwingConstants.CENTER);
 		shortTermTime1.setBounds(0, 11, 60, 14);
 		shortTermPanel1.add(shortTermTime1);
@@ -412,7 +410,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		shortTermFullPanel.add(shortTermPanel2);
 		shortTermPanel2.setLayout(null);
 
-		shortTermTime2 = new JLabel(""+weatherData.getNext_24()[shortTermCounter++]);
+		shortTermTime2 = new JLabel("" + weatherData.getNext_24()[shortTermCounter++]);
 		shortTermTime2.setHorizontalAlignment(SwingConstants.CENTER);
 		shortTermTime2.setBounds(0, 11, 66, 14);
 		shortTermPanel2.add(shortTermTime2);
@@ -439,7 +437,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		shortTermFullPanel.add(shortTermPanel3);
 		shortTermPanel3.setLayout(null);
 
-		shortTermTime3 = new JLabel(""+weatherData.getNext_24()[shortTermCounter++]);
+		shortTermTime3 = new JLabel("" + weatherData.getNext_24()[shortTermCounter++]);
 		shortTermTime3.setHorizontalAlignment(SwingConstants.CENTER);
 		shortTermTime3.setBounds(0, 11, 66, 14);
 		shortTermPanel3.add(shortTermTime3);
@@ -466,7 +464,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		shortTermFullPanel.add(shortTermPanel4);
 		shortTermPanel4.setLayout(null);
 
-		shortTermTime4 = new JLabel(""+weatherData.getNext_24()[shortTermCounter++]);
+		shortTermTime4 = new JLabel("" + weatherData.getNext_24()[shortTermCounter++]);
 		shortTermTime4.setHorizontalAlignment(SwingConstants.CENTER);
 		shortTermTime4.setBounds(0, 11, 66, 14);
 		shortTermPanel4.add(shortTermTime4);
@@ -493,7 +491,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		shortTermFullPanel.add(shortTermPanel5);
 		shortTermPanel5.setLayout(null);
 
-		shortTermTime5 = new JLabel(""+weatherData.getNext_24()[shortTermCounter++]);
+		shortTermTime5 = new JLabel("" + weatherData.getNext_24()[shortTermCounter++]);
 		shortTermTime5.setHorizontalAlignment(SwingConstants.CENTER);
 		shortTermTime5.setBounds(0, 11, 66, 14);
 		shortTermPanel5.add(shortTermTime5);
@@ -518,7 +516,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		shortTermFullPanel.add(shortTermPanel6);
 		shortTermPanel6.setLayout(null);
 
-		shortTermTime6 = new JLabel(""+weatherData.getNext_24()[shortTermCounter++]);
+		shortTermTime6 = new JLabel("" + weatherData.getNext_24()[shortTermCounter++]);
 		shortTermTime6.setHorizontalAlignment(SwingConstants.CENTER);
 		shortTermTime6.setBounds(0, 11, 66, 14);
 		shortTermPanel6.add(shortTermTime6);
@@ -545,7 +543,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		shortTermFullPanel.add(shortTermPanel7);
 		shortTermPanel7.setLayout(null);
 
-		shortTermTime7 = new JLabel(""+weatherData.getNext_24()[shortTermCounter++]);
+		shortTermTime7 = new JLabel("" + weatherData.getNext_24()[shortTermCounter++]);
 		shortTermTime7.setHorizontalAlignment(SwingConstants.CENTER);
 		shortTermTime7.setBounds(0, 11, 66, 14);
 		shortTermPanel7.add(shortTermTime7);
@@ -572,7 +570,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		shortTermFullPanel.add(shortTermPanel8);
 		shortTermPanel8.setLayout(null);
 
-		shortTermTime8 = new JLabel(""+weatherData.getNext_24()[shortTermCounter++]);
+		shortTermTime8 = new JLabel("" + weatherData.getNext_24()[shortTermCounter++]);
 		shortTermTime8.setHorizontalAlignment(SwingConstants.CENTER);
 		shortTermTime8.setBounds(0, 11, 66, 14);
 		shortTermPanel8.add(shortTermTime8);
@@ -593,13 +591,13 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		shortTermTemp8.setBounds(10, 79, 40, 26);
 		shortTermPanel8.add(shortTermTemp8);
 
-        /******END OF SHORT TERM WEATHER******/
+		/******END OF SHORT TERM WEATHER******/
 
-        //////////////////////////////////////////////
+		//////////////////////////////////////////////
 
-        /*******LONG TERM WEATHER******/
+		/*******LONG TERM WEATHER******/
 
-		int longTermDayCounter=0;
+		int longTermDayCounter = 0;
 		JPanel longTermFullPanel = new JPanel();
 		longTermFullPanel.setBounds(0, 405, 621, 172);
 		panel.add(longTermFullPanel);
@@ -785,89 +783,89 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		longMinTemp5.setHorizontalAlignment(SwingConstants.RIGHT);
 		longMinTemp5.setBounds(51, 123, 48, 15);
 		longTermPanel5.add(longMinTemp5);
-		
-        /******END OF LONG TERM WEATHER******/
-        
-        ////////////////////////////////////////////////////
-        
-        /******MARS WEATHER******//////
-        
+
+		/******END OF LONG TERM WEATHER******/
+
+		////////////////////////////////////////////////////
+
+		/******MARS WEATHER******//////
+
 		JPanel marsTabbedPanel = new JPanel();
 		marsTabbedPanel.setLayout(null);
 		tabbedWeatherPane.addTab("Mars", null, marsTabbedPanel, null);
-		tabbedWeatherPane.setBackgroundAt(1, new Color(255,0,0));
-		
+		tabbedWeatherPane.setBackgroundAt(1, new Color(255, 0, 0));
+
 		JPanel marsPanel = new JPanel();
 		marsPanel.setLayout(null);
 		marsPanel.setBackground(new Color(255, 69, 0));
 		marsPanel.setBounds(0, 0, 626, 578);
 		marsTabbedPanel.add(marsPanel);
-		
+
 		JLabel marsLocationLabel = new JLabel("Mars, Universe");
-        marsLocationLabel.setHorizontalAlignment(SwingConstants.LEFT);
-        marsLocationLabel.setFont(new Font("Dialog", Font.PLAIN, 22));
-        marsLocationLabel.setBounds(10, 11, 400, 24);
+		marsLocationLabel.setHorizontalAlignment(SwingConstants.LEFT);
+		marsLocationLabel.setFont(new Font("Dialog", Font.PLAIN, 22));
+		marsLocationLabel.setBounds(10, 11, 400, 24);
 		marsPanel.add(marsLocationLabel);
-		
+
 		marsConditionLabel = new JLabel("Conditions: " + weatherData.getWeatherMars().getSkyCondition());
 		marsConditionLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		marsConditionLabel.setBounds(10, 151, 400, 24);
 		marsPanel.add(marsConditionLabel);
-		
-        // Adds an image
+
+		// Adds an image
 		marsIconLabel = new JLabel(new ImageIcon(displayCorrectImage(weatherData.getWeatherMars().getSkyCondition())));
 		marsIconLabel.setBounds(10, 47, 75, 75);
 		marsPanel.add(marsIconLabel);
-		
+
 		marsWeatherConditionsLabel = new JLabel("Weather Conditions");
 		marsWeatherConditionsLabel.setFont(new Font("Dialog", Font.PLAIN, 18));
 		marsWeatherConditionsLabel.setBounds(10, 127, 250, 24);
 		marsPanel.add(marsWeatherConditionsLabel);
-		
+
 		marsHumidityLabel = new JLabel("Humidity:" + weatherData.getWeatherMars().getHumidity());
 		marsHumidityLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		marsHumidityLabel.setBounds(10, 220, 170, 24);
 		marsPanel.add(marsHumidityLabel);
-		
+
 		marsWindSpeedLabel = new JLabel("Wind Speed:" + weatherData.getWeatherMars().getWindSpeed());
 		marsWindSpeedLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		marsWindSpeedLabel.setBounds(10, 174, 170, 24);
 		marsPanel.add(marsWindSpeedLabel);
-		
+
 		marsWindDirectionLabel = new JLabel("Wind Direction: " + weatherData.getWeatherMars().getWindDirection());
 		marsWindDirectionLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		marsWindDirectionLabel.setBounds(10, 198, 200, 24);
 		marsPanel.add(marsWindDirectionLabel);
-		
-		marsPressureLabel = new JLabel("Pressure:" + weatherData.getWeatherMars().getAirpressure() +  "kPa");
+
+		marsPressureLabel = new JLabel("Pressure:" + weatherData.getWeatherMars().getAirpressure() + "kPa");
 		marsPressureLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		marsPressureLabel.setBounds(10, 244, 150, 24);
 		marsPanel.add(marsPressureLabel);
-		
+
 		marsCurrentTempLabel = new JLabel("Average Temperature: ");
 		marsCurrentTempLabel.setBounds(330, 22, 183, 50);
 		marsPanel.add(marsCurrentTempLabel);
-		
-		marsCurrentTempOutput = new JLabel(((weatherData.getWeatherMars().getTemperatureMax() + weatherData.getWeatherMars().getTemperatureMin())/2) + "\u00B0");
+
+		marsCurrentTempOutput = new JLabel(((weatherData.getWeatherMars().getTemperatureMax() + weatherData.getWeatherMars().getTemperatureMin()) / 2) + "\u00B0");
 		marsCurrentTempOutput.setFont(new Font("Tahoma", Font.PLAIN, 56));
 		marsCurrentTempOutput.setBounds(330, 46, 250, 68);
 		marsPanel.add(marsCurrentTempOutput);
-		
-		marsMinTempLabel = new JLabel("\u2207"+ weatherData.getWeatherMars().getTemperatureMin() + "min\u00B0");
+
+		marsMinTempLabel = new JLabel("\u2207" + weatherData.getWeatherMars().getTemperatureMin() + "min\u00B0");
 		marsMinTempLabel.setBounds(397, 125, 60, 15);
 		marsPanel.add(marsMinTempLabel);
 
 		marsMaxTempLabel = new JLabel("\u25B2" + weatherData.getWeatherMars().getTemperatureMin() + "max\u00B0");
 		marsMaxTempLabel.setBounds(330, 125, 60, 14);
 		marsPanel.add(marsMaxTempLabel);
-		
+
 		marsLastUpdatedLabel = new JLabel("Last updated: " + weatherData.getCurrentWeather().getLastUpdatedTime());
 		marsLastUpdatedLabel.setBounds(384, 251, 220, 14);
 		marsPanel.add(marsLastUpdatedLabel);
-		
+
 		JButton marsRefreshButton = new JButton();
-        marsRefreshButton.setContentAreaFilled(false);
-        marsRefreshButton.setBounds(561, 11, 40, 40);
+		marsRefreshButton.setContentAreaFilled(false);
+		marsRefreshButton.setBounds(561, 11, 40, 40);
 		marsPanel.add(marsRefreshButton);
 		currRefreshButton.addActionListener(
 				new ActionListener() {
@@ -877,9 +875,9 @@ public class WeatherFrame extends JFrame implements ActionListener {
 					}
 				});
 
-        /******END OF MARS WEATHER******/
+		/******END OF MARS WEATHER******/
 
-        
+
 		/******MENU BAR******/
 
 		// Creates Menu bar
@@ -944,8 +942,8 @@ public class WeatherFrame extends JFrame implements ActionListener {
 
 			public void actionPerformed(ActionEvent event) {
 				String units = weatherData.getCurrentWeather().getUnits();
-                weatherData.changeTemperatureUnits(units, "celsius");
-                changeUnits();
+				weatherData.changeTemperatureUnits(units, "celsius");
+				changeUnits();
 			}
 		});
 		mnuUnits.add(mniMetric);
@@ -955,9 +953,9 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		mniImperial.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent event) {
-                String units = weatherData.getCurrentWeather().getUnits();
-                weatherData.changeTemperatureUnits(units, "fahrenheit");
-                changeUnits();
+				String units = weatherData.getCurrentWeather().getUnits();
+				weatherData.changeTemperatureUnits(units, "fahrenheit");
+				changeUnits();
 			}
 		});
 		mnuUnits.add(mniImperial);
@@ -971,7 +969,6 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		/******LOCATIONS******/
 
 
-
 		weatherList = new DefaultListModel();
 		locationList = new JList(weatherList);
 		final JScrollPane pane = new JScrollPane(locationList);
@@ -980,13 +977,12 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		//Switching the current weatherData when JList object is selected
 		locationList.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				locationList = (JList)e.getSource();
-				if (e.getClickCount()==1) {		//If an object is clicked then:
+				locationList = (JList) e.getSource();
+				if (e.getClickCount() == 1) {        //If an object is clicked then:
 					if (SwingUtilities.isLeftMouseButton(e)) {
-						weatherData = changeWeatherLocation((String)locationList.getSelectedValue());
+						weatherData = changeWeatherLocation((String) locationList.getSelectedValue());
 						refreshGUI();
-					}
-					else if (SwingUtilities.isRightMouseButton(e)) {
+					} else if (SwingUtilities.isRightMouseButton(e)) {
 						final JPopupMenu deleteMenu = new JPopupMenu("Delete");
 						JMenuItem deleteButton = new JMenuItem("Delete");
 						deleteMenu.add(deleteButton);
@@ -1016,7 +1012,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 				new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						final JFrame locationAdder = new JFrame("Add Location");
-						locationAdder.setSize(310,120);
+						locationAdder.setSize(310, 120);
 						locationAdder.setLocationRelativeTo(LocationPanel);
 						locationAdder.setVisible(true);
 						locationAdder.getContentPane().setLayout(null);
@@ -1051,34 +1047,62 @@ public class WeatherFrame extends JFrame implements ActionListener {
 										userCountryInput = changeToCountryCode(userCountryInput);
 										WeatherData newWeatherData = new WeatherData(userCityInput, userCountryInput);
 										newWeatherData = checkCountryCode(newWeatherData);
-										if (!checkDuplicate(newWeatherData)) {
-											weatherList.addElement(newWeatherData.getCurrentWeather().getCurrentCity() + ", " + newWeatherData.getCurrentWeather().getCountryCode());
-											addToLocationList(newWeatherData); //Adding the location to the myLocations list
-											locationAdder.dispose();    //Close the frame when accept is clicked
-										}
-										else {
-											//Adding a new frame
-											final JFrame duplicateFrame = new JFrame("Error");
-											duplicateFrame.setSize(310, 90);
-											duplicateFrame.getContentPane().setLayout(null);
-											duplicateFrame.setLocationRelativeTo(locationAdder);
+										if (!(newWeatherData == null)) {
+											if (!checkDuplicate(newWeatherData)) {
+												weatherList.addElement(newWeatherData.getCurrentWeather().getCurrentCity() + ", " + newWeatherData.getCurrentWeather().getCountryCode());
+												addToLocationList(newWeatherData); //Adding the location to the myLocations list
+												locationAdder.dispose();    //Close the frame when accept is clicked
+											} else { //Creates a notification to the user that the location has already been added
+												//Adding a new frame
+												final JFrame duplicateFrame = new JFrame("Error");
+												duplicateFrame.setSize(310, 90);
+												duplicateFrame.getContentPane().setLayout(null);
+												duplicateFrame.setLocationRelativeTo(locationAdder);
+
+												//Adding text
+												JLabel duplicateText = new JLabel("You have already added this location.");
+												duplicateText.setBounds(30, 5, 400, 23);
+												duplicateFrame.add(duplicateText);
+
+												//Adding a button
+												JButton okButton = new JButton("Ok");
+												okButton.setBounds(77, 35, 150, 23);
+												duplicateFrame.add(okButton);
+
+												//Viewing the frame
+												duplicateFrame.setVisible(true);
+												okButton.addActionListener(
+														new ActionListener() {
+															public void actionPerformed(ActionEvent e) {
+																duplicateFrame.dispose();
+																locationAdder.dispose();
+															}
+														}
+												);
+											}
+										} else {
+											final JFrame cityNotFoundFrame = new JFrame("City not found.");
+											cityNotFoundFrame.setSize(310, 90);
+											cityNotFoundFrame.getContentPane().setLayout(null);
+											cityNotFoundFrame.setLocationRelativeTo(locationAdder);
 
 											//Adding text
-											JLabel duplicateText = new JLabel("You have already added this location.");
-											duplicateText.setBounds(30,5,400,23);
-											duplicateFrame.add(duplicateText);
+											JLabel cityNotFoundText = new JLabel("The city you entered could not be found.\n" +
+													"Please check your input and try again.");
+											cityNotFoundText.setBounds(30, 5, 400, 46);
+											cityNotFoundFrame.add(cityNotFoundText);
 
-											//Adding a button
+											//Adding button
 											JButton okButton = new JButton("Ok");
-											okButton.setBounds(77,35,150,23);
-											duplicateFrame.add(okButton);
+											okButton.setBounds(77, 50, 150, 23);
+											cityNotFoundFrame.add(okButton);
 
 											//Viewing the frame
-											duplicateFrame.setVisible(true);
+											cityNotFoundFrame.setVisible(true);
 											okButton.addActionListener(
 													new ActionListener() {
 														public void actionPerformed(ActionEvent e) {
-															duplicateFrame.dispose();
+															cityNotFoundFrame.dispose();
 															locationAdder.dispose();
 														}
 													}
@@ -1087,6 +1111,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 									}
 								});
 					}
+
 				});
 
 
@@ -1096,10 +1121,11 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		LocationPanel.add(pane);
 		contentPane.setLayout(gl_contentPane);
 
+	}
 
 
 		/******END LOCATIONS******/
-	}
+
 
 	/**
 	 * ***********METHODS************

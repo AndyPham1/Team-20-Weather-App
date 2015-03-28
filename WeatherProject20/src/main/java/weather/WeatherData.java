@@ -418,8 +418,13 @@ public class WeatherData {
      * @param city the city, countryCode the country code as a string
      */
     private void getWeather(String city, String countryCode) {
-
-        String urlCurrent = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "," + countryCode;
+        String urlCurrent = null;
+        if (!countryCode.equals("")) {
+            urlCurrent = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "," + countryCode;
+        }
+        else {
+            urlCurrent = "http://api.openweathermap.org/data/2.5/weather?q=" + city;
+        }
 
         try {
             String jsonData = readUrl(urlCurrent);
