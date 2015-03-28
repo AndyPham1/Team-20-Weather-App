@@ -187,6 +187,12 @@ public class WeatherData {
         }
 
         public void setCountryCode(String countryCode) {
+            if (countryCode == "United Kingdom")
+                countryCode = "GB";
+            else if (countryCode == "Canada")
+                countryCode = "CA";
+            else if (countryCode == "USA")
+                countryCode = "United States of America";
             this.countryCode = countryCode;
         }
 

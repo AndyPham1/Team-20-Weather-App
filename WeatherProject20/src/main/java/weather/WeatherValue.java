@@ -74,6 +74,14 @@ public class WeatherValue {
 		}
 
 		public void setCountry(String country) {
+			System.out.println(country);
+			if (country == "United Kingdom")
+				country = "GB";
+			else if (country == "Canada")
+				country = "CA";
+			else if (country == "USA")
+				country = "United States of America";
+
 			this.country = country;
 		}
 
@@ -234,7 +242,8 @@ public class WeatherValue {
 			this.all = all;
 		}
 	}
-	
+
+
 	///////////////////GETTERS///////////////////////
 	public Coord getCoord() {
 		return coord;
