@@ -1031,6 +1031,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 										userCountryInput = countryInput.getText();
 										userCountryInput = changeToCountryCode(userCountryInput);
 										WeatherData newWeatherData = new WeatherData(userCityInput, userCountryInput);
+										newWeatherData = checkCountryCode(newWeatherData);
 										weatherList.addElement(newWeatherData.getCurrentWeather().getCurrentCity() +", "+newWeatherData.getCurrentWeather().getCountryCode());
 										addToLocationList(newWeatherData); //Adding the location to the myLocations list
 										locationAdder.dispose();	//Close the frame when accept is clicked
@@ -1119,6 +1120,15 @@ public class WeatherFrame extends JFrame implements ActionListener {
 			return icon50n;
 		}
 		return null;
+	}
+
+	public WeatherData checkCountryCode(WeatherData wd) {
+		System.out.println("Country Code: "+wd.getCurrentWeather().getCountryCode());
+		if (wd.getCurrentWeather().getCountryCode().equals("United Kingdom"))
+			wd.getCurrentWeather().setCountryCode("GB");
+		else if (wd.getCurrentWeather().getCountryCode().equals("Canada"))
+			wd.getCurrentWeather().setCountryCode("CA");
+		return wd;
 	}
 
 	public String changeToCountryCode(String country) {
