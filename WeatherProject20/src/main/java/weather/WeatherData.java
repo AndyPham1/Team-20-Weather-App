@@ -17,6 +17,7 @@ import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * WeatherData class contains the weather data 
@@ -34,8 +35,12 @@ public class WeatherData {
     private LongTermWeatherValue lt;
     public MarsWeatherValue marsWeather;
     private Boolean unitFlag = false;
+    public int[] next_24; //temporarily store the next 24 hours here
+    public String[] next_5;
 
-
+    /*
+    Current Weather is a class that stores all the attributes that is to be represented in the local weather view
+     */
     public class CurrentWeather {
         /* Instance Variables */
         private double windSpeed;
@@ -224,6 +229,9 @@ public class WeatherData {
         }
     }
 
+    /*
+    Short term Weather is a class that stores all the attributes that is to be represented in the short term weather view
+     */
     public class ShortTermWeather {
         private double temperature;
         private String condition;
@@ -255,6 +263,9 @@ public class WeatherData {
         }
     }
 
+    /*
+    Long term Weather is a class that stores all the attributes that is to be represented in the short term weather view
+     */
     public class LongTermWeather {
         private double temperature, min, max;
         private String condition;
@@ -302,6 +313,9 @@ public class WeatherData {
         }
     }
 
+    /*
+    Mars is a class that stores all the attributes that is to be represented in the short term weather view
+     */
     public class MarsWeatherValue {
         public float temperatureMax;
         public float temperatureMin;
@@ -458,19 +472,9 @@ public class WeatherData {
             currentWeather.changeWind();
             currentWeather.changePressure();
             currentWeather.changeSun();
-            /*
-			String test="";
-			test = wv.getWeather().get(0).getMain();
-			System.out.println("test: " + test);
-			DecimalFormat df = new DecimalFormat("#.##");
-			System.out.println("Current Weather for [" + currentCity +"]");
-			System.out.println("\nTemperature : " + df.format(temperature) + "\'C");
-			System.out.println("MaxTemperature/MinTemperature: " + df.format(maxTemp) + "/" + df.format(minTemp) + "\'C");
-			System.out.println("Humidity: " + df.format(humidity) + " %"); 
-			System.out.println("Air Pressure: " + df.format(airPressure) + " kPa");
-			System.out.println("Wind is at: " + df.format(windSpeed) + "km/h " + windDirectionString);
-			System.out.println("\nLast updated : " + lastUpdatedTime);
-			 */
+
+            shortTerm3HourIntervalGenerator();
+            longTermDayIntervalGenerator();
 
         } catch (JsonParseException e) {
             // TODO Auto-generated catch block
@@ -557,6 +561,54 @@ public class WeatherData {
         return timeString;
     }
 
+    /**
+     * finds the next 24 hours in 3 hour intervals
+     */
+    private void shortTerm3HourIntervalGenerator()
+    {
+        int hourMark = Integer.parseInt(new SimpleDateFormat("HH").format((Calendar.getInstance().getTime())));
+        next_24 = new int[8];
+
+        int i=0;
+        while(i < 8)
+        {
+            if (hourMark >= 24)
+            {
+                hourMark -= 24;
+                next_24[i] = hourMark;
+            }
+            else
+                next_24[i] = hourMark;
+            hourMark +=3;
+            i++;
+        }
+    }
+
+    private void longTermDayIntervalGenerator()
+    {
+        String[] listOfDays = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+
+        String currentDay = new SimpleDateFormat("EEEE").format(new Date());
+        next_5 = new String[5];
+        int i=0;
+        int currentIndex=0;
+        while(i < listOfDays.length)
+        {
+            if (currentDay.equals(listOfDays[i]))
+                currentIndex = i;
+            i++;
+
+        }
+        i = 0;
+        while(i < 5)
+        {
+            next_5[i] = listOfDays[++currentIndex];
+            if (currentIndex > 6)
+                currentIndex = 0;
+            i++;
+        }
+    }
+
     public static void main(String[] args) {
         WeatherData wd = new WeatherData("Toronto", "CA");
         DecimalFormat df = new DecimalFormat("#");
@@ -572,6 +624,8 @@ public class WeatherData {
         System.out.println("Mars Weather: " + wd.getWeatherMars().getTemperatureMin());
         System.out.println("Mars Weather: " + wd.getWeatherMars().getAirpressure());
         System.out.println("Mars Weather: " + wd.getWeatherMars().getSkyCondition());
+
+
     }
 
     /**
@@ -633,13 +687,6 @@ public class WeatherData {
         marsWeather.setWindDirection(mw.getReport().getWind_direction());
         marsWeather.setWindSpeed(mw.getReport().getWind());
     }
-
-    /***********************************************************************************************
-     *
-     * ***********************************GETTERS AND SETTERS****************************************
-     *
-     ************************************************************************************************/
-
 
     /**************************************************************************************************
      *
