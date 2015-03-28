@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="26dbc7d7-9ea8-4e8c-b428-4a10f7eb450f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WeatherProject20/src/main/java/weather/WeatherFrame.java" afterPath="$PROJECT_DIR$/WeatherProject20/src/main/java/weather/WeatherFrame.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WeatherProject20/src/main/java/weather/WeatherData.java" afterPath="$PROJECT_DIR$/WeatherProject20/src/main/java/weather/WeatherData.java" />
     </list>
     <ignored path="team20.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -35,10 +35,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WeatherFrame.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="WeatherFrame.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/WeatherProject20/src/main/java/weather/WeatherFrame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.2469352">
+            <state vertical-scroll-proportion="-5.2222223">
               <caret line="1025" column="53" selection-start-line="1025" selection-start-column="53" selection-end-line="1025" selection-end-column="53" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -69,12 +69,15 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WeatherData.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="WeatherData.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/WeatherProject20/src/main/java/weather/WeatherData.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.037037">
-              <caret line="189" column="28" selection-start-line="189" selection-start-column="28" selection-end-line="189" selection-end-column="28" />
-              <folding />
+            <state vertical-scroll-proportion="0.43782836">
+              <caret line="365" column="38" selection-start-line="365" selection-start-column="38" selection-end-line="365" selection-end-column="38" />
+              <folding>
+                <element signature="e#10283#10284#0" expanded="true" />
+                <element signature="e#10328#10329#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -97,8 +100,8 @@
         <option value="$PROJECT_DIR$/src/main/java/weather/ShortTermForecastData.java" />
         <option value="$PROJECT_DIR$/src/main/java/weather/WeatherData.java" />
         <option value="$PROJECT_DIR$/src/main/java/weather/WeatherFrame.java" />
-        <option value="$PROJECT_DIR$/WeatherProject20/src/main/java/weather/WeatherData.java" />
         <option value="$PROJECT_DIR$/WeatherProject20/src/main/java/weather/WeatherFrame.java" />
+        <option value="$PROJECT_DIR$/WeatherProject20/src/main/java/weather/WeatherData.java" />
       </list>
     </option>
   </component>
@@ -614,7 +617,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="212" column="30" selection-start-line="212" selection-start-column="30" selection-end-line="212" selection-end-column="30" />
-          <folding />
+          <folding>
+            <element signature="e#10283#10284#0" expanded="true" />
+            <element signature="e#10328#10329#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -662,7 +668,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="212" column="30" selection-start-line="212" selection-start-column="30" selection-end-line="212" selection-end-column="30" />
-          <folding />
+          <folding>
+            <element signature="e#10283#10284#0" expanded="true" />
+            <element signature="e#10328#10329#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -710,7 +719,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="212" column="30" selection-start-line="212" selection-start-column="30" selection-end-line="212" selection-end-column="30" />
-          <folding />
+          <folding>
+            <element signature="e#10283#10284#0" expanded="true" />
+            <element signature="e#10328#10329#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -758,7 +770,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="215" column="30" selection-start-line="215" selection-start-column="30" selection-end-line="215" selection-end-column="30" />
-          <folding />
+          <folding>
+            <element signature="e#10283#10284#0" expanded="true" />
+            <element signature="e#10328#10329#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -806,7 +821,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="215" column="30" selection-start-line="215" selection-start-column="30" selection-end-line="215" selection-end-column="30" />
-          <folding />
+          <folding>
+            <element signature="e#10283#10284#0" expanded="true" />
+            <element signature="e#10328#10329#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -856,17 +874,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WeatherProject20/src/main/java/weather/WeatherData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.037037">
-          <caret line="189" column="28" selection-start-line="189" selection-start-column="28" selection-end-line="189" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/WeatherProject20/src/main/java/weather/WeatherFrame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2469352">
+        <state vertical-scroll-proportion="-5.2222223">
           <caret line="1025" column="53" selection-start-line="1025" selection-start-column="53" selection-end-line="1025" selection-end-column="53" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -892,6 +902,17 @@
             <element signature="e#38345#39011#0" expanded="true" />
             <element signature="e#39010#39011#0" expanded="true" />
             <element signature="e#39025#39026#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WeatherProject20/src/main/java/weather/WeatherData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.43782836">
+          <caret line="365" column="38" selection-start-line="365" selection-start-column="38" selection-end-line="365" selection-end-column="38" />
+          <folding>
+            <element signature="e#10283#10284#0" expanded="true" />
+            <element signature="e#10328#10329#0" expanded="true" />
           </folding>
         </state>
       </provider>
