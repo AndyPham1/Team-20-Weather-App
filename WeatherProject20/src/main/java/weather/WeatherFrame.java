@@ -147,6 +147,18 @@ public class WeatherFrame extends JFrame implements ActionListener {
 	private JLabel currHighestTemp;
 
 	private JTabbedPane tabbedWeatherPane;
+	private JLabel marsConditionLabel;
+	private JLabel marsIconLabel;
+	private JLabel marsWeatherConditionsLabel;
+	private JLabel marsHumidityLabel;
+	private JLabel marsWindSpeedLabel;
+	private JLabel marsWindDirectionLabel;
+	private JLabel marsPressureLabel;
+	private JLabel marsCurrentTempLabel;
+	private JLabel marsCurrentTempOutput;
+	private JLabel marsMinTempLabel;
+	private JLabel marsMaxTempLabel;
+	private JLabel marsLastUpdatedLabel;
 
 	/* Constructor */
 
@@ -227,7 +239,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         /******WEATHER PANE******/
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 833, 633);
+		setBounds(100, 100, 840, 667);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(51, 51, 51));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -797,59 +809,59 @@ public class WeatherFrame extends JFrame implements ActionListener {
         marsLocationLabel.setBounds(10, 11, 400, 24);
 		marsPanel.add(marsLocationLabel);
 		
-		JLabel marsConditionLabel = new JLabel("Conditions: ");
+		marsConditionLabel = new JLabel("Conditions: " + weatherData.getWeatherMars().getSkyCondition());
 		marsConditionLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		marsConditionLabel.setBounds(10, 151, 400, 24);
 		marsPanel.add(marsConditionLabel);
 		
         // Adds an image
-		JLabel marsIconLabel = new JLabel((Icon) null);
+		marsIconLabel = new JLabel(new ImageIcon(displayCorrectImage(weatherData.getWeatherMars().getSkyCondition())));
 		marsIconLabel.setBounds(10, 47, 75, 75);
 		marsPanel.add(marsIconLabel);
 		
-		JLabel marsWeatherConditionsLabel = new JLabel("Weather Conditions");
+		marsWeatherConditionsLabel = new JLabel("Weather Conditions");
 		marsWeatherConditionsLabel.setFont(new Font("Dialog", Font.PLAIN, 18));
 		marsWeatherConditionsLabel.setBounds(10, 127, 250, 24);
 		marsPanel.add(marsWeatherConditionsLabel);
 		
-		JLabel marsHumidityLabel = new JLabel("Humidity: 0.0%\r\n");
+		marsHumidityLabel = new JLabel("Humidity:" + weatherData.getWeatherMars().getHumidity());
 		marsHumidityLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		marsHumidityLabel.setBounds(10, 220, 170, 24);
 		marsPanel.add(marsHumidityLabel);
 		
-		JLabel marsWindSpeedLabel = new JLabel("Wind Speed:  km/h\r\n");
+		marsWindSpeedLabel = new JLabel("Wind Speed:" + weatherData.getWeatherMars().getWindSpeed());
 		marsWindSpeedLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		marsWindSpeedLabel.setBounds(10, 174, 170, 24);
 		marsPanel.add(marsWindSpeedLabel);
 		
-		JLabel marsWindDirectionLabel = new JLabel("Wind Direction: ");
+		marsWindDirectionLabel = new JLabel("Wind Direction: " + weatherData.getWeatherMars().getWindDirection());
 		marsWindDirectionLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		marsWindDirectionLabel.setBounds(10, 198, 200, 24);
 		marsPanel.add(marsWindDirectionLabel);
 		
-		JLabel marsPressureLabel = new JLabel("Pressure: kPa\r\n");
+		marsPressureLabel = new JLabel("Pressure:" + weatherData.getWeatherMars().getAirpressure() +  "kPa");
 		marsPressureLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		marsPressureLabel.setBounds(10, 244, 150, 24);
 		marsPanel.add(marsPressureLabel);
 		
-		JLabel marsCurrentTempLabel = new JLabel("Current Temperature: ");
+		marsCurrentTempLabel = new JLabel("Average Temperature: ");
 		marsCurrentTempLabel.setBounds(330, 22, 183, 50);
 		marsPanel.add(marsCurrentTempLabel);
 		
-		JLabel marsCurrentTempOutput = new JLabel("\u00B0");
+		marsCurrentTempOutput = new JLabel(((weatherData.getWeatherMars().getTemperatureMax() + weatherData.getWeatherMars().getTemperatureMin())/2) + "\u00B0");
 		marsCurrentTempOutput.setFont(new Font("Tahoma", Font.PLAIN, 56));
 		marsCurrentTempOutput.setBounds(330, 46, 250, 68);
 		marsPanel.add(marsCurrentTempOutput);
 		
-		JLabel marsMinTempLabel = new JLabel("\u2207min\u00B0");
+		marsMinTempLabel = new JLabel("\u2207"+ weatherData.getWeatherMars().getTemperatureMin() + "min\u00B0");
 		marsMinTempLabel.setBounds(397, 125, 60, 15);
 		marsPanel.add(marsMinTempLabel);
 
-		JLabel marsMaxTempLabel = new JLabel("\u25B2max\u00B0");
+		marsMaxTempLabel = new JLabel("\u25B2" + weatherData.getWeatherMars().getTemperatureMin() + "max\u00B0");
 		marsMaxTempLabel.setBounds(330, 125, 60, 14);
 		marsPanel.add(marsMaxTempLabel);
 		
-		JLabel marsLastUpdatedLabel = new JLabel("Last updated: ");
+		marsLastUpdatedLabel = new JLabel("Last updated: " + weatherData.getCurrentWeather().getLastUpdatedTime());
 		marsLastUpdatedLabel.setBounds(384, 251, 220, 14);
 		marsPanel.add(marsLastUpdatedLabel);
 		
@@ -1087,6 +1099,10 @@ public class WeatherFrame extends JFrame implements ActionListener {
 	public BufferedImage displayCorrectImage(String description) {
 		if (description.equals("01d")) {
 			return icon01d;
+		} else if (description.equals("Sunny")) {
+			return icon01d;
+		} else if (description.equals("Cloudy")) {
+			return icon03d;
 		} else if (description.equals("02d")) {
 			return icon02d;
 		} else if (description.equals("03d")) {
@@ -1267,6 +1283,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		shortTermIcon8.setIcon(new ImageIcon(displayCorrectImage(weatherData.shortTermWeather[7].getIcon())));
 		shortTermTemp8.setText(df.format(weatherData.shortTermWeather[7].getTemperature()) + "\u00B0");
 		shortWeatherCondition8.setText(weatherData.shortTermWeather[7].getCondition());
+		
 	}
 
     // Used to update all temperatures after the values have been changed without calling the update method
@@ -1297,5 +1314,17 @@ public class WeatherFrame extends JFrame implements ActionListener {
         shortTermTemp6.setText(df.format(weatherData.shortTermWeather[5].getTemperature()) + "\u00B0");
         shortTermTemp7.setText(df.format(weatherData.shortTermWeather[6].getTemperature()) + "\u00B0");
         shortTermTemp8.setText(df.format(weatherData.shortTermWeather[7].getTemperature()) + "\u00B0");
+        marsConditionLabel.setText("Conditions: " + weatherData.getWeatherMars().getSkyCondition());
+        // Adds an image
+		marsIconLabel = new JLabel(new ImageIcon(displayCorrectImage(weatherData.getWeatherMars().getSkyCondition())));
+		marsHumidityLabel.setText("Humidity:" + weatherData.getWeatherMars().getHumidity());
+		marsWindSpeedLabel.setText("Wind Speed:" + weatherData.getWeatherMars().getWindSpeed());
+		marsWindDirectionLabel.setText("Wind Direction: " + weatherData.getWeatherMars().getWindDirection());
+		marsPressureLabel.setText("Pressure:" + weatherData.getWeatherMars().getAirpressure() +  "kPa");
+		marsCurrentTempLabel.setText("Average Temperature: ");
+		marsCurrentTempOutput.setText(((weatherData.getWeatherMars().getTemperatureMax() + weatherData.getWeatherMars().getTemperatureMin())/2) + "\u00B0");
+		marsMinTempLabel.setText("\u2207"+ weatherData.getWeatherMars().getTemperatureMin() + "min\u00B0");
+		marsMaxTempLabel.setText("\u25B2" + weatherData.getWeatherMars().getTemperatureMin() + "max\u00B0");
+		marsLastUpdatedLabel.setText("Last updated: " + weatherData.getCurrentWeather().getLastUpdatedTime());
     }
 }
