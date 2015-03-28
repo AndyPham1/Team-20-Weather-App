@@ -36,7 +36,7 @@ public class WeatherData {
     public MarsWeatherValue marsWeather;
     private Boolean unitFlag = false;
 
-    public int[] next_24; //temporarily store the next 24 hours here
+    public String[] next_24; //temporarily store the next 24 hours here
     public String[] next_5;
 
     /*
@@ -565,28 +565,53 @@ public class WeatherData {
     /**
      * finds the next 24 hours in 3 hour intervals
      */
-    private void shortTerm3HourIntervalGenerator()
-    {
+    private void shortTerm3HourIntervalGenerator() {
         int hourMark = Integer.parseInt(new SimpleDateFormat("HH").format((Calendar.getInstance().getTime())));
-        next_24 = new int[8];
+        int[] storeHours = new int[8];
+        next_24 = new String[8];
+        boolean am = false;
 
-        int i=0;
-        while(i < 8)
-        {
-            if (hourMark >= 24)
-            {
+
+        hourMark += 3; //to get the next interval instead of the current
+        if (hourMark >=24)
+            hourMark -= 24;
+        int i = 0;
+        while (i < 8) {
+            if (hourMark >= 24) {
                 hourMark -= 24;
-                next_24[i] = hourMark;
-            }
-            else
-                next_24[i] = hourMark;
-            hourMark +=3;
+                storeHours[i] = hourMark;
+            } else
+                storeHours[i] = hourMark;
+            hourMark += 3;
             i++;
+        }
+
+        for (int j = 0; j < storeHours.length; j++) {
+
+            if (storeHours[j] >= 12)
+                am = false;
+            else
+                am = true;
+            if (storeHours[j] > 12) {
+                storeHours[j] -= 12;
+            }
+            if (storeHours[j] == 0) {
+                storeHours[j] = 12;
+                am = true;
+            }
+            if (am)
+                next_24[j] = storeHours[j] + "am";
+            else
+                next_24[j] = storeHours[j] + "pm";
         }
     }
 
+    /*
+    generates the next 5 days in the array next_5 from today
+     */
     private void longTermDayIntervalGenerator()
     {
+        //to hold the days that are to be represented
         String[] listOfDays = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
 
         String currentDay = new SimpleDateFormat("EEEE").format(new Date());
@@ -737,11 +762,11 @@ public class WeatherData {
     public void setMw(MarsWeather mw) {
         this.mw = mw;
     }
-    public int[] getNext_24() {
+    public String[] getNext_24() {
         return next_24;
     }
 
-    public void setNext_24(int[] next_24) {
+    public void setNext_24(String[] next_24) {
         this.next_24 = next_24;
     }
 
