@@ -1016,6 +1016,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 						final JFrame locationAdder = new JFrame("Add Location");
 						locationAdder.setSize(310, 120);
 						locationAdder.setLocationRelativeTo(LocationPanel);
+						locationAdder.setResizable(false);
 						locationAdder.setVisible(true);
 						locationAdder.getContentPane().setLayout(null);
 
@@ -1047,9 +1048,43 @@ public class WeatherFrame extends JFrame implements ActionListener {
 										userCityInput = cityInput.getText();
 										userCountryInput = countryInput.getText();
 										userCountryInput = changeToCountryCode(userCountryInput);
+										System.out.println("Here1");
 										WeatherData newWeatherData = new WeatherData(userCityInput, userCountryInput);
-										newWeatherData = checkCountryCode(newWeatherData);
-										if (!(newWeatherData == null)) {
+										System.out.println("Country Code: "+newWeatherData.getCurrentWeather().getCountryCode());
+										try {
+											newWeatherData = checkCountryCode(newWeatherData);
+										} catch (NullPointerException er) {
+											System.out.println("HERE");
+											final JFrame cityNotFoundFrame = new JFrame("City not found.");
+											cityNotFoundFrame.setSize(310, 90);
+											cityNotFoundFrame.getContentPane().setLayout(null);
+											cityNotFoundFrame.setResizable(false);
+											cityNotFoundFrame.setLocationRelativeTo(locationAdder);
+
+											//Adding text
+											JLabel cityNotFoundText = new JLabel("The city you entered could not be found.\n" +
+													"Please check your input and try again.");
+											cityNotFoundText.setBounds(30, 5, 400, 46);
+											cityNotFoundFrame.add(cityNotFoundText);
+
+											//Adding button
+											JButton okButton = new JButton("Ok");
+											okButton.setBounds(77, 50, 150, 23);
+											cityNotFoundFrame.add(okButton);
+
+											//Viewing the frame
+											cityNotFoundFrame.setVisible(true);
+											okButton.addActionListener(
+													new ActionListener() {
+														public void actionPerformed(ActionEvent e) {
+															cityNotFoundFrame.dispose();
+															locationAdder.dispose();
+														}
+													}
+											);
+											er.printStackTrace();
+										}
+										if (!(newWeatherData.getCurrentWeather().getCurrentCity() == null)) {
 											if (!checkDuplicate(newWeatherData)) {
 												weatherList.addElement(newWeatherData.getCurrentWeather().getCurrentCity() + ", " + newWeatherData.getCurrentWeather().getCountryCode());
 												addToLocationList(newWeatherData); //Adding the location to the myLocations list
@@ -1082,33 +1117,6 @@ public class WeatherFrame extends JFrame implements ActionListener {
 														}
 												);
 											}
-										} else {
-											final JFrame cityNotFoundFrame = new JFrame("City not found.");
-											cityNotFoundFrame.setSize(310, 90);
-											cityNotFoundFrame.getContentPane().setLayout(null);
-											cityNotFoundFrame.setLocationRelativeTo(locationAdder);
-
-											//Adding text
-											JLabel cityNotFoundText = new JLabel("The city you entered could not be found.\n" +
-													"Please check your input and try again.");
-											cityNotFoundText.setBounds(30, 5, 400, 46);
-											cityNotFoundFrame.add(cityNotFoundText);
-
-											//Adding button
-											JButton okButton = new JButton("Ok");
-											okButton.setBounds(77, 50, 150, 23);
-											cityNotFoundFrame.add(okButton);
-
-											//Viewing the frame
-											cityNotFoundFrame.setVisible(true);
-											okButton.addActionListener(
-													new ActionListener() {
-														public void actionPerformed(ActionEvent e) {
-															cityNotFoundFrame.dispose();
-															locationAdder.dispose();
-														}
-													}
-											);
 										}
 									}
 								});
