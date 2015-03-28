@@ -218,9 +218,9 @@ public class WeatherFrame extends JFrame implements ActionListener {
 
         /******DF FUNCTION******/
 
-        //To keep certain variables to one decimal place
+        //To keep certain variables to 0 decimal place
         df = new DecimalFormat();
-        df.setMaximumFractionDigits(1);
+        df.setMaximumFractionDigits(0);
 
         /******END OF DF FUNCTION******/
 
@@ -360,7 +360,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
         /////////////////////////////////////////////////
 
         /******SHORT TERM WEATHER******/
-
+		int shortTermCounter=0; //counts the getNext_24 method which will give the next (3hours) time in the next 24
 		JPanel shortTermFullPanel = new JPanel();
 		shortTermFullPanel.setBounds(0, 264, 621, 139);
 		panel.add(shortTermFullPanel);
@@ -373,7 +373,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		shortTermFullPanel.add(shortTermPanel1);
 		shortTermPanel1.setLayout(null);
 
-		shortTermTime1 = new JLabel("3 PM");
+		shortTermTime1 = new JLabel(""+weatherData.getNext_24()[shortTermCounter++]);
 		shortTermTime1.setHorizontalAlignment(SwingConstants.CENTER);
 		shortTermTime1.setBounds(0, 11, 60, 14);
 		shortTermPanel1.add(shortTermTime1);
@@ -400,7 +400,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		shortTermFullPanel.add(shortTermPanel2);
 		shortTermPanel2.setLayout(null);
 
-		shortTermTime2 = new JLabel("6 PM");
+		shortTermTime2 = new JLabel(""+weatherData.getNext_24()[shortTermCounter++]);
 		shortTermTime2.setHorizontalAlignment(SwingConstants.CENTER);
 		shortTermTime2.setBounds(0, 11, 66, 14);
 		shortTermPanel2.add(shortTermTime2);
@@ -427,7 +427,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		shortTermFullPanel.add(shortTermPanel3);
 		shortTermPanel3.setLayout(null);
 
-		shortTermTime3 = new JLabel("9 PM");
+		shortTermTime3 = new JLabel(""+weatherData.getNext_24()[shortTermCounter++]);
 		shortTermTime3.setHorizontalAlignment(SwingConstants.CENTER);
 		shortTermTime3.setBounds(0, 11, 66, 14);
 		shortTermPanel3.add(shortTermTime3);
@@ -454,7 +454,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		shortTermFullPanel.add(shortTermPanel4);
 		shortTermPanel4.setLayout(null);
 
-		shortTermTime4 = new JLabel("12 AM");
+		shortTermTime4 = new JLabel(""+weatherData.getNext_24()[shortTermCounter++]);
 		shortTermTime4.setHorizontalAlignment(SwingConstants.CENTER);
 		shortTermTime4.setBounds(0, 11, 66, 14);
 		shortTermPanel4.add(shortTermTime4);
@@ -481,7 +481,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		shortTermFullPanel.add(shortTermPanel5);
 		shortTermPanel5.setLayout(null);
 
-		shortTermTime5 = new JLabel("3 AM");
+		shortTermTime5 = new JLabel(""+weatherData.getNext_24()[shortTermCounter++]);
 		shortTermTime5.setHorizontalAlignment(SwingConstants.CENTER);
 		shortTermTime5.setBounds(0, 11, 66, 14);
 		shortTermPanel5.add(shortTermTime5);
@@ -506,7 +506,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		shortTermFullPanel.add(shortTermPanel6);
 		shortTermPanel6.setLayout(null);
 
-		shortTermTime6 = new JLabel("6 AM");
+		shortTermTime6 = new JLabel(""+weatherData.getNext_24()[shortTermCounter++]);
 		shortTermTime6.setHorizontalAlignment(SwingConstants.CENTER);
 		shortTermTime6.setBounds(0, 11, 66, 14);
 		shortTermPanel6.add(shortTermTime6);
@@ -533,7 +533,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		shortTermFullPanel.add(shortTermPanel7);
 		shortTermPanel7.setLayout(null);
 
-		shortTermTime7 = new JLabel("9 AM");
+		shortTermTime7 = new JLabel(""+weatherData.getNext_24()[shortTermCounter++]);
 		shortTermTime7.setHorizontalAlignment(SwingConstants.CENTER);
 		shortTermTime7.setBounds(0, 11, 66, 14);
 		shortTermPanel7.add(shortTermTime7);
@@ -560,7 +560,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		shortTermFullPanel.add(shortTermPanel8);
 		shortTermPanel8.setLayout(null);
 
-		shortTermTime8 = new JLabel("12 PM");
+		shortTermTime8 = new JLabel(""+weatherData.getNext_24()[shortTermCounter++]);
 		shortTermTime8.setHorizontalAlignment(SwingConstants.CENTER);
 		shortTermTime8.setBounds(0, 11, 66, 14);
 		shortTermPanel8.add(shortTermTime8);
@@ -587,6 +587,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 
         /*******LONG TERM WEATHER******/
 
+		int longTermDayCounter=0;
 		JPanel longTermFullPanel = new JPanel();
 		longTermFullPanel.setBounds(0, 405, 621, 172);
 		panel.add(longTermFullPanel);
@@ -599,7 +600,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		longTermFullPanel.add(longTermPanel1);
 		longTermPanel1.setLayout(null);
 
-		longTermDay1 = new JLabel("Monday");
+		longTermDay1 = new JLabel(weatherData.getNext_5()[longTermDayCounter++]);
 		longTermDay1.setHorizontalAlignment(SwingConstants.CENTER);
 		longTermDay1.setBounds(10, 11, 89, 14);
 		longTermPanel1.add(longTermDay1);
@@ -635,7 +636,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		longTermFullPanel.add(longTermPanel2);
 		longTermPanel2.setLayout(null);
 
-		longTermDay2 = new JLabel("Tuesday");
+		longTermDay2 = new JLabel(weatherData.getNext_5()[longTermDayCounter++]);
 		longTermDay2.setHorizontalAlignment(SwingConstants.CENTER);
 		longTermDay2.setBounds(10, 11, 82, 14);
 		longTermPanel2.add(longTermDay2);
@@ -671,7 +672,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		longTermFullPanel.add(longTermPanel3);
 		longTermPanel3.setLayout(null);
 
-		longTermDay3 = new JLabel("Wednesday");
+		longTermDay3 = new JLabel(weatherData.getNext_5()[longTermDayCounter++]);
 		longTermDay3.setHorizontalAlignment(SwingConstants.CENTER);
 		longTermDay3.setBounds(10, 11, 82, 14);
 		longTermPanel3.add(longTermDay3);
@@ -707,7 +708,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		longTermFullPanel.add(longTermPanel4);
 		longTermPanel4.setLayout(null);
 
-		longTermDay4 = new JLabel("Thursday");
+		longTermDay4 = new JLabel(weatherData.getNext_5()[longTermDayCounter++]);
 		longTermDay4.setHorizontalAlignment(SwingConstants.CENTER);
 		longTermDay4.setBounds(10, 11, 82, 14);
 		longTermPanel4.add(longTermDay4);
@@ -743,7 +744,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		longTermFullPanel.add(longTermPanel5);
 		longTermPanel5.setLayout(null);
 
-		longTermDay5 = new JLabel("Friday");
+		longTermDay5 = new JLabel(weatherData.getNext_5()[longTermDayCounter++]);
 		longTermDay5.setHorizontalAlignment(SwingConstants.CENTER);
 		longTermDay5.setBounds(10, 11, 82, 14);
 		longTermPanel5.add(longTermDay5);

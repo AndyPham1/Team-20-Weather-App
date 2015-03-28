@@ -35,6 +35,7 @@ public class WeatherData {
     private LongTermWeatherValue lt;
     public MarsWeatherValue marsWeather;
     private Boolean unitFlag = false;
+
     public int[] next_24; //temporarily store the next 24 hours here
     public String[] next_5;
 
@@ -599,10 +600,14 @@ public class WeatherData {
             i++;
 
         }
+        if (currentIndex >= 6)
+            currentIndex = 0;
+        else
+            currentIndex++;
         i = 0;
         while(i < 5)
         {
-            next_5[i] = listOfDays[++currentIndex];
+            next_5[i] = listOfDays[currentIndex++];
             if (currentIndex > 6)
                 currentIndex = 0;
             i++;
@@ -732,6 +737,22 @@ public class WeatherData {
     public void setMw(MarsWeather mw) {
         this.mw = mw;
     }
+    public int[] getNext_24() {
+        return next_24;
+    }
+
+    public void setNext_24(int[] next_24) {
+        this.next_24 = next_24;
+    }
+
+    public String[] getNext_5() {
+        return next_5;
+    }
+
+    public void setNext_5(String[] next_5) {
+        this.next_5 = next_5;
+    }
+
 
 }
 
