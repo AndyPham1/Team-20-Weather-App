@@ -163,7 +163,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 	/* Constructor */
 
 	public WeatherFrame() throws IOException {
-		
+
 		weatherData = new WeatherData("London", "CA");
 		/*****IMAGES*****/
 
@@ -982,11 +982,13 @@ public class WeatherFrame extends JFrame implements ActionListener {
 					if (SwingUtilities.isLeftMouseButton(e)) {
 						weatherData = changeWeatherLocation((String) locationList.getSelectedValue());
 						refreshGUI();
-					} else if (SwingUtilities.isRightMouseButton(e)) {
+					}
+					else if (SwingUtilities.isRightMouseButton(e)) {
 						final JPopupMenu deleteMenu = new JPopupMenu("Delete");
 						JMenuItem deleteButton = new JMenuItem("Delete");
 						deleteMenu.add(deleteButton);
-						deleteMenu.setVisible(true);
+
+						deleteMenu.show(e.getComponent(),e.getX(),e.getY());
 						locationList.setSelectedIndex(locationList.getSelectedIndex());
 						deleteButton.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
