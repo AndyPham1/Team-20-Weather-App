@@ -1058,7 +1058,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 										}
 										else {
 											//Adding a new frame
-											JFrame duplicateFrame = new JFrame("Error");
+											final JFrame duplicateFrame = new JFrame("Error");
 											duplicateFrame.setSize(310, 90);
 											duplicateFrame.getContentPane().setLayout(null);
 											duplicateFrame.setLocationRelativeTo(locationAdder);
@@ -1075,6 +1075,14 @@ public class WeatherFrame extends JFrame implements ActionListener {
 
 											//Viewing the frame
 											duplicateFrame.setVisible(true);
+											okButton.addActionListener(
+													new ActionListener() {
+														public void actionPerformed(ActionEvent e) {
+															duplicateFrame.dispose();
+															locationAdder.dispose();
+														}
+													}
+											);
 										}
 									}
 								});
