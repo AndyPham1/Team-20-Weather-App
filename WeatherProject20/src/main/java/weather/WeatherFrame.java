@@ -245,7 +245,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 
-		JPanel LocationPanel = new JPanel();
+		final JPanel LocationPanel = new JPanel();
 		LocationPanel.setBackground(Color.DARK_GRAY);
 
         /* Weather pane for switching between Earth and Mars weather */
@@ -970,83 +970,79 @@ public class WeatherFrame extends JFrame implements ActionListener {
 
 		/******LOCATIONS******/
 
+
+
 		weatherList = new DefaultListModel();
 		locationList = new JList(weatherList);
-		locationList.setBackground(new Color(255, 255, 255));
 		final JScrollPane pane = new JScrollPane(locationList);
-		pane.setBounds(10, 25, 177, 535);
+		pane.setBounds(10, 25, 180, 520);
 
 		//Switching the current weatherData when JList object is selected
 		locationList.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				locationList = (JList) e.getSource();
-				if (e.getClickCount() == 1) {        //If an object is clicked then:
-					if (e.getButton() == MouseEvent.BUTTON1) {
-						String s = (String) locationList.getSelectedValue();
-						weatherData = changeWeatherLocation(s, weatherData);
-						System.out.println(s);
+				locationList = (JList)e.getSource();
+				if (e.getClickCount()==1) {		//If an object is clicked then:
+					if (SwingUtilities.isLeftMouseButton(e)) {
+						weatherData = changeWeatherLocation((String)locationList.getSelectedValue());
+						refreshGUI();
 					}
-					if (e.getButton() == MouseEvent.BUTTON3) {
+					else if (SwingUtilities.isRightMouseButton(e)) {
 						final JPopupMenu deleteMenu = new JPopupMenu("Delete");
 						JMenuItem deleteButton = new JMenuItem("Delete");
 						deleteMenu.add(deleteButton);
 						deleteMenu.setVisible(true);
+						locationList.setSelectedIndex(locationList.getSelectedIndex());
 						deleteButton.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
-								locationList.remove(locationList.getSelectedIndex());
-								weatherList.removeElementAt(locationList.getSelectedIndex());
-								removeLocationList((String) locationList.getSelectedValue());
 								deleteMenu.setVisible(false);
-								updateLocationList();
+								weatherList.remove(locationList.getSelectedIndex());
 							}
 						});
-
 					}
 				}
-				refreshGUI();
 			}
+
 		});
 
 
 		JLabel locationsLabel = new JLabel("Your Locations");
-		locationsLabel.setForeground(Color.WHITE);
 		locationsLabel.setBounds(10, 0, 200, 23);
-		locationsLabel.setFont(new Font("Dialog", Font.BOLD, 15));
+		locationsLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
 
 		JButton btnAdd = new JButton("Add Location");
-		btnAdd.setBounds(10, 572, 177, 23);
+		btnAdd.setBounds(10, 560, 180, 23);
 		btnAdd.addActionListener(
 				new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						final JFrame locationAdder = new JFrame("Add Location");
-						locationAdder.setSize(310, 120);
-						locationAdder.setLocationRelativeTo(null);
+						locationAdder.setSize(310,120);
+						locationAdder.setLocationRelativeTo(LocationPanel);
 						locationAdder.setVisible(true);
 						locationAdder.getContentPane().setLayout(null);
 
 						//Adding Text
 						JLabel cityInputLabel = new JLabel("Input a city: ");
 						cityInputLabel.setBounds(4, 5, 150, 23);
-						locationAdder.getContentPane().add(cityInputLabel);
+						locationAdder.add(cityInputLabel);
 
 						JLabel countryInputLabel = new JLabel("Input a country: ");
 						countryInputLabel.setBounds(4, 30, 150, 23);
-						locationAdder.getContentPane().add(countryInputLabel);
+						locationAdder.add(countryInputLabel);
 
 						//Adding a text field
 						final JTextField cityInput = new JTextField();
 						cityInput.setBounds(107, 5, 200, 23);
-						locationAdder.getContentPane().add(cityInput);
+						locationAdder.add(cityInput);
 
 						final JTextField countryInput = new JTextField();
 						countryInput.setBounds(107, 30, 200, 23);
-						locationAdder.getContentPane().add(countryInput);
+						locationAdder.add(countryInput);
 
 						//Adding an accept button
 						JButton btnAccept = new JButton("Accept");
 						btnAccept.setBounds(77, 65, 150, 23);
-						locationAdder.getContentPane().add(btnAccept);
+						locationAdder.add(btnAccept);
 						btnAccept.addActionListener(
 								new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
@@ -1054,8 +1050,32 @@ public class WeatherFrame extends JFrame implements ActionListener {
 										userCountryInput = countryInput.getText();
 										userCountryInput = changeToCountryCode(userCountryInput);
 										WeatherData newWeatherData = new WeatherData(userCityInput, userCountryInput);
-										addToLocationList(newWeatherData); //Adding the location to the myLocations list
-										locationAdder.dispose();    //Close the frame when accept is clicked
+										newWeatherData = checkCountryCode(newWeatherData);
+										if (!checkDuplicate(newWeatherData)) {
+											weatherList.addElement(newWeatherData.getCurrentWeather().getCurrentCity() + ", " + newWeatherData.getCurrentWeather().getCountryCode());
+											addToLocationList(newWeatherData); //Adding the location to the myLocations list
+											locationAdder.dispose();    //Close the frame when accept is clicked
+										}
+										else {
+											//Adding a new frame
+											JFrame duplicateFrame = new JFrame("Error");
+											duplicateFrame.setSize(310, 90);
+											duplicateFrame.getContentPane().setLayout(null);
+											duplicateFrame.setLocationRelativeTo(locationAdder);
+
+											//Adding text
+											JLabel duplicateText = new JLabel("You have already added this location.");
+											duplicateText.setBounds(30,5,400,23);
+											duplicateFrame.add(duplicateText);
+
+											//Adding a button
+											JButton okButton = new JButton("Ok");
+											okButton.setBounds(77,35,150,23);
+											duplicateFrame.add(okButton);
+
+											//Viewing the frame
+											duplicateFrame.setVisible(true);
+										}
 									}
 								});
 					}
@@ -1067,7 +1087,9 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		LocationPanel.add(btnAdd);
 		LocationPanel.add(pane);
 		contentPane.setLayout(gl_contentPane);
-		updateLocationList();
+
+
+
 		/******END LOCATIONS******/
 	}
 
@@ -1147,6 +1169,28 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		return country;
 	}
 
+
+	/**
+	 * changeWeatherLocation method changes the weather for the new location
+	 * @param location take in a string with City and Country Code
+	 * @return a new WeatherData object of the new location
+	 */
+	public WeatherData changeWeatherLocation(String location) {
+		for (int i=0; i<locationNames.length; i++) {
+			String checkString = " ";		//String can't be empty
+			if (locationNames[i] != null)
+				checkString = locationNames[i].getCurrentWeather().getCurrentCity()+", "+locationNames[i].getCurrentWeather().getCountryCode();
+			if (checkString.equals(location)) {
+				weatherData = locationNames[i];
+				return weatherData;
+			}
+			checkString = " ";
+		}
+		System.out.println("Location not found.");
+		return null;
+	}
+
+
 	public void addToLocationList(WeatherData newWeatherData) {
 		boolean check = false;
 		for (int i = 0; i < locationNames.length; i++) {
@@ -1162,6 +1206,17 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		}
 		updateLocationList();
 	}
+
+
+	public WeatherData checkCountryCode(WeatherData wd) {
+		System.out.println("Country Code: "+wd.getCurrentWeather().getCountryCode());
+		if (wd.getCurrentWeather().getCountryCode().equals("United Kingdom"))
+			wd.getCurrentWeather().setCountryCode("GB");
+		else if (wd.getCurrentWeather().getCountryCode().equals("Canada"))
+			wd.getCurrentWeather().setCountryCode("CA");
+		return wd;
+	}
+
 
 	public void arrayOverflow(WeatherData newWeatherData) {
 		WeatherData[] newWeatherDataArray = new WeatherData[locationNames.length * 2];
@@ -1196,6 +1251,19 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		return newWeatherDataArray;
 
 	}
+
+
+	public boolean checkDuplicate(WeatherData wd) {
+		for (int i=0; i<locationNames.length; i++) {
+			if (locationNames[i] != null) {
+				if ((locationNames[i].getCurrentWeather().getCurrentCity() + locationNames[i].getCurrentWeather().getCountryCode()).equals(wd.getCurrentWeather().getCurrentCity() + wd.getCurrentWeather().getCountryCode())) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
 
 	public void updateLocationList() {
 		weatherList.removeAllElements();
