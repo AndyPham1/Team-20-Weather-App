@@ -1,5 +1,6 @@
 package main.java.weather;
 
+
 import javax.imageio.ImageIO;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.border.EmptyBorder;
@@ -8,10 +9,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DecimalFormat;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 
@@ -937,8 +936,6 @@ public class WeatherFrame extends JFrame implements Serializable {
 
 
 			}
-
-			;
 		});
 
 		menuEdit.add(menuEditRemove);
@@ -1179,16 +1176,17 @@ public class WeatherFrame extends JFrame implements Serializable {
 			i.printStackTrace();
 		}
 		catch (ClassNotFoundException c) {
-			System.out.println("Location list not found");
+			JOptionPane.showMessageDialog(null, "Location list not found");
 		}
-		for (int i = 0; i < wdLoad.size(); i++)
-		{
+		for (int i = 0; i < wdLoad.size(); i++) {
 			String city = wdLoad.get(i).getCurrentWeather().getCurrentCity();
 			String country = wdLoad.get(i).getCurrentWeather().getCountryCode();
 			WeatherData tmp = new WeatherData(city, country);
-			weatherList.addElement(tmp.getCurrentWeather().getCurrentCity() + ", " + tmp.getCurrentWeather().getCountryCode());
+			if (!checkDuplicate(tmp)) {
+				weatherList.addElement(tmp.getCurrentWeather().getCurrentCity() + ", " + tmp.getCurrentWeather().getCountryCode());
+				locationNames.add(tmp);
+			}
 		}
-		locationNames = wdLoad; 
 	}
 
     /**
@@ -1285,7 +1283,7 @@ public class WeatherFrame extends JFrame implements Serializable {
 				return weatherData;
 			}
 		}
-		System.out.println("Location not found.");
+		JOptionPane.showMessageDialog(null, "Location not found.");
 		return null;
 	}
 
@@ -1304,7 +1302,7 @@ public class WeatherFrame extends JFrame implements Serializable {
      * @return weather data with proper country code
      */
 	public WeatherData checkCountryCode(WeatherData wd) {
-		System.out.println("Country Code: "+wd.getCurrentWeather().getCountryCode());
+		//System.out.println("Country Code: "+wd.getCurrentWeather().getCountryCode());
 		if (wd.getCurrentWeather().getCountryCode().equals("United Kingdom"))
 			wd.getCurrentWeather().setCountryCode("GB");
 		else if (wd.getCurrentWeather().getCountryCode().equals("Canada"))
