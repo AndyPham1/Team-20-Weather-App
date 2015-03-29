@@ -1,6 +1,5 @@
 package weather;
 
-import com.sun.codemodel.internal.JOp;
 
 import javax.imageio.ImageIO;
 import javax.swing.GroupLayout.Alignment;
@@ -10,13 +9,12 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DecimalFormat;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 //import com.sun.media.jai.codec.PNGEncodeParam.Gray; /* Unused, crashes my (Paul's) project) */
+//import com.sun.codemodel.internal.JOp; /* unused, crashes my (Stanley) project
 
 
 /**

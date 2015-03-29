@@ -1,6 +1,5 @@
 weather/ShortTermWeatherValue$List.class
 weather/WeatherValue$Weather.class
-weather/WeatherFrame$9$1.class
 weather/MarsWeather.class
 weather/WeatherValue.class
 weather/WeatherFrame$1.class
@@ -32,6 +31,7 @@ weather/MarsWeather$Report.class
 weather/ShortTermWeatherValue$City.class
 weather/WeatherFrame$8$1.class
 weather/WeatherFrame$3.class
+weather/WeatherFrame$10.class
 weather/WeatherData.class
 weather/WeatherValue$Wind.class
 weather/LongTermWeatherValue$List.class
@@ -45,6 +45,7 @@ weather/WeatherData$MarsWeatherValue.class
 weather/ShortTermWeatherValue$Main.class
 weather/WeatherValue$Main.class
 weather/WeatherValue$Sys.class
+weather/WeatherFrame$10$1.class
 weather/NoCityFoundException.class
 weather/LongTermWeatherValue$Temp.class
 weather/WeatherFrame$7.class
