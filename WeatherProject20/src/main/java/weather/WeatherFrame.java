@@ -28,7 +28,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 	private JLabel lastUpdatedLabel;
 	private JPanel contentPane;
 	private JList locationList;
-	private static WeatherData[] locationNames = new WeatherData[1];
+	public static WeatherData[] locationNames = new WeatherData[1];
 	private String userCityInput;
 	private String userCountryInput;
 	private DecimalFormat df;
@@ -1211,6 +1211,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 
 	public void addToLocationList(WeatherData newWeatherData) {
 		boolean check = false;
+
 		for (int i = 0; i < locationNames.length; i++) {
 			if (locationNames[i] == null) {
 				locationNames[i] = newWeatherData;
@@ -1232,7 +1233,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 			wd.getCurrentWeather().setCountryCode("GB");
 		else if (wd.getCurrentWeather().getCountryCode().equals("Canada"))
 			wd.getCurrentWeather().setCountryCode("CA");
-		else if (wd.getCurrentWeather().getCountryCode().equals("United States of America"))
+		else if (wd.getCurrentWeather().getCountryCode().equals("United States of America") || wd.getCurrentWeather().getCountryCode().equals("United States"))
 			wd.getCurrentWeather().setCountryCode("US");
 		return wd;
 	}
@@ -1295,6 +1296,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 	public void refreshGUI() {
 		try {
 			weatherData.update();
+
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
