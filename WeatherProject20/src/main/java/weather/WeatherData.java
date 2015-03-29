@@ -10,39 +10,44 @@ package weather;
 
 import com.google.gson.*;
 
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Serializable;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.io.IOException;
 
 /**
  * WeatherData class contains the weather data 
  * @author Team 20
  */
 
-public class WeatherData {
+public class WeatherData implements Serializable{
 
-    public CurrentWeather currentWeather = new CurrentWeather(); // Initialized to keep current units
-    public ShortTermWeather[] shortTermWeather;
-    public LongTermWeather[] longTermWeather;
-    public MarsWeather mw;
-    private WeatherValue wv;
-    private ShortTermWeatherValue st;
-    private LongTermWeatherValue lt;
-    public MarsWeatherValue marsWeather;
-    private Boolean unitFlag = false;
+    public transient CurrentWeather currentWeather = new CurrentWeather(); // Initialized to keep current units
+    public transient ShortTermWeather[] shortTermWeather;
+    public transient LongTermWeather[] longTermWeather;
+    public transient MarsWeather mw;
+    private transient WeatherValue wv;
+    private transient ShortTermWeatherValue st;
+    private transient LongTermWeatherValue lt;
+    public transient MarsWeatherValue marsWeather;
+    private transient Boolean unitFlag = false;
 
     public String[] next_24; //temporarily store the next 24 hours here
     public String[] next_5;
 
+    private boolean firstFlag; //for the initial setting of the city/country
     /*
     Current Weather is a class that stores all the attributes that is to be represented in the local weather view
      */
-    public class CurrentWeather {
+    public class CurrentWeather  {
         /* Instance Variables */
         private double windSpeed;
         private double windDirectionDegrees;
@@ -83,8 +88,9 @@ public class WeatherData {
          * changeSun changes the sunrise and sunset
          */
         private void changeSun() {
-            String sunriseDate = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new java.util.Date((Long.parseLong(currentWeather.sunrise) * 1000)));
-            String sunsetDate = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new java.util.Date((Long.parseLong(currentWeather.sunset) * 1000)));
+            // TODO: sometimes got a NumberException
+            String sunriseDate = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new java.util.Date((Long.parseLong(currentWeather.getSunrise()) * 1000)));
+            String sunsetDate = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new java.util.Date((Long.parseLong(currentWeather.getSunset()) * 1000)));
             int length = sunriseDate.length();
             sunriseDate = sunriseDate.substring(length - 9, length - 3).toString();
             sunsetDate = sunsetDate.substring(length - 9, length - 3).toString();
@@ -392,12 +398,16 @@ public class WeatherData {
         }
     }
 
+
     /*
      * Constructor for WeatherData class.
      * Initializes the instance variables with the first fetch-data from the source
      */
     public WeatherData(String city, String countryCode) {
-        getWeather(city, countryCode);
+        if (city ==null && countryCode == null)
+            getWeatherEmpty();
+        else
+            getWeather(city, countryCode);
     }
 
 
@@ -413,6 +423,13 @@ public class WeatherData {
         return this;
     }
 
+    private void getWeatherEmpty() {
+        firstFlag=true;
+        String defaultCity = JOptionPane.showInputDialog("Please enter your current city below: ");
+        String defaultCountry = JOptionPane.showInputDialog("Please enter your current country below: ");
+        getWeather(defaultCity, defaultCountry);
+        firstFlag=false;
+    }
     /**
      * getWeather opens up the OpenWeatherMap API and retrieves given information that we wish to acquire
      * @param city the city, countryCode the country code as a string
@@ -430,7 +447,16 @@ public class WeatherData {
             String jsonData = readUrl(urlCurrent);
             Gson gsonCurrent = new Gson();
             wv = gsonCurrent.fromJson(jsonData, WeatherValue.class);
-            retrieveCurrentWeather();
+
+            //before instantiating the variables of current weather data, first we must check if this is a proper list of data
+            if (wv.getCod().equals("404")) {
+                JOptionPane.showMessageDialog(null, "Incorrect input, try again");
+                if (firstFlag)
+                    getWeatherEmpty();
+                return;
+            }
+            else
+                retrieveCurrentWeather();
 
             //Get coordinates for current location for use in short term and long term forecasting
             double lat, lon;
@@ -462,7 +488,7 @@ public class WeatherData {
             retrieveLongTermWeather();
 
             // Sets default units
-            if (unitFlag == false) {
+            if (!unitFlag) {
                 currentWeather.setUnits("celsius");
                 unitFlag = true;
             }
@@ -482,11 +508,11 @@ public class WeatherData {
             longTermDayIntervalGenerator();
 
         } catch (JsonParseException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Incorrect input, try again");
+            if (firstFlag)
+                getWeatherEmpty();
         }
     }
 
@@ -495,7 +521,7 @@ public class WeatherData {
      * @param urlString is the String that links to the json file
      * @return String
      */
-    private static String readUrl(String urlString) throws Exception {
+    private static String readUrl(String urlString) throws IOException{
         BufferedReader reader = null;
         try {
             URL url = new URL(urlString);

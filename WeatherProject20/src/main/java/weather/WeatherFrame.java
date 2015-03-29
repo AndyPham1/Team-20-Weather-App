@@ -7,11 +7,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
+import java.io.*;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DecimalFormat;
-import java.io.IOException;
+import java.net.MalformedURLException;
+import java.util.ArrayList;
 
 //import com.sun.media.jai.codec.PNGEncodeParam.Gray; /* Unused, crashes my (Paul's) project) */
+
 
 /**
  * Weather Frame is the GUI for the app
@@ -19,7 +23,7 @@ import java.io.IOException;
  * @author Team 20
  */
 
-public class WeatherFrame extends JFrame implements ActionListener {
+public class WeatherFrame extends JFrame implements ActionListener, Serializable {
 
 	/* Instance Variables */
 
@@ -27,10 +31,14 @@ public class WeatherFrame extends JFrame implements ActionListener {
 	private WeatherData weatherData;
 	private JLabel lastUpdatedLabel;
 	private JPanel contentPane;
-	private JList locationList;
-	private static java.util.ArrayList<WeatherData> locationNames;
-	private String userCityInput;
-	private String userCountryInput;
+
+	private JList locationList;	// JList of the locations
+	private static java.util.ArrayList<WeatherData> locationNames;	//list of the locations
+	private String userCityInput;		//what the user enters in the textbox when prompted to enter the city
+	private String userCountryInput;	//what the user enters in the textbox when prompted to enter the country
+	private String defaultCity; 		//default city added by the user at the start of runtime
+	private String defaultCountry;		//default country added by the user at the start of runtime
+
 	private DecimalFormat df;
 
 	private BufferedImage refreshImage;
@@ -167,9 +175,9 @@ public class WeatherFrame extends JFrame implements ActionListener {
 
 	public WeatherFrame() throws IOException {
 
-		weatherData = new WeatherData("London", "CA");
+		initializePrimaryVariables();
+
 		/*****IMAGES*****/
-		locationNames = new java.util.ArrayList<WeatherData>();
 		//        myPictureUpdate = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("update.png"));
 		URL url = new URL("http://openweathermap.org/img/w/01d.png");
 		icon01d = ImageIO.read(url);
@@ -892,7 +900,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		mniSave.setToolTipText("Save");
 		mniSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				;
+				toSaveLocations();
 			}
 		});
 		mnuFile.add(mniSave);
@@ -900,7 +908,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		mniLoad.setToolTipText("Load");
 		mniLoad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				;
+				toLoadLocations();
 			}
 		});
 		mnuFile.add(mniLoad);
@@ -972,8 +980,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		/******LOCATIONS******/
 
 
-		weatherList = new DefaultListModel();
-		locationList = new JList(weatherList);
+
 		final JScrollPane pane = new JScrollPane(locationList);
 		pane.setBounds(10, 25, 180, 520);
 
@@ -1015,9 +1022,13 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		btnRem.addActionListener(
 				new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						locationList.setSelectedIndex(locationList.getSelectedIndex());
-						removeLocationList((String)locationList.getSelectedValue());
-						weatherList.remove(locationList.getSelectedIndex());
+						if (locationNames.size() == 1)
+							JOptionPane.showMessageDialog(null, "Last location, can't remove");
+						else {
+							locationList.setSelectedIndex(locationList.getSelectedIndex());
+							removeLocationList((String) locationList.getSelectedValue());
+							weatherList.remove(locationList.getSelectedIndex());
+						}
 
 					}
 				}
@@ -1074,7 +1085,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 											cityNotFoundText.setBounds(30, 85, 400, 46);
 											locationAdder.add(cityNotFoundText);
 											locationAdder.setSize(310,150);
-											er.printStackTrace();
+											//er.printStackTrace();
 										}
 										if (!(newWeatherData.getCurrentWeather().getCurrentCity() == null)) {
 
@@ -1115,6 +1126,52 @@ public class WeatherFrame extends JFrame implements ActionListener {
 	 * ***********METHODS************
 	 */
 
+	//first thing that is called to initalize the variables needed to preset the location
+	private void initializePrimaryVariables() {
+		locationNames = new java.util.ArrayList<WeatherData>();
+		weatherList = new DefaultListModel();
+		locationList = new JList(weatherList);
+
+		//prompt the user to input their current city and country to initialize WeatherData and create a default location
+		weatherData = new WeatherData(null, null);
+		addToLocationList(weatherData);
+		weatherList.addElement(weatherData.getCurrentWeather().getCurrentCity() + ", " + weatherData.getCurrentWeather().getCountryCode());
+	}
+
+	//to serialize the data
+	private void toSaveLocations() {
+		try {
+			File newFile = new File("locations.dat");
+			FileOutputStream fileOut = new FileOutputStream(newFile);
+			ObjectOutputStream out = new ObjectOutputStream(fileOut);
+			out.writeObject(locationNames);
+			out.close();
+			fileOut.close();
+			JOptionPane.showMessageDialog(null, "Serialized data is saved in: locations.data");
+		}
+		catch(IOException i){
+			i.printStackTrace();
+		}
+	}
+
+	private void toLoadLocations() {
+		String fileToLoad = "locations.dat";
+		ArrayList<WeatherData> wdLoad = new ArrayList<WeatherData>();
+		try{
+			FileInputStream fileIn = new FileInputStream(fileToLoad);
+			ObjectInputStream in = new ObjectInputStream(fileIn);
+			wdLoad = (ArrayList<WeatherData>) in.readObject();
+			in.close();
+			fileIn.close();
+		}
+		catch (IOException i) {
+			i.printStackTrace();
+		}
+		catch (ClassNotFoundException c) {
+			System.out.println("Location list not found");
+		}
+		System.out.println(wdLoad.toString());
+	}
 	public void actionPerformed(ActionEvent e) {
 
 	}
