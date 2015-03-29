@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-<<<<<<< HEAD
   <component name="CompilerConfiguration">
     <option name="DEFAULT_COMPILER" />
     <resourceExtensions />
@@ -29,8 +28,6 @@
     <option name="SKIP_IMPORT_STATEMENTS" value="false" />
   </component>
   <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false" />
-=======
->>>>>>> b9135a66f1a324ca74185727c6c94473de93e5d2
   <component name="EntryPointsManager">
     <entry_points version="2.0" />
   </component>
@@ -51,7 +48,6 @@
     <ConfirmationsSetting value="0" id="Add" />
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
-<<<<<<< HEAD
   <component name="ProjectModuleManager">
     <modules />
   </component>
@@ -160,20 +156,11 @@
     </configuration>
     <list size="0" />
   </component>
-=======
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" assert-keyword="true" jdk-15="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
-    <output url="file://$PROJECT_DIR$/out" />
-  </component>
->>>>>>> b9135a66f1a324ca74185727c6c94473de93e5d2
   <component name="masterDetails">
     <states>
       <state key="ProjectJDKs.UI">
         <settings>
-<<<<<<< HEAD
           <last-edited>1.7</last-edited>
-=======
-          <last-edited>1.8</last-edited>
->>>>>>> b9135a66f1a324ca74185727c6c94473de93e5d2
           <splitter-proportions>
             <option name="proportions">
               <list>

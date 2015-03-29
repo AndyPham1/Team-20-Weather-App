@@ -656,7 +656,7 @@ public class WeatherFrame extends JFrame implements Serializable {
 
 		JPanel longTermPanel2 = new JPanel();
 		longTermPanel2.setBackground(new Color(255, 153, 0));
-		longTermPanel2.setBounds(133, 11, 111, 149);
+		longTermPanel2.setBounds(132, 11, 111, 149);
 		longTermFullPanel.add(longTermPanel2);
 		longTermPanel2.setLayout(null);
 
@@ -692,7 +692,7 @@ public class WeatherFrame extends JFrame implements Serializable {
 
 		JPanel longTermPanel3 = new JPanel();
 		longTermPanel3.setBackground(new Color(255, 153, 0));
-		longTermPanel3.setBounds(256, 11, 111, 149);
+		longTermPanel3.setBounds(254, 11, 111, 149);
 		longTermFullPanel.add(longTermPanel3);
 		longTermPanel3.setLayout(null);
 
@@ -728,7 +728,7 @@ public class WeatherFrame extends JFrame implements Serializable {
 
 		JPanel longTermPanel4 = new JPanel();
 		longTermPanel4.setBackground(new Color(255, 153, 0));
-		longTermPanel4.setBounds(379, 11, 111, 149);
+		longTermPanel4.setBounds(376, 11, 111, 149);
 		longTermFullPanel.add(longTermPanel4);
 		longTermPanel4.setLayout(null);
 
@@ -764,7 +764,7 @@ public class WeatherFrame extends JFrame implements Serializable {
 
 		JPanel longTermPanel5 = new JPanel();
 		longTermPanel5.setBackground(new Color(255, 153, 0));
-		longTermPanel5.setBounds(502, 11, 111, 149);
+		longTermPanel5.setBounds(498, 11, 111, 149);
 		longTermFullPanel.add(longTermPanel5);
 		longTermPanel5.setLayout(null);
 

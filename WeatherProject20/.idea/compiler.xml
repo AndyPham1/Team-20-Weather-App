@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-<<<<<<< HEAD
     <option name="DEFAULT_COMPILER" value="Javac" />
-=======
->>>>>>> b9135a66f1a324ca74185727c6c94473de93e5d2
     <resourceExtensions />
     <wildcardResourcePatterns>
       <entry name="!?*.java" />
@@ -29,11 +26,5 @@
         <module name="Weather-App" />
       </profile>
     </annotationProcessing>
-<<<<<<< HEAD
-=======
-    <bytecodeTargetLevel>
-      <module name="Weather-App" target="1.5" />
-    </bytecodeTargetLevel>
->>>>>>> b9135a66f1a324ca74185727c6c94473de93e5d2
   </component>
 </project>
