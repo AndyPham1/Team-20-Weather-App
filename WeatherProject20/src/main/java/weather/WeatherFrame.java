@@ -28,7 +28,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 	private JLabel lastUpdatedLabel;
 	private JPanel contentPane;
 	private JList locationList;
-	public static WeatherData[] locationNames = new WeatherData[1];
+	private static java.util.ArrayList<WeatherData> locationNames;
 	private String userCityInput;
 	private String userCountryInput;
 	private DecimalFormat df;
@@ -169,7 +169,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 
 		weatherData = new WeatherData("London", "CA");
 		/*****IMAGES*****/
-
+		locationNames = new java.util.ArrayList<WeatherData>();
 		//        myPictureUpdate = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("update.png"));
 		URL url = new URL("http://openweathermap.org/img/w/01d.png");
 		icon01d = ImageIO.read(url);
@@ -1120,17 +1120,14 @@ public class WeatherFrame extends JFrame implements ActionListener {
 	}
 
 	public WeatherData changeWeatherLocation(String s, WeatherData weatherData) {
-		for (int i = 0; i < locationNames.length; i++) {
-			String checkString = new String(locationNames[i]
-					.getCurrentWeather().getCurrentCity()
-					+ ", "
-					+ locationNames[i].getCurrentWeather().getCountryCode());
 
-			if (checkString.equals(s)) {
-				weatherData = locationNames[i];
+		for (int i = 0; i < locationNames.size(); i++) {
+			String checkCityName = locationNames.get(i).getCurrentWeather().getCurrentCity() + ", " + locationNames.get(i).getCurrentWeather()
+					.getCountryCode();
+			if (checkCityName.equals(s)) {
+				weatherData = locationNames.get(i);
 				return weatherData;
 			}
-
 		}
 		return null;
 	}
@@ -1194,15 +1191,15 @@ public class WeatherFrame extends JFrame implements ActionListener {
 	 * @return a new WeatherData object of the new location
 	 */
 	public WeatherData changeWeatherLocation(String location) {
-		for (int i=0; i<locationNames.length; i++) {
-			String checkString = " ";		//String can't be empty
-			if (locationNames[i] != null)
-				checkString = locationNames[i].getCurrentWeather().getCurrentCity()+", "+locationNames[i].getCurrentWeather().getCountryCode();
+		String checkString = "";		//Instantiate checkString
+
+		for (int i=0; i<locationNames.size(); i++) {
+			if (locationNames.get(i) != null)
+				checkString = locationNames.get(i).getCurrentWeather().getCurrentCity()+", "+locationNames.get(i).getCurrentWeather().getCountryCode();
 			if (checkString.equals(location)) {
-				weatherData = locationNames[i];
+				weatherData = locationNames.get(i);
 				return weatherData;
 			}
-			checkString = " ";
 		}
 		System.out.println("Location not found.");
 		return null;
@@ -1210,20 +1207,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 
 
 	public void addToLocationList(WeatherData newWeatherData) {
-		boolean check = false;
-
-		for (int i = 0; i < locationNames.length; i++) {
-			if (locationNames[i] == null) {
-				locationNames[i] = newWeatherData;
-				check = true;
-			}
-		}
-		if (check == false) {
-			arrayOverflow(newWeatherData);
-			updateLocationList();
-			return;
-		}
-		updateLocationList();
+			locationNames.add(newWeatherData);
 	}
 
 
@@ -1238,27 +1222,17 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		return wd;
 	}
 
-
-	public void arrayOverflow(WeatherData newWeatherData) {
-		WeatherData[] newWeatherDataArray = new WeatherData[locationNames.length * 2];
-		int i = 0;
-		for (; i < locationNames.length; i++) {
-			newWeatherDataArray[i] = locationNames[i];
-		}
-		newWeatherDataArray[locationNames.length] = newWeatherData;
-		locationNames = newWeatherDataArray;
-	}
-
-
 	/**
 	 * removeLocationList removes the location from the list
 	 * @param cityName takes in a cityName
 	 * @return a new array with the location removed
 	 */
-	public WeatherData[] removeLocationList(String cityName) {
-		for (int i=0; i<locationNames.length; i++) {
-			if ((locationNames[i].getCurrentWeather().getCurrentCity()+", "+locationNames[i].getCurrentWeather().getCountryCode()).equals(cityName)) {
-				locationNames[i] = null;
+	public java.util.ArrayList<WeatherData> removeLocationList(String cityName) {
+		String location_To_Compare="";
+		for (int i=0; i<locationNames.size(); i++) {
+			location_To_Compare= locationNames.get(i).getCurrentWeather().getCurrentCity()+", "+locationNames.get(i).getCurrentWeather().getCountryCode();
+			if ((location_To_Compare).equals(cityName)) {
+				locationNames.remove(i);
 			}
 		}
 		return locationNames;
@@ -1267,9 +1241,13 @@ public class WeatherFrame extends JFrame implements ActionListener {
 
 
 	public boolean checkDuplicate(WeatherData wd) {
-		for (int i=0; i<locationNames.length; i++) {
-			if (locationNames[i] != null) {
-				if ((locationNames[i].getCurrentWeather().getCurrentCity() + locationNames[i].getCurrentWeather().getCountryCode()).equals(wd.getCurrentWeather().getCurrentCity() + wd.getCurrentWeather().getCountryCode())) {
+		String location_To_Compare="";
+		String currentLocation="";
+		for (int i=0; i<locationNames.size(); i++) {
+			location_To_Compare=locationNames.get(i).getCurrentWeather().getCurrentCity() + locationNames.get(i).getCurrentWeather().getCountryCode();
+			currentLocation=wd.getCurrentWeather().getCurrentCity() + wd.getCurrentWeather().getCountryCode();
+			if (locationNames.get(i) != null) {
+				if ((location_To_Compare).equals(currentLocation)) {
 					return true;
 				}
 			}
@@ -1280,13 +1258,13 @@ public class WeatherFrame extends JFrame implements ActionListener {
 
 	public void updateLocationList() {
 		weatherList.removeAllElements();
-		for (int i = 0; i < locationNames.length; i++) {
-			if (locationNames[i] != null) {
+		for (int i = 0; i < locationNames.size(); i++) {
+			if (locationNames.get(i) != null) {
 				weatherList
-				.addElement(locationNames[i].getCurrentWeather()
+				.addElement(locationNames.get(i).getCurrentWeather()
 						.getCurrentCity()
 						+ ", "
-						+ locationNames[i].getCurrentWeather()
+						+ locationNames.get(i).getCurrentWeather()
 						.getCountryCode());
 			}
 		}
