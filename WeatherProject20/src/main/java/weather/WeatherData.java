@@ -30,7 +30,9 @@ import java.io.IOException;
 
 public class WeatherData implements Serializable{
 
-    public transient CurrentWeather currentWeather = new CurrentWeather(); // Initialized to keep current units
+    private static final long serialVersionUID = 1L;
+
+    public CurrentWeather currentWeather = new CurrentWeather(); // Initialized to keep current units
     public transient ShortTermWeather[] shortTermWeather;
     public transient LongTermWeather[] longTermWeather;
     public transient MarsWeather mw;
@@ -47,7 +49,7 @@ public class WeatherData implements Serializable{
     /*
     Current Weather is a class that stores all the attributes that is to be represented in the local weather view
      */
-    public class CurrentWeather  {
+    public class CurrentWeather implements Serializable {
         /* Instance Variables */
         private double windSpeed;
         private double windDirectionDegrees;

@@ -1,19 +1,20 @@
 package weather;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class WeatherValue {
+public class WeatherValue implements Serializable{
 	
 	private Coord coord;
 	private Sys sys;
-	private List<Weather> weather; 
-	private String base; 
+	private List<Weather> weather;
+	private String base;
 	private Main main;
 	private Wind wind;
 	private Clouds clouds;
 	private String dt, id, name, cod;
 
-	public class Coord
+	public class Coord implements Serializable
 	{
 		private double lon, lat;
 
@@ -33,7 +34,7 @@ public class WeatherValue {
 		}
 	}
 	
-	public class Sys
+	public class Sys implements Serializable
 	{
 		private double type, id, message;
 		private String country, sunrise, sunset;

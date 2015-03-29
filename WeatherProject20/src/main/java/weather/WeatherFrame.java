@@ -1084,7 +1084,7 @@ public class WeatherFrame extends JFrame implements ActionListener, Serializable
 											cityNotFoundText.setVisible(true);
 											cityNotFoundText.setBounds(30, 85, 400, 46);
 											locationAdder.add(cityNotFoundText);
-											locationAdder.setSize(310,150);
+											locationAdder.setSize(310, 150);
 											//er.printStackTrace();
 										}
 										if (!(newWeatherData.getCurrentWeather().getCurrentCity() == null)) {
@@ -1141,13 +1141,13 @@ public class WeatherFrame extends JFrame implements ActionListener, Serializable
 	//to serialize the data
 	private void toSaveLocations() {
 		try {
-			File newFile = new File("locations.dat");
+			File newFile = new File("locations.txt");
 			FileOutputStream fileOut = new FileOutputStream(newFile);
 			ObjectOutputStream out = new ObjectOutputStream(fileOut);
 			out.writeObject(locationNames);
 			out.close();
 			fileOut.close();
-			JOptionPane.showMessageDialog(null, "Serialized data is saved in: locations.data");
+			JOptionPane.showMessageDialog(null, "Serialized data is saved in: locations.txt");
 		}
 		catch(IOException i){
 			i.printStackTrace();
@@ -1155,7 +1155,7 @@ public class WeatherFrame extends JFrame implements ActionListener, Serializable
 	}
 
 	private void toLoadLocations() {
-		String fileToLoad = "locations.dat";
+		String fileToLoad = "locations.txt";
 		ArrayList<WeatherData> wdLoad = new ArrayList<WeatherData>();
 		try{
 			FileInputStream fileIn = new FileInputStream(fileToLoad);
@@ -1170,7 +1170,13 @@ public class WeatherFrame extends JFrame implements ActionListener, Serializable
 		catch (ClassNotFoundException c) {
 			System.out.println("Location list not found");
 		}
-		System.out.println(wdLoad.toString());
+		for (int i = 0; i < wdLoad.size(); i++)
+		{
+			String city = wdLoad.get(i).getCurrentWeather().getCurrentCity();
+			String country = wdLoad.get(i).getCurrentWeather().getCountryCode();
+			WeatherData tmp = new WeatherData(city, country);
+			weatherList.addElement(tmp.getCurrentWeather().getCurrentCity() + ", " + tmp.getCurrentWeather().getCountryCode());
+		}
 	}
 	public void actionPerformed(ActionEvent e) {
 
