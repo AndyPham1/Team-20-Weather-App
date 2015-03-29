@@ -1,5 +1,7 @@
 package weather;
 
+import com.sun.codemodel.internal.JOp;
+
 import javax.imageio.ImageIO;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.border.EmptyBorder;
@@ -934,8 +936,6 @@ public class WeatherFrame extends JFrame implements ActionListener, Serializable
 
 
 			}
-
-			;
 		});
 
 
@@ -1168,17 +1168,17 @@ public class WeatherFrame extends JFrame implements ActionListener, Serializable
 			i.printStackTrace();
 		}
 		catch (ClassNotFoundException c) {
-			System.out.println("Location list not found");
+			JOptionPane.showMessageDialog(null, "Location list not found");
 		}
-		for (int i = 0; i < wdLoad.size(); i++)
-		{
+		for (int i = 0; i < wdLoad.size(); i++) {
 			String city = wdLoad.get(i).getCurrentWeather().getCurrentCity();
 			String country = wdLoad.get(i).getCurrentWeather().getCountryCode();
 			WeatherData tmp = new WeatherData(city, country);
-			weatherList.addElement(tmp.getCurrentWeather().getCurrentCity() + ", " + tmp.getCurrentWeather().getCountryCode());
-			locationNames.add(tmp);
+			if (!checkDuplicate(tmp)) {
+				weatherList.addElement(tmp.getCurrentWeather().getCurrentCity() + ", " + tmp.getCurrentWeather().getCountryCode());
+				locationNames.add(tmp);
+			}
 		}
-
 	}
 	public void actionPerformed(ActionEvent e) {
 
@@ -1266,7 +1266,7 @@ public class WeatherFrame extends JFrame implements ActionListener, Serializable
 				return weatherData;
 			}
 		}
-		System.out.println("Location not found.");
+		JOptionPane.showMessageDialog(null, "Location not found.");
 		return null;
 	}
 
@@ -1277,7 +1277,7 @@ public class WeatherFrame extends JFrame implements ActionListener, Serializable
 
 
 	public WeatherData checkCountryCode(WeatherData wd) {
-		System.out.println("Country Code: "+wd.getCurrentWeather().getCountryCode());
+		//System.out.println("Country Code: "+wd.getCurrentWeather().getCountryCode());
 		if (wd.getCurrentWeather().getCountryCode().equals("United Kingdom"))
 			wd.getCurrentWeather().setCountryCode("GB");
 		else if (wd.getCurrentWeather().getCountryCode().equals("Canada"))
