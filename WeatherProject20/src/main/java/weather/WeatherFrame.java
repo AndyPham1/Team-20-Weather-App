@@ -146,6 +146,9 @@ public class WeatherFrame extends JFrame implements ActionListener {
 	private JLabel currLowestTemp;
 	private JLabel currHighestTemp;
 
+	private JLabel cityNotFoundText = new JLabel("<html><font color='red'>The city you entered could not be found.<br>  Please check your input and try again.</font></html>");
+	private JLabel duplicateText  = new JLabel("<html><font color='red'>You have already added this location.</font></html>");
+
 	private JTabbedPane tabbedWeatherPane;
 	private JLabel marsConditionLabel;
 	private JLabel marsIconLabel;
@@ -1054,34 +1057,13 @@ public class WeatherFrame extends JFrame implements ActionListener {
 										try {
 											newWeatherData = checkCountryCode(newWeatherData);
 										} catch (NullPointerException er) {
-											System.out.println("HERE");
-											final JFrame cityNotFoundFrame = new JFrame("City not found.");
-											cityNotFoundFrame.setSize(310, 90);
-											cityNotFoundFrame.getContentPane().setLayout(null);
-											cityNotFoundFrame.setResizable(false);
-											cityNotFoundFrame.setLocationRelativeTo(locationAdder);
 
-											//Adding text
-											JLabel cityNotFoundText = new JLabel("The city you entered could not be found.\n" +
-													"Please check your input and try again.");
-											cityNotFoundText.setBounds(30, 5, 400, 46);
-											cityNotFoundFrame.add(cityNotFoundText);
-
-											//Adding button
-											JButton okButton = new JButton("Ok");
-											okButton.setBounds(77, 50, 150, 23);
-											cityNotFoundFrame.add(okButton);
-
-											//Viewing the frame
-											cityNotFoundFrame.setVisible(true);
-											okButton.addActionListener(
-													new ActionListener() {
-														public void actionPerformed(ActionEvent e) {
-															cityNotFoundFrame.dispose();
-															locationAdder.dispose();
-														}
-													}
-											);
+											//Adding text to let the user know they entered an invalid location
+											duplicateText.setVisible(false);
+											cityNotFoundText.setVisible(true);
+											cityNotFoundText.setBounds(30, 85, 400, 46);
+											locationAdder.add(cityNotFoundText);
+											locationAdder.setSize(310,150);
 											er.printStackTrace();
 										}
 										if (!(newWeatherData.getCurrentWeather().getCurrentCity() == null)) {
@@ -1091,31 +1073,34 @@ public class WeatherFrame extends JFrame implements ActionListener {
 												locationAdder.dispose();    //Close the frame when accept is clicked
 											} else { //Creates a notification to the user that the location has already been added
 												//Adding a new frame
-												final JFrame duplicateFrame = new JFrame("Error");
-												duplicateFrame.setSize(310, 90);
-												duplicateFrame.getContentPane().setLayout(null);
-												duplicateFrame.setLocationRelativeTo(locationAdder);
-
-												//Adding text
-												JLabel duplicateText = new JLabel("You have already added this location.");
-												duplicateText.setBounds(30, 5, 400, 23);
-												duplicateFrame.add(duplicateText);
-
-												//Adding a button
-												JButton okButton = new JButton("Ok");
-												okButton.setBounds(77, 35, 150, 23);
-												duplicateFrame.add(okButton);
-
-												//Viewing the frame
-												duplicateFrame.setVisible(true);
-												okButton.addActionListener(
-														new ActionListener() {
-															public void actionPerformed(ActionEvent e) {
-																duplicateFrame.dispose();
-																locationAdder.dispose();
-															}
-														}
-												);
+//												final JFrame duplicateFrame = new JFrame("Error");
+//												duplicateFrame.setSize(310, 90);
+//												duplicateFrame.getContentPane().setLayout(null);
+//												duplicateFrame.setLocationRelativeTo(locationAdder);
+//
+//												//Adding text
+												cityNotFoundText.setVisible(false);
+												duplicateText.setVisible(true);
+												duplicateText.setBounds(30, 90, 400, 23);
+												locationAdder.add(duplicateText);
+												locationAdder.setSize(310,140);
+//												duplicateFrame.add(duplicateText);
+//
+//												//Adding a button
+//												JButton okButton = new JButton("Ok");
+//												okButton.setBounds(77, 35, 150, 23);
+//												duplicateFrame.add(okButton);
+//
+//												//Viewing the frame
+//												duplicateFrame.setVisible(true);
+//												okButton.addActionListener(
+//														new ActionListener() {
+//															public void actionPerformed(ActionEvent e) {
+//																duplicateFrame.dispose();
+//																locationAdder.dispose();
+//															}
+//														}
+//												);
 											}
 										}
 									}
