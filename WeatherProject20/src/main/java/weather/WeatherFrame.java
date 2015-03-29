@@ -985,17 +985,17 @@ public class WeatherFrame extends JFrame implements ActionListener {
 					if (SwingUtilities.isLeftMouseButton(e)) {
 						weatherData = changeWeatherLocation((String) locationList.getSelectedValue());
 						refreshGUI();
-					}
-					else if (SwingUtilities.isRightMouseButton(e)) {
+					} else if (SwingUtilities.isRightMouseButton(e)) {
 						final JPopupMenu deleteMenu = new JPopupMenu("Delete");
 						JMenuItem deleteButton = new JMenuItem("Delete");
 						deleteMenu.add(deleteButton);
 
-						deleteMenu.show(e.getComponent(),e.getX(),e.getY());
+						deleteMenu.show(e.getComponent(), e.getX(), e.getY());
 						locationList.setSelectedIndex(locationList.getSelectedIndex());
 						deleteButton.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
 								deleteMenu.setVisible(false);
+								removeLocationList((String)locationList.getSelectedValue());
 								weatherList.remove(locationList.getSelectedIndex());
 							}
 						});
@@ -1010,9 +1010,21 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		locationsLabel.setBounds(10, 0, 200, 23);
 		locationsLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
+		JButton btnRem = new JButton("Remove");
+		btnRem.setBounds(10,580,180,23);
+		btnRem.addActionListener(
+				new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						locationList.setSelectedIndex(locationList.getSelectedIndex());
+						removeLocationList((String)locationList.getSelectedValue());
+						weatherList.remove(locationList.getSelectedIndex());
+
+					}
+				}
+		);
 
 		JButton btnAdd = new JButton("Add Location");
-		btnAdd.setBounds(10, 560, 180, 23);
+		btnAdd.setBounds(10, 550, 180, 23);
 		btnAdd.addActionListener(
 				new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -1067,40 +1079,18 @@ public class WeatherFrame extends JFrame implements ActionListener {
 											er.printStackTrace();
 										}
 										if (!(newWeatherData.getCurrentWeather().getCurrentCity() == null)) {
+
 											if (!checkDuplicate(newWeatherData)) {
 												weatherList.addElement(newWeatherData.getCurrentWeather().getCurrentCity() + ", " + newWeatherData.getCurrentWeather().getCountryCode());
 												addToLocationList(newWeatherData); //Adding the location to the myLocations list
 												locationAdder.dispose();    //Close the frame when accept is clicked
 											} else { //Creates a notification to the user that the location has already been added
-												//Adding a new frame
-//												final JFrame duplicateFrame = new JFrame("Error");
-//												duplicateFrame.setSize(310, 90);
-//												duplicateFrame.getContentPane().setLayout(null);
-//												duplicateFrame.setLocationRelativeTo(locationAdder);
-//
 //												//Adding text
 												cityNotFoundText.setVisible(false);
 												duplicateText.setVisible(true);
 												duplicateText.setBounds(30, 90, 400, 23);
 												locationAdder.add(duplicateText);
 												locationAdder.setSize(310,140);
-//												duplicateFrame.add(duplicateText);
-//
-//												//Adding a button
-//												JButton okButton = new JButton("Ok");
-//												okButton.setBounds(77, 35, 150, 23);
-//												duplicateFrame.add(okButton);
-//
-//												//Viewing the frame
-//												duplicateFrame.setVisible(true);
-//												okButton.addActionListener(
-//														new ActionListener() {
-//															public void actionPerformed(ActionEvent e) {
-//																duplicateFrame.dispose();
-//																locationAdder.dispose();
-//															}
-//														}
-//												);
 											}
 										}
 									}
@@ -1113,6 +1103,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		LocationPanel.setLayout(null);
 		LocationPanel.add(locationsLabel);
 		LocationPanel.add(btnAdd);
+		LocationPanel.add(btnRem);
 		LocationPanel.add(pane);
 		contentPane.setLayout(gl_contentPane);
 
@@ -1257,27 +1248,19 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		locationNames = newWeatherDataArray;
 	}
 
+
+	/**
+	 * removeLocationList removes the location from the list
+	 * @param cityName takes in a cityName
+	 * @return a new array with the location removed
+	 */
 	public WeatherData[] removeLocationList(String cityName) {
-		WeatherData[] newWeatherDataArray = new WeatherData[locationNames.length];
-		for (int i = 0; i < locationNames.length; i++) {
-			if ((locationNames[i].getCurrentWeather().getCurrentCity() + ", " + locationNames[i]
-					.getCurrentWeather().getCountryCode()).equals(cityName)) {
+		for (int i=0; i<locationNames.length; i++) {
+			if ((locationNames[i].getCurrentWeather().getCurrentCity()+", "+locationNames[i].getCurrentWeather().getCountryCode()).equals(cityName)) {
 				locationNames[i] = null;
 			}
 		}
-		boolean check = false;
-		for (int i = 0; i < locationNames.length; i++) {
-			if (locationNames[i] != null) {
-				if (!check) {
-					newWeatherDataArray[i] = locationNames[i];
-				} else {
-					newWeatherDataArray[i - 1] = locationNames[i];
-				}
-
-			} else
-				check = true;
-		}
-		return newWeatherDataArray;
+		return locationNames;
 
 	}
 
