@@ -1,4 +1,4 @@
-package weather;
+package main.java.weather;
 
 
 import javax.imageio.ImageIO;
@@ -13,8 +13,6 @@ import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-//import com.sun.media.jai.codec.PNGEncodeParam.Gray; /* Unused, crashes my (Paul's) project) */
-//import com.sun.codemodel.internal.JOp; /* unused, crashes my (Stanley) project
 
 
 /**
@@ -23,25 +21,25 @@ import java.util.ArrayList;
  * @author Team 20
  */
 
-public class WeatherFrame extends JFrame implements ActionListener, Serializable {
+public class WeatherFrame extends JFrame implements Serializable {
 
 	/* Instance Variables */
 
-	private DefaultListModel weatherList;
+	private DefaultListModel weatherList;   // Used for location list
 	private WeatherData weatherData;
-	private JLabel lastUpdatedLabel;
-	private JPanel contentPane;
+	private JLabel lastUpdatedLabel;    // Tells user the last time the weather was updated
+	private JPanel contentPane;         // Main panel that contains everything
 
-	private JList locationList;	// JList of the locations
+	private JList locationList;	        // JList of the locations
 	private static java.util.ArrayList<WeatherData> locationNames;	//list of the locations
 	private String userCityInput;		//what the user enters in the textbox when prompted to enter the city
 	private String userCountryInput;	//what the user enters in the textbox when prompted to enter the country
 	private String defaultCity; 		//default city added by the user at the start of runtime
 	private String defaultCountry;		//default country added by the user at the start of runtime
 
-	private DecimalFormat df;
+	private DecimalFormat df;           // Used in formating temperatures
 
-	private BufferedImage refreshImage;
+	private BufferedImage refreshImage; // Image used in button to refresh weather
 
 	// Day images
 	private BufferedImage icon01d;
@@ -65,6 +63,7 @@ public class WeatherFrame extends JFrame implements ActionListener, Serializable
 	private BufferedImage icon13n;
 	private BufferedImage icon50n;
 
+    // Long term weather variables
 	private JLabel longTermDay1;
 	private JLabel longTermIcon1;
 	private JLabel longWeatherCondition1;
@@ -100,6 +99,7 @@ public class WeatherFrame extends JFrame implements ActionListener, Serializable
 	private JLabel longMaxTemp5;
 	private JLabel longMinTemp5;
 
+    // Short term weather variables
 	private JLabel shortTermTime1;
 	private JLabel shortTermIcon1;
 	private JLabel shortWeatherCondition1;
@@ -140,6 +140,7 @@ public class WeatherFrame extends JFrame implements ActionListener, Serializable
 	private JLabel shortWeatherCondition8;
 	private JLabel shortTermTemp8;
 
+    // Current weather variables
 	private JLabel currLocationLabel;
 	private JLabel currWeatherDescriptionLabel;
 	private JLabel currSunriseLabel;
@@ -157,7 +158,9 @@ public class WeatherFrame extends JFrame implements ActionListener, Serializable
 	private JLabel cityNotFoundText = new JLabel("<html><font color='red'>The city you entered could not be found.<br>  Please check your input and try again.</font></html>");
 	private JLabel duplicateText  = new JLabel("<html><font color='red'>You have already added this location.</font></html>");
 
-	private JTabbedPane tabbedWeatherPane;
+	private JTabbedPane tabbedWeatherPane;      // Used to display earth and mars weather in separate tabbed windows
+
+    // Mars weather variables
 	private JLabel marsConditionLabel;
 	private JLabel marsIconLabel;
 	private JLabel marsWeatherConditionsLabel;
@@ -178,7 +181,8 @@ public class WeatherFrame extends JFrame implements ActionListener, Serializable
 		initializePrimaryVariables();
 
 		/*****IMAGES*****/
-		//        myPictureUpdate = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("update.png"));
+
+        // Gets weather images from openweathermap.org
 		URL url = new URL("http://openweathermap.org/img/w/01d.png");
 		icon01d = ImageIO.read(url);
 
@@ -233,8 +237,8 @@ public class WeatherFrame extends JFrame implements ActionListener, Serializable
 		url = new URL("http://openweathermap.org/img/w/50n.png");
 		icon50n = ImageIO.read(url);
 
-		//refreshImage = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("update.png"));
-		refreshImage = null;
+		refreshImage = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("update.png"));
+
 		/******END IMAGES*****/
 
 		/******DF FUNCTION******/
@@ -370,8 +374,7 @@ public class WeatherFrame extends JFrame implements ActionListener, Serializable
 		lastUpdatedLabel.setBounds(393, 227, 220, 14);
 		currWeatherPanel.add(lastUpdatedLabel);
 
-		//JButton currRefreshButton = new JButton(new ImageIcon(refreshImage));
-		JButton currRefreshButton = new JButton();
+		JButton currRefreshButton = new JButton(new ImageIcon(refreshImage));
 		currRefreshButton.setContentAreaFilled(false);
 		currRefreshButton.setBounds(561, 11, 40, 40);
 		currWeatherPanel.add(currRefreshButton);
@@ -653,7 +656,7 @@ public class WeatherFrame extends JFrame implements ActionListener, Serializable
 
 		JPanel longTermPanel2 = new JPanel();
 		longTermPanel2.setBackground(new Color(255, 153, 0));
-		longTermPanel2.setBounds(133, 11, 111, 149);
+		longTermPanel2.setBounds(132, 11, 111, 149);
 		longTermFullPanel.add(longTermPanel2);
 		longTermPanel2.setLayout(null);
 
@@ -689,7 +692,7 @@ public class WeatherFrame extends JFrame implements ActionListener, Serializable
 
 		JPanel longTermPanel3 = new JPanel();
 		longTermPanel3.setBackground(new Color(255, 153, 0));
-		longTermPanel3.setBounds(256, 11, 111, 149);
+		longTermPanel3.setBounds(254, 11, 111, 149);
 		longTermFullPanel.add(longTermPanel3);
 		longTermPanel3.setLayout(null);
 
@@ -725,7 +728,7 @@ public class WeatherFrame extends JFrame implements ActionListener, Serializable
 
 		JPanel longTermPanel4 = new JPanel();
 		longTermPanel4.setBackground(new Color(255, 153, 0));
-		longTermPanel4.setBounds(379, 11, 111, 149);
+		longTermPanel4.setBounds(376, 11, 111, 149);
 		longTermFullPanel.add(longTermPanel4);
 		longTermPanel4.setLayout(null);
 
@@ -761,7 +764,7 @@ public class WeatherFrame extends JFrame implements ActionListener, Serializable
 
 		JPanel longTermPanel5 = new JPanel();
 		longTermPanel5.setBackground(new Color(255, 153, 0));
-		longTermPanel5.setBounds(502, 11, 111, 149);
+		longTermPanel5.setBounds(498, 11, 111, 149);
 		longTermFullPanel.add(longTermPanel5);
 		longTermPanel5.setLayout(null);
 
@@ -857,7 +860,7 @@ public class WeatherFrame extends JFrame implements ActionListener, Serializable
 		marsCurrentTempLabel.setBounds(330, 22, 200, 50);
 		marsPanel.add(marsCurrentTempLabel);
 
-		marsCurrentTempOutput = new JLabel(((weatherData.getWeatherMars().getTemperatureMax() + weatherData.getWeatherMars().getTemperatureMin()) / 2) + "\u00B0");
+		marsCurrentTempOutput = new JLabel(((weatherData.getWeatherMars().getTemperatureMax() + weatherData.getWeatherMars().getTemperatureMin()) / 2) + "\u00B00");
 		marsCurrentTempOutput.setFont(new Font("Tahoma", Font.PLAIN, 56));
 		marsCurrentTempOutput.setBounds(330, 46, 250, 68);
 		marsPanel.add(marsCurrentTempOutput);
@@ -874,7 +877,7 @@ public class WeatherFrame extends JFrame implements ActionListener, Serializable
 		marsLastUpdatedLabel.setBounds(384, 251, 220, 14);
 		marsPanel.add(marsLastUpdatedLabel);
 
-		JButton marsRefreshButton = new JButton();
+		JButton marsRefreshButton = new JButton(new ImageIcon(refreshImage));
 		marsRefreshButton.setContentAreaFilled(false);
 		marsRefreshButton.setBounds(561, 11, 40, 40);
 		marsPanel.add(marsRefreshButton);
@@ -882,7 +885,7 @@ public class WeatherFrame extends JFrame implements ActionListener, Serializable
 				new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						lastUpdatedLabel.setText("Updating ...");
-						refreshGUI();
+						refreshMarsGUI();
 					}
 				});
 
@@ -891,7 +894,6 @@ public class WeatherFrame extends JFrame implements ActionListener, Serializable
 
 		/******MENU BAR******/
 
-		// Creates Menu bar
 		JMenuBar menubar = new JMenuBar();
 		JMenu mnuFile = new JMenu("File");
 		mnuFile.setMnemonic(KeyEvent.VK_F);
@@ -936,7 +938,6 @@ public class WeatherFrame extends JFrame implements ActionListener, Serializable
 			}
 		});
 
-
 		menuEdit.add(menuEditRemove);
 		menubar.add(menuEdit);
 
@@ -980,7 +981,7 @@ public class WeatherFrame extends JFrame implements ActionListener, Serializable
 
 
 		final JScrollPane pane = new JScrollPane(locationList);
-		pane.setBounds(10, 25, 180, 520);
+		pane.setBounds(10, 25, 180, 505);
 
 		//Switching the current weatherData when JList object is selected
 		locationList.addMouseListener(new MouseAdapter() {
@@ -1016,7 +1017,8 @@ public class WeatherFrame extends JFrame implements ActionListener, Serializable
 		locationsLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
 		JButton btnRem = new JButton("Remove");
-		btnRem.setBounds(10,580,180,23);
+		btnRem.setBounds(10,570,180,23);
+        // Action listener to remove location when pressed
 		btnRem.addActionListener(
 				new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -1033,7 +1035,8 @@ public class WeatherFrame extends JFrame implements ActionListener, Serializable
 		);
 
 		JButton btnAdd = new JButton("Add Location");
-		btnAdd.setBounds(10, 550, 180, 23);
+		btnAdd.setBounds(10, 540, 180, 23);
+        // Action listener to add location when pressed
 		btnAdd.addActionListener(
 				new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -1120,11 +1123,13 @@ public class WeatherFrame extends JFrame implements ActionListener, Serializable
 		/******END LOCATIONS******/
 
 
-	/**
-	 * ***********METHODS************
-	 */
+	/***********METHODS************/
 
-	//first thing that is called to initalize the variables needed to preset the location
+
+    /**
+     * First thing that is called to initialize the variables needed to preset the location
+     */
+
 	private void initializePrimaryVariables() {
 		locationNames = new java.util.ArrayList<WeatherData>();
 		weatherList = new DefaultListModel();
@@ -1136,7 +1141,9 @@ public class WeatherFrame extends JFrame implements ActionListener, Serializable
 		weatherList.addElement(weatherData.getCurrentWeather().getCurrentCity() + ", " + weatherData.getCurrentWeather().getCountryCode());
 	}
 
-	//to serialize the data
+    /**
+     * Serializes the data
+     */
 	private void toSaveLocations() {
 		try {
 			File newFile = new File("locations.txt");
@@ -1152,6 +1159,9 @@ public class WeatherFrame extends JFrame implements ActionListener, Serializable
 		}
 	}
 
+    /**
+     * loads previous locations from a text file
+     */
 	private void toLoadLocations() {
 		String fileToLoad = "locations.txt";
 		ArrayList<WeatherData> wdLoad = new ArrayList<WeatherData>();
@@ -1178,10 +1188,12 @@ public class WeatherFrame extends JFrame implements ActionListener, Serializable
 			}
 		}
 	}
-	public void actionPerformed(ActionEvent e) {
 
-	}
-
+    /**
+     * changeWeatherLocation method changes the weather for the new location
+     * @param s and weatherData take in a string with City and Country Code and old weather data
+     * @return a new WeatherData object of the new location
+     */
 	public WeatherData changeWeatherLocation(String s, WeatherData weatherData) {
 
 		for (int i = 0; i < locationNames.size(); i++) {
@@ -1194,8 +1206,11 @@ public class WeatherFrame extends JFrame implements ActionListener, Serializable
 		}
 		return null;
 	}
-
-    // Receives icon ID from API and returns proper image
+    /**
+     * displayCorrectImage finds the proper image based on the icon ID from the API
+     * @param description receives icon ID
+     * @return image used for weather
+     */
 	public BufferedImage displayCorrectImage(String description) {
 		if (description.equals("01d")) {
 			return icon01d;
@@ -1241,16 +1256,15 @@ public class WeatherFrame extends JFrame implements ActionListener, Serializable
 		return null;
 	}
 
-	/**
-	 * repleaces all spaces with a dash in the country to make sure there are no errors in the url fetch
-	 * @param country the country entered by the user
-	 * @return the string of the altered country code
-	 */
+    /**
+     * changeToCountryCode changes all spaces into hyphens in a country code
+     * @param country take in a country code
+     * @return A proper country code with hyphens instead of spaces
+     */
 	public String changeToCountryCode(String country) {
 		country = country.replace(' ', '-');
 		return country;
 	}
-
 
 	/**
 	 * changeWeatherLocation method changes the weather for the new location
@@ -1272,20 +1286,21 @@ public class WeatherFrame extends JFrame implements ActionListener, Serializable
 		return null;
 	}
 
-	/**
-	 * adds the WeatherData object to the locationNames list
-	 * @param newWeatherData the WeatherData object to add to the list
-	 */
+    /**
+     * Adds new weather data to locationNames Arraylist
+     * @param newWeatherData takes in new weather data
+     */
 	public void addToLocationList(WeatherData newWeatherData) {
 			locationNames.add(newWeatherData);
 	}
 
 
-	/**
-	 * adjusts the country codes to a consistent form of the popular countries to minimize potential errors in the url fetch
-	 * @param wd the weatherData object to examine
-	 * @return the weatherData after modifying the country code if necessary
-	 */
+    /**
+     * checkCountryCode checks if the current country code refers to the
+     * proper country
+     * @param wd takes in weather data
+     * @return weather data with proper country code
+     */
 	public WeatherData checkCountryCode(WeatherData wd) {
 		//System.out.println("Country Code: "+wd.getCurrentWeather().getCountryCode());
 		if (wd.getCurrentWeather().getCountryCode().equals("United Kingdom"))
@@ -1315,11 +1330,13 @@ public class WeatherFrame extends JFrame implements ActionListener, Serializable
 	}
 
 
-	/**
-	 * checks the list of locationNames to see if there has already been a predefined WeatherData object
-	 * @param wd the WeatherData object to add, but first to check if it is present
-	 * @return true if the location is already entered on the list, false is not
-	 */
+
+    /**
+     * checkDuplicate checks locationNames Arraylist to see if
+     * the country already exists
+     * @param wd takes in weather data
+     * @return true if duplicate, else false
+     */
 	public boolean checkDuplicate(WeatherData wd) {
 		String location_To_Compare="";
 		String currentLocation="";
@@ -1342,24 +1359,20 @@ public class WeatherFrame extends JFrame implements ActionListener, Serializable
 		weatherList.removeAllElements();
 		for (int i = 0; i < locationNames.size(); i++) {
 			if (locationNames.get(i) != null) {
-				weatherList
-				.addElement(locationNames.get(i).getCurrentWeather()
-						.getCurrentCity()
-						+ ", "
-						+ locationNames.get(i).getCurrentWeather()
-						.getCountryCode());
+				weatherList.addElement(locationNames.get(i).getCurrentWeather().getCurrentCity()
+                        + ", " + locationNames.get(i).getCurrentWeather().getCountryCode());
 			}
 		}
 	}
 
 
-	/**
-	 *  Refreshes GUI by updating data and setting all labels
-	 */
+
+    /**
+     * Refreshes GUI by updating data and setting all earth labels
+     */
 	public void refreshGUI() {
 		try {
 			weatherData.update();
-
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -1428,12 +1441,34 @@ public class WeatherFrame extends JFrame implements ActionListener, Serializable
 		shortTermIcon8.setIcon(new ImageIcon(displayCorrectImage(weatherData.shortTermWeather[7].getIcon())));
 		shortTermTemp8.setText(df.format(weatherData.shortTermWeather[7].getTemperature()) + "\u00B0");
 		shortWeatherCondition8.setText(weatherData.shortTermWeather[7].getCondition());
-		
 	}
 
-	/**
-	 * Used to update all temperatures after the values have been changed without calling the update method
-	 */
+    /**
+     * Updates mars GUI by getting data and setting all mars labels
+     */
+    public void refreshMarsGUI() {
+        try {
+            weatherData.update();
+
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        marsConditionLabel.setText("Conditions: " + weatherData.getWeatherMars().getSkyCondition());
+        marsIconLabel.setIcon(new ImageIcon(displayCorrectImage(weatherData.getWeatherMars().getSkyCondition())));
+        marsHumidityLabel.setText("Humidity: " + weatherData.getWeatherMars().getHumidity());
+        marsWindSpeedLabel.setText("Wind Speed: " + weatherData.getWeatherMars().getWindSpeed());
+        marsWindDirectionLabel.setText("Wind Direction: " + weatherData.getWeatherMars().getWindDirection());
+        marsPressureLabel.setText("Pressure: " + weatherData.getWeatherMars().getAirpressure() + "kPa");
+        marsCurrentTempOutput.setText(((weatherData.getWeatherMars().getTemperatureMax() + weatherData.getWeatherMars().getTemperatureMin()) / 2) + "\u00B00");
+        marsMinTempLabel.setText("\u2207" + weatherData.getWeatherMars().getTemperatureMin() + "\u00B0");
+        marsMaxTempLabel.setText("\u25B2" + weatherData.getWeatherMars().getTemperatureMin() + "\u00B0");
+        marsLastUpdatedLabel.setText("Last updated: " + weatherData.getCurrentWeather().getLastUpdatedTime());
+    }
+
+    /**
+     * Used to update all temperatures after the values have been changed without calling the update method
+     */
     public void changeUnits() {
         currTempOutput.setText(df.format(weatherData.getCurrentWeather().getTemperature()) + "\u00B0");
         currLowestTemp.setText("\u2207" + df.format(weatherData.getCurrentWeather().getMinTemp()) + "\u00B0");
@@ -1462,7 +1497,6 @@ public class WeatherFrame extends JFrame implements ActionListener, Serializable
         shortTermTemp7.setText(df.format(weatherData.shortTermWeather[6].getTemperature()) + "\u00B0");
         shortTermTemp8.setText(df.format(weatherData.shortTermWeather[7].getTemperature()) + "\u00B0");
         marsConditionLabel.setText("Conditions: " + weatherData.getWeatherMars().getSkyCondition());
-        // Adds an image
 		marsIconLabel = new JLabel(new ImageIcon(displayCorrectImage(weatherData.getWeatherMars().getSkyCondition())));
 		marsHumidityLabel.setText("Humidity:" + weatherData.getWeatherMars().getHumidity());
 		marsWindSpeedLabel.setText("Wind Speed:" + weatherData.getWeatherMars().getWindSpeed());

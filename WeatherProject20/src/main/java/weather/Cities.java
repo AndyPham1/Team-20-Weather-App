@@ -1,4 +1,4 @@
-package weather;
+package main.java.weather;
 
 /**
  * Cities class contains a collection of cities

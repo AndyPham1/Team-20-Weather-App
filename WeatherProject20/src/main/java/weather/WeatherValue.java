@@ -1,4 +1,4 @@
-package weather;
+package main.java.weather;
 
 import java.io.Serializable;
 import java.util.List;

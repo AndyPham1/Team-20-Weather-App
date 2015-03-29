@@ -1,4 +1,4 @@
-package weather;
+package main.java.weather;
 
 public class MarsWeather {
  public Report report;

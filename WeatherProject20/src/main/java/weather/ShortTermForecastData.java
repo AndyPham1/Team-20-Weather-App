@@ -1,4 +1,4 @@
-package weather;
+package main.java.weather;
 
 /**
  * ShortTermForecastData is a class containing the data for short term forecast

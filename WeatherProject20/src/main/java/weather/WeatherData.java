@@ -1,4 +1,4 @@
-package weather;
+package main.java.weather;
 /**
  * About WeatherData: WeatherData accesses the OpenWeatherMap API server based on the link it provides. The basic construct
  * of the URL is already defined and the changes needed to access the different cities/countries can be manipulated based
@@ -33,17 +33,17 @@ public class WeatherData implements Serializable{
     private static final long serialVersionUID = 1L;
 
     public CurrentWeather currentWeather = new CurrentWeather(); // Initialized to keep current units
-    public transient ShortTermWeather[] shortTermWeather;
-    public transient LongTermWeather[] longTermWeather;
-    public transient MarsWeather mw;
-    private transient WeatherValue wv;
-    private transient ShortTermWeatherValue st;
-    private transient LongTermWeatherValue lt;
-    public transient MarsWeatherValue marsWeather;
-    private transient Boolean unitFlag = false;
+    public transient ShortTermWeather[] shortTermWeather;       //holds short term weather forecast attributes
+    public transient LongTermWeather[] longTermWeather;         //holds long term weather forecast attributes
+    public transient MarsWeather mw;                            //holds the mars weather forecast attributes
+    private transient WeatherValue wv;                          //used to serialize current weather
+    private transient ShortTermWeatherValue st;                 //used to serialize short term weather
+    private transient LongTermWeatherValue lt;                  //used to serialize long term weather
+    public transient MarsWeatherValue marsWeather;              //used to serialize mars weather
+    private transient Boolean unitFlag = false;                 //to flag the boolean variable for units
 
-    public String[] next_24; //temporarily store the next 24 hours here
-    public String[] next_5;
+    public String[] next_24; //store the next 24 hours here
+    public String[] next_5; //store the next 5 days here
 
     private boolean firstFlag; //for the initial setting of the city/country
     /*
