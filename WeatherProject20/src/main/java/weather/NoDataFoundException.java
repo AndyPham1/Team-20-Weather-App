@@ -1,4 +1,4 @@
-package weather;
+package main.java.weather;
 
 /**
  * NoDataFoundException is an exception class

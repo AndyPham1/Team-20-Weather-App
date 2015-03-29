@@ -1,4 +1,4 @@
-package weather;
+package main.java.weather;
 /**
  * About WeatherData: WeatherData accesses the OpenWeatherMap API server based on the link it provides. The basic construct
  * of the URL is already defined and the changes needed to access the different cities/countries can be manipulated based

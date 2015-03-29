@@ -1,4 +1,4 @@
-package weather;
+package main.java.weather;
 
 /**
  * City Data class to store information of the different cities entered by the user
