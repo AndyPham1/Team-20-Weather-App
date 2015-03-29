@@ -287,7 +287,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 
 		currLocationLabel = new JLabel(weatherData.getCurrentWeather().getCurrentCity() + ", " + weatherData.getCurrentWeather().getCountryCode());
 		currLocationLabel.setFont(new Font("Dialog", Font.PLAIN, 22));
-		currLocationLabel.setBounds(10, 11, 400, 24);
+		currLocationLabel.setBounds(10, 11, 400, 40);
 		currLocationLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		currWeatherPanel.add(currLocationLabel);
 
@@ -825,14 +825,14 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		marsWeatherConditionsLabel.setBounds(10, 127, 250, 24);
 		marsPanel.add(marsWeatherConditionsLabel);
 
-		marsHumidityLabel = new JLabel("Humidity:" + weatherData.getWeatherMars().getHumidity());
+		marsHumidityLabel = new JLabel("Humidity: " + weatherData.getWeatherMars().getHumidity());
 		marsHumidityLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		marsHumidityLabel.setBounds(10, 220, 170, 24);
+		marsHumidityLabel.setBounds(10, 220, 200, 24);
 		marsPanel.add(marsHumidityLabel);
 
-		marsWindSpeedLabel = new JLabel("Wind Speed:" + weatherData.getWeatherMars().getWindSpeed());
+		marsWindSpeedLabel = new JLabel("Wind Speed: " + weatherData.getWeatherMars().getWindSpeed());
 		marsWindSpeedLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		marsWindSpeedLabel.setBounds(10, 174, 170, 24);
+		marsWindSpeedLabel.setBounds(10, 174, 200, 24);
 		marsPanel.add(marsWindSpeedLabel);
 
 		marsWindDirectionLabel = new JLabel("Wind Direction: " + weatherData.getWeatherMars().getWindDirection());
@@ -840,13 +840,13 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		marsWindDirectionLabel.setBounds(10, 198, 200, 24);
 		marsPanel.add(marsWindDirectionLabel);
 
-		marsPressureLabel = new JLabel("Pressure:" + weatherData.getWeatherMars().getAirpressure() + "kPa");
+		marsPressureLabel = new JLabel("Pressure: " + weatherData.getWeatherMars().getAirpressure() + "kPa");
 		marsPressureLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		marsPressureLabel.setBounds(10, 244, 150, 24);
+		marsPressureLabel.setBounds(10, 244, 200, 24);
 		marsPanel.add(marsPressureLabel);
 
 		marsCurrentTempLabel = new JLabel("Average Temperature: ");
-		marsCurrentTempLabel.setBounds(330, 22, 183, 50);
+		marsCurrentTempLabel.setBounds(330, 22, 200, 50);
 		marsPanel.add(marsCurrentTempLabel);
 
 		marsCurrentTempOutput = new JLabel(((weatherData.getWeatherMars().getTemperatureMax() + weatherData.getWeatherMars().getTemperatureMin()) / 2) + "\u00B0");
@@ -854,12 +854,12 @@ public class WeatherFrame extends JFrame implements ActionListener {
 		marsCurrentTempOutput.setBounds(330, 46, 250, 68);
 		marsPanel.add(marsCurrentTempOutput);
 
-		marsMinTempLabel = new JLabel("\u2207" + weatherData.getWeatherMars().getTemperatureMin() + "min\u00B0");
-		marsMinTempLabel.setBounds(397, 125, 60, 15);
+		marsMinTempLabel = new JLabel("\u2207" + weatherData.getWeatherMars().getTemperatureMin() + "\u00B0");
+		marsMinTempLabel.setBounds(400, 125, 80, 15);
 		marsPanel.add(marsMinTempLabel);
 
-		marsMaxTempLabel = new JLabel("\u25B2" + weatherData.getWeatherMars().getTemperatureMin() + "max\u00B0");
-		marsMaxTempLabel.setBounds(330, 125, 60, 14);
+		marsMaxTempLabel = new JLabel("\u25B2" + weatherData.getWeatherMars().getTemperatureMin() + "\u00B0");
+		marsMaxTempLabel.setBounds(333, 125, 80, 14);
 		marsPanel.add(marsMaxTempLabel);
 
 		marsLastUpdatedLabel = new JLabel("Last updated: " + weatherData.getCurrentWeather().getLastUpdatedTime());
@@ -1063,9 +1063,7 @@ public class WeatherFrame extends JFrame implements ActionListener {
 										userCityInput = cityInput.getText();
 										userCountryInput = countryInput.getText();
 										userCountryInput = changeToCountryCode(userCountryInput);
-										System.out.println("Here1");
 										WeatherData newWeatherData = new WeatherData(userCityInput, userCountryInput);
-										System.out.println("Country Code: "+newWeatherData.getCurrentWeather().getCountryCode());
 										try {
 											newWeatherData = checkCountryCode(newWeatherData);
 										} catch (NullPointerException er) {
@@ -1234,6 +1232,8 @@ public class WeatherFrame extends JFrame implements ActionListener {
 			wd.getCurrentWeather().setCountryCode("GB");
 		else if (wd.getCurrentWeather().getCountryCode().equals("Canada"))
 			wd.getCurrentWeather().setCountryCode("CA");
+		else if (wd.getCurrentWeather().getCountryCode().equals("United States of America"))
+			wd.getCurrentWeather().setCountryCode("US");
 		return wd;
 	}
 
