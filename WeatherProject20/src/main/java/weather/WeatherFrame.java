@@ -1176,8 +1176,9 @@ public class WeatherFrame extends JFrame implements ActionListener, Serializable
 			String country = wdLoad.get(i).getCurrentWeather().getCountryCode();
 			WeatherData tmp = new WeatherData(city, country);
 			weatherList.addElement(tmp.getCurrentWeather().getCurrentCity() + ", " + tmp.getCurrentWeather().getCountryCode());
+			locationNames.add(tmp);
 		}
-		locationNames = wdLoad; 
+
 	}
 	public void actionPerformed(ActionEvent e) {
 
