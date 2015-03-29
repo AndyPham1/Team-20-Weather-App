@@ -1241,8 +1241,12 @@ public class WeatherFrame extends JFrame implements ActionListener, Serializable
 		return null;
 	}
 
+	/**
+	 * repleaces all spaces with a dash in the country to make sure there are no errors in the url fetch
+	 * @param country the country entered by the user
+	 * @return the string of the altered country code
+	 */
 	public String changeToCountryCode(String country) {
-		// TODO: Convert all spaces to hyphens (-)
 		country = country.replace(' ', '-');
 		return country;
 	}
@@ -1268,12 +1272,20 @@ public class WeatherFrame extends JFrame implements ActionListener, Serializable
 		return null;
 	}
 
-
+	/**
+	 * adds the WeatherData object to the locationNames list
+	 * @param newWeatherData the WeatherData object to add to the list
+	 */
 	public void addToLocationList(WeatherData newWeatherData) {
 			locationNames.add(newWeatherData);
 	}
 
 
+	/**
+	 * adjusts the country codes to a consistent form of the popular countries to minimize potential errors in the url fetch
+	 * @param wd the weatherData object to examine
+	 * @return the weatherData after modifying the country code if necessary
+	 */
 	public WeatherData checkCountryCode(WeatherData wd) {
 		//System.out.println("Country Code: "+wd.getCurrentWeather().getCountryCode());
 		if (wd.getCurrentWeather().getCountryCode().equals("United Kingdom"))
@@ -1303,6 +1315,11 @@ public class WeatherFrame extends JFrame implements ActionListener, Serializable
 	}
 
 
+	/**
+	 * checks the list of locationNames to see if there has already been a predefined WeatherData object
+	 * @param wd the WeatherData object to add, but first to check if it is present
+	 * @return true if the location is already entered on the list, false is not
+	 */
 	public boolean checkDuplicate(WeatherData wd) {
 		String location_To_Compare="";
 		String currentLocation="";
@@ -1318,7 +1335,9 @@ public class WeatherFrame extends JFrame implements ActionListener, Serializable
 		return false;
 	}
 
-
+	/**
+	 * updates the location list by adding all the locations that are on the locationNames list but not on the text panel
+	 */
 	public void updateLocationList() {
 		weatherList.removeAllElements();
 		for (int i = 0; i < locationNames.size(); i++) {
@@ -1333,7 +1352,10 @@ public class WeatherFrame extends JFrame implements ActionListener, Serializable
 		}
 	}
 
-    // Refreshes GUI by updating data and setting all labels
+
+	/**
+	 *  Refreshes GUI by updating data and setting all labels
+	 */
 	public void refreshGUI() {
 		try {
 			weatherData.update();
@@ -1409,7 +1431,9 @@ public class WeatherFrame extends JFrame implements ActionListener, Serializable
 		
 	}
 
-    // Used to update all temperatures after the values have been changed without calling the update method
+	/**
+	 * Used to update all temperatures after the values have been changed without calling the update method
+	 */
     public void changeUnits() {
         currTempOutput.setText(df.format(weatherData.getCurrentWeather().getTemperature()) + "\u00B0");
         currLowestTemp.setText("\u2207" + df.format(weatherData.getCurrentWeather().getMinTemp()) + "\u00B0");

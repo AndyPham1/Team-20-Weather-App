@@ -4,7 +4,7 @@ package weather;
  * of the URL is already defined and the changes needed to access the different cities/countries can be manipulated based
  * on the reference value from WeatherFrame (or user directed). By retrieval of the first city, the coordinates are saved
  * into the CurrentWeather class defined within this class and are then used to access the short term and long term weather data.
- * <p/>
+ *
  * How-to: Please refer to the Main method to see how to get the data for each attribute.
  */
 
@@ -425,6 +425,10 @@ public class WeatherData implements Serializable{
         return this;
     }
 
+    /**
+     * helper class to initially predetermine the current location of the user and set up the program
+     * program will not continue until the user has entered a proper city and country
+     */
     private void getWeatherEmpty() {
         firstFlag=true;
         String defaultCity = JOptionPane.showInputDialog("Please enter your current city below: ");
@@ -434,7 +438,7 @@ public class WeatherData implements Serializable{
     }
     /**
      * getWeather opens up the OpenWeatherMap API and retrieves given information that we wish to acquire
-     * @param city the city, countryCode the country code as a string
+     * @param city the city inputed by the user, countryCode the country code as a string
      */
     private void getWeather(String city, String countryCode) {
         String urlCurrent = null;
@@ -638,8 +642,8 @@ public class WeatherData implements Serializable{
         }
     }
 
-    /*
-    generates the next 5 days in the array next_5 from today
+    /**
+     * generates the next 5 days in the array next_5 from today
      */
     private void longTermDayIntervalGenerator()
     {
@@ -671,6 +675,10 @@ public class WeatherData implements Serializable{
         }
     }
 
+    /**
+     * tests the retrieval of weatherdata and serves as a template for others to see how the variables are handled
+     */
+    /*
     public static void main(String[] args) {
         WeatherData wd = new WeatherData("Toronto", "CA");
         DecimalFormat df = new DecimalFormat("#");
@@ -686,12 +694,10 @@ public class WeatherData implements Serializable{
         System.out.println("Mars Weather: " + wd.getWeatherMars().getTemperatureMin());
         System.out.println("Mars Weather: " + wd.getWeatherMars().getAirpressure());
         System.out.println("Mars Weather: " + wd.getWeatherMars().getSkyCondition());
-
-
-    }
+    }*/
 
     /**
-     * All three methods retrieves the information to be displayed in the basic template, short term and long term
+     * retrieves the information to be displayed in the current forecast
      */
     private void retrieveCurrentWeather() {
         currentWeather.setTemperature(wv.getMain().getTemp());
@@ -710,6 +716,9 @@ public class WeatherData implements Serializable{
         currentWeather.setIcon(wv.getWeather().get(0).getIcon());
     }
 
+    /**
+     * retrieves the information to be displayed in the short term forecast
+     */
     private void retrieveShortTermWeather() {
         int numOf3HourIntervals = 24 / 3;
         shortTermWeather = new ShortTermWeather[numOf3HourIntervals];
@@ -724,6 +733,9 @@ public class WeatherData implements Serializable{
 
     }
 
+    /**
+     * retrieves the information to be displayed in the long term forecast
+     */
     private void retrieveLongTermWeather() {
         int numOfDays = 5;
         longTermWeather = new LongTermWeather[numOfDays];
@@ -739,6 +751,9 @@ public class WeatherData implements Serializable{
         }
     }
 
+    /**
+     * retrieves the information to be displayed in the Mars forecast
+     */
     public void MarsWeatherRetrieveData() {
         marsWeather = new MarsWeatherValue();
         marsWeather.setAirpressure(mw.getReport().getPressure());
