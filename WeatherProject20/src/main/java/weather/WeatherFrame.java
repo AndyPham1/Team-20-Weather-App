@@ -378,6 +378,12 @@ public class WeatherFrame extends JFrame implements Serializable {
 		currRefreshButton.setContentAreaFilled(false);
 		currRefreshButton.setBounds(561, 11, 40, 40);
 		currWeatherPanel.add(currRefreshButton);
+        currRefreshButton.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        refreshGUI();
+                    }
+                });
 
 		/******END OF CURRENT WEATHER******/
 
@@ -881,12 +887,12 @@ public class WeatherFrame extends JFrame implements Serializable {
 		marsRefreshButton.setContentAreaFilled(false);
 		marsRefreshButton.setBounds(561, 11, 40, 40);
 		marsPanel.add(marsRefreshButton);
-		currRefreshButton.addActionListener(
-				new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						refreshMarsGUI();
-					}
-				});
+        marsRefreshButton.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        refreshMarsGUI();
+                    }
+                });
 
 		/******END OF MARS WEATHER******/
 
