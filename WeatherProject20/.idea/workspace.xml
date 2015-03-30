@@ -28,16 +28,26 @@
       <file leaf-file-name="WeatherFrame.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/weather/WeatherFrame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6831169" vertical-offset="5362" max-vertical-offset="22005">
-              <caret line="385" column="19" selection-start-line="385" selection-start-column="19" selection-end-line="385" selection-end-column="19" />
+            <state vertical-scroll-proportion="0.64935064" vertical-offset="12620" max-vertical-offset="22005">
+              <caret line="868" column="160" selection-start-line="868" selection-start-column="160" selection-end-line="868" selection-end-column="160" />
               <folding>
                 <element signature="e#13543#13708#0" expanded="true" />
                 <element signature="e#13707#13708#0" expanded="true" />
-                <element signature="e#36311#36480#0" expanded="true" />
-                <element signature="e#36479#36480#0" expanded="true" />
-                <element signature="e#37089#37195#0" expanded="true" />
-                <element signature="e#37194#37195#0" expanded="true" />
+                <element signature="e#36310#36479#0" expanded="true" />
+                <element signature="e#36478#36479#0" expanded="true" />
+                <element signature="e#37088#37194#0" expanded="true" />
+                <element signature="e#37193#37194#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WeatherData.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/weather/WeatherData.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="5203" max-vertical-offset="10035">
+              <caret line="481" column="86" selection-start-line="481" selection-start-column="37" selection-end-line="481" selection-end-column="86" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -404,17 +414,33 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/main/java/weather/MarsWeather.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.07042254" vertical-offset="0" max-vertical-offset="1005">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/weather/WeatherData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="5203" max-vertical-offset="10035">
+          <caret line="481" column="86" selection-start-line="481" selection-start-column="37" selection-end-line="481" selection-end-column="86" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/weather/WeatherFrame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6831169" vertical-offset="5362" max-vertical-offset="22005">
-          <caret line="385" column="19" selection-start-line="385" selection-start-column="19" selection-end-line="385" selection-end-column="19" />
+        <state vertical-scroll-proportion="0.64935064" vertical-offset="12620" max-vertical-offset="22005">
+          <caret line="868" column="160" selection-start-line="868" selection-start-column="160" selection-end-line="868" selection-end-column="160" />
           <folding>
             <element signature="e#13543#13708#0" expanded="true" />
             <element signature="e#13707#13708#0" expanded="true" />
-            <element signature="e#36311#36480#0" expanded="true" />
-            <element signature="e#36479#36480#0" expanded="true" />
-            <element signature="e#37089#37195#0" expanded="true" />
-            <element signature="e#37194#37195#0" expanded="true" />
+            <element signature="e#36310#36479#0" expanded="true" />
+            <element signature="e#36478#36479#0" expanded="true" />
+            <element signature="e#37088#37194#0" expanded="true" />
+            <element signature="e#37193#37194#0" expanded="true" />
           </folding>
         </state>
       </provider>
