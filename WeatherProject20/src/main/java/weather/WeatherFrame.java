@@ -384,11 +384,11 @@ public class WeatherFrame extends JFrame implements Serializable {
 		currRefreshButton.setBounds(561, 11, 40, 40);
 		currWeatherPanel.add(currRefreshButton);
         currRefreshButton.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        refreshGUI();
-                    }
-                });
+				new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						refreshGUI();
+					}
+				});
 
 		/******END OF CURRENT WEATHER******/
 
@@ -914,11 +914,11 @@ public class WeatherFrame extends JFrame implements Serializable {
 		marsRefreshButton.setBounds(561, 11, 40, 40);
 		marsPanel.add(marsRefreshButton);
         marsRefreshButton.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        refreshMarsGUI();
-                    }
-                });
+				new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						refreshMarsGUI();
+					}
+				});
 
 		/******END OF MARS WEATHER******/
 
@@ -1146,7 +1146,8 @@ public class WeatherFrame extends JFrame implements Serializable {
 
 
     /**
-     * First thing that is called to initialize the variables needed to preset the location
+     * initializePrimaryVariables method is the first thing that is called to initialize the
+	 * variables needed to preset the location
      */
 
 	private void initializePrimaryVariables() {
@@ -1161,7 +1162,7 @@ public class WeatherFrame extends JFrame implements Serializable {
 	}
 
     /**
-     * Serializes the data
+     * toSaveLocations method serializes the data
      */
 	private void toSaveLocations() {
 		try {
@@ -1179,7 +1180,7 @@ public class WeatherFrame extends JFrame implements Serializable {
 	}
 
     /**
-     * loads previous locations from a text file
+     * toLoadLocations method loads previous locations from a text file
      */
 	private void toLoadLocations() {
 		String fileToLoad = "locations.txt";
