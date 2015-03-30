@@ -29,6 +29,7 @@ public class WeatherFrame extends JFrame implements Serializable {
 	private WeatherData weatherData;
 	private JLabel lastUpdatedLabel;    // Tells user the last time the weather was updated
 	private JPanel contentPane;         // Main panel that contains everything
+    private String currentUnit = "celsius"; // Default value
 
 	private JList locationList;	        // JList of the locations
 	private static java.util.ArrayList<WeatherData> locationNames;	//list of the locations
@@ -173,6 +174,10 @@ public class WeatherFrame extends JFrame implements Serializable {
 	private JLabel marsMinTempLabel;
 	private JLabel marsMaxTempLabel;
 	private JLabel marsLastUpdatedLabel;
+    private String marsWindSpeedCheck;
+    private String marsHumidityCheck;
+    private float marsMinTempCheck;
+    private float marsMaxTempCheck;
 
 	/* Constructor */
 
@@ -842,12 +847,25 @@ public class WeatherFrame extends JFrame implements Serializable {
 		marsWeatherConditionsLabel.setBounds(10, 127, 250, 24);
 		marsPanel.add(marsWeatherConditionsLabel);
 
-		marsHumidityLabel = new JLabel("Humidity: " + weatherData.getWeatherMars().getHumidity());
+        marsHumidityCheck = weatherData.getWeatherMars().getHumidity();
+        // Checks for null value and replaces with N/A
+        if(marsHumidityCheck == null) {
+            marsHumidityLabel = new JLabel("Humidity: N/A");
+        } else {
+            marsHumidityLabel = new JLabel("Humidity: " + marsHumidityCheck);
+        }
 		marsHumidityLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		marsHumidityLabel.setBounds(10, 220, 200, 24);
 		marsPanel.add(marsHumidityLabel);
 
-		marsWindSpeedLabel = new JLabel("Wind Speed: " + weatherData.getWeatherMars().getWindSpeed());
+        marsWindSpeedCheck = weatherData.getWeatherMars().getWindSpeed();
+        System.out.println(marsWindSpeedCheck);
+        // Checks for null value and replaces with N/A
+        if(marsWindSpeedCheck == null) {
+            marsWindSpeedLabel = new JLabel("Wind Speed: N/A");
+        } else {
+            marsWindSpeedLabel = new JLabel("Wind Speed: " + marsWindSpeedCheck);
+        }
 		marsWindSpeedLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		marsWindSpeedLabel.setBounds(10, 174, 200, 24);
 		marsPanel.add(marsWindSpeedLabel);
@@ -866,18 +884,26 @@ public class WeatherFrame extends JFrame implements Serializable {
 		marsCurrentTempLabel.setBounds(330, 22, 200, 50);
 		marsPanel.add(marsCurrentTempLabel);
 
-		marsCurrentTempOutput = new JLabel(((weatherData.getWeatherMars().getTemperatureMax() + weatherData.getWeatherMars().getTemperatureMin()) / 2) + "\u00B0");
-		marsCurrentTempOutput.setFont(new Font("Tahoma", Font.PLAIN, 56));
-		marsCurrentTempOutput.setBounds(330, 46, 250, 68);
-		marsPanel.add(marsCurrentTempOutput);
-
-		marsMinTempLabel = new JLabel("\u2207" + weatherData.getWeatherMars().getTemperatureMin() + "\u00B0");
+        // Decides what weather to get based on current units
+        if(currentUnit.equals("celsius")) {
+            marsMinTempCheck = weatherData.getWeatherMars().getTemperatureMin();
+            marsMaxTempCheck = weatherData.getWeatherMars().getTemperatureMax();
+        } else {
+            marsMinTempCheck = weatherData.getWeatherMars().getTemperatureMinFahrenheit();
+            marsMaxTempCheck = weatherData.getWeatherMars().getTemperatureMaxFahrenheit();
+        }
+		marsMinTempLabel = new JLabel("\u2207" + marsMinTempCheck + "\u00B0");
 		marsMinTempLabel.setBounds(400, 125, 80, 15);
 		marsPanel.add(marsMinTempLabel);
 
-		marsMaxTempLabel = new JLabel("\u25B2" + weatherData.getWeatherMars().getTemperatureMax() + "\u00B0");
+		marsMaxTempLabel = new JLabel("\u25B2" + marsMaxTempCheck + "\u00B0");
 		marsMaxTempLabel.setBounds(333, 125, 80, 14);
 		marsPanel.add(marsMaxTempLabel);
+
+        marsCurrentTempOutput = new JLabel(((marsMaxTempCheck + marsMinTempCheck) / 2) + "\u00B0");
+        marsCurrentTempOutput.setFont(new Font("Tahoma", Font.PLAIN, 56));
+        marsCurrentTempOutput.setBounds(330, 46, 250, 68);
+        marsPanel.add(marsCurrentTempOutput);
 
 		marsLastUpdatedLabel = new JLabel("Last updated: " + weatherData.getCurrentWeather().getLastUpdatedTime());
 		marsLastUpdatedLabel.setBounds(384, 251, 220, 14);
@@ -943,6 +969,7 @@ public class WeatherFrame extends JFrame implements Serializable {
 			public void actionPerformed(ActionEvent event) {
 				String units = weatherData.getCurrentWeather().getUnits();
 				weatherData.changeTemperatureUnits(units, "celsius");
+                currentUnit = "celsius";
 				changeUnits();
 			}
 		});
@@ -955,7 +982,8 @@ public class WeatherFrame extends JFrame implements Serializable {
 			public void actionPerformed(ActionEvent event) {
 				String units = weatherData.getCurrentWeather().getUnits();
 				weatherData.changeTemperatureUnits(units, "fahrenheit");
-				changeUnits();
+                currentUnit = "fahrenheit";
+                changeUnits();
 			}
 		});
 		mnuUnits.add(mniImperial);
@@ -1356,6 +1384,13 @@ public class WeatherFrame extends JFrame implements Serializable {
 	}
 
 
+    public String getUnit() {
+        return currentUnit;
+    }
+
+    public void setUnit(String currentUnit) {
+        this.currentUnit = currentUnit;
+    }
 
     /**
      * Refreshes GUI by updating data and setting all earth labels
@@ -1444,13 +1479,33 @@ public class WeatherFrame extends JFrame implements Serializable {
         }
         marsConditionLabel.setText("Conditions: " + weatherData.getWeatherMars().getSkyCondition());
         marsIconLabel.setIcon(new ImageIcon(displayCorrectImage(weatherData.getWeatherMars().getSkyCondition())));
-        marsHumidityLabel.setText("Humidity: " + weatherData.getWeatherMars().getHumidity());
-        marsWindSpeedLabel.setText("Wind Speed: " + weatherData.getWeatherMars().getWindSpeed());
+        String marsHumidityCheck = weatherData.getWeatherMars().getHumidity();
+        // Checks for null value and replaces with N/A
+        if(marsHumidityCheck == null) {
+            marsHumidityLabel.setText("Humidity: N/A");
+        } else {
+            marsHumidityLabel.setText("Humidity: " + marsHumidityCheck);
+        }
+        String marsWindSpeedCheck = weatherData.getWeatherMars().getWindSpeed();
+        // Checks for null value and replaces with N/A
+        if(marsWindSpeedCheck == null) {
+            marsWindSpeedLabel.setText("Wind Speed: N/A");
+        } else {
+            marsWindSpeedLabel.setText("Wind Speed: " + marsWindSpeedCheck);
+        }
         marsWindDirectionLabel.setText("Wind Direction: " + weatherData.getWeatherMars().getWindDirection());
         marsPressureLabel.setText("Pressure: " + weatherData.getWeatherMars().getAirpressure() + "kPa");
-        marsCurrentTempOutput.setText(((weatherData.getWeatherMars().getTemperatureMax() + weatherData.getWeatherMars().getTemperatureMin()) / 2) + "\u00B0");
-        marsMinTempLabel.setText("\u2207" + weatherData.getWeatherMars().getTemperatureMin() + "\u00B0");
-        marsMaxTempLabel.setText("\u25B2" + weatherData.getWeatherMars().getTemperatureMax() + "\u00B0");
+        // Checks the current units to decide what data to get
+        if(currentUnit.equals("celsius")) {
+            marsMinTempCheck = weatherData.getWeatherMars().getTemperatureMin();
+            marsMaxTempCheck = weatherData.getWeatherMars().getTemperatureMax();
+        } else {
+            marsMinTempCheck = weatherData.getWeatherMars().getTemperatureMinFahrenheit();
+            marsMaxTempCheck = weatherData.getWeatherMars().getTemperatureMaxFahrenheit();
+        }
+        marsMinTempLabel.setText("\u2207" + marsMinTempCheck + "\u00B0");
+        marsMaxTempLabel.setText("\u25B2" + marsMaxTempCheck + "\u00B0");
+        marsCurrentTempOutput.setText(((marsMaxTempCheck + marsMinTempCheck) / 2) + "\u00B0");
         marsLastUpdatedLabel.setText("Last updated: " + weatherData.getCurrentWeather().getLastUpdatedTime());
     }
 
@@ -1486,14 +1541,34 @@ public class WeatherFrame extends JFrame implements Serializable {
         shortTermTemp8.setText(df.format(weatherData.shortTermWeather[7].getTemperature()) + "\u00B0");
         marsConditionLabel.setText("Conditions: " + weatherData.getWeatherMars().getSkyCondition());
 		marsIconLabel = new JLabel(new ImageIcon(displayCorrectImage(weatherData.getWeatherMars().getSkyCondition())));
-		marsHumidityLabel.setText("Humidity:" + weatherData.getWeatherMars().getHumidity());
-		marsWindSpeedLabel.setText("Wind Speed:" + weatherData.getWeatherMars().getWindSpeed());
+        String marsHumidityCheck = weatherData.getWeatherMars().getHumidity();
+        // Checks for null value and replaces with N/A
+        if(marsHumidityCheck == null) {
+            marsHumidityLabel.setText("Humidity: N/A");
+        } else {
+            marsHumidityLabel.setText("Humidity: " + marsHumidityCheck);
+        }
+        String marsWindSpeedCheck = weatherData.getWeatherMars().getWindSpeed();
+        // Checks for null value and replaces with N/A
+        if(marsWindSpeedCheck == null) {
+            marsWindSpeedLabel.setText("Wind Speed: N/A");
+        } else {
+            marsWindSpeedLabel.setText("Wind Speed: " + marsWindSpeedCheck);
+        }
 		marsWindDirectionLabel.setText("Wind Direction: " + weatherData.getWeatherMars().getWindDirection());
 		marsPressureLabel.setText("Pressure:" + weatherData.getWeatherMars().getAirpressure() +  "kPa");
 		marsCurrentTempLabel.setText("Average Temperature: ");
-		marsCurrentTempOutput.setText(((weatherData.getWeatherMars().getTemperatureMax() + weatherData.getWeatherMars().getTemperatureMin())/2) + "\u00B0");
-		marsMinTempLabel.setText("\u2207"+ weatherData.getWeatherMars().getTemperatureMin() + "\u00B0");
-		marsMaxTempLabel.setText("\u25B2" + weatherData.getWeatherMars().getTemperatureMin() + "\u00B0");
+        // Checks the current units to decide what data to get
+        if(currentUnit.equals("celsius")) {
+            marsMinTempCheck = weatherData.getWeatherMars().getTemperatureMin();
+            marsMaxTempCheck = weatherData.getWeatherMars().getTemperatureMax();
+        } else {
+            marsMinTempCheck = weatherData.getWeatherMars().getTemperatureMinFahrenheit();
+            marsMaxTempCheck = weatherData.getWeatherMars().getTemperatureMaxFahrenheit();
+        }
+        marsMinTempLabel.setText("\u2207" + marsMinTempCheck + "\u00B0");
+        marsMaxTempLabel.setText("\u25B2" + marsMaxTempCheck + "\u00B0");
+        marsCurrentTempOutput.setText(((marsMaxTempCheck + marsMinTempCheck) / 2) + "\u00B0");
 		marsLastUpdatedLabel.setText("Last updated: " + weatherData.getCurrentWeather().getLastUpdatedTime());
     }
 }

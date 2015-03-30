@@ -28,6 +28,7 @@ import java.io.IOException;
  * @author Team 20
  */
 
+
 public class WeatherData implements Serializable{
 
     private static final long serialVersionUID = 1L;
@@ -46,6 +47,7 @@ public class WeatherData implements Serializable{
     public String[] next_5; //store the next 5 days here
 
     private boolean firstFlag; //for the initial setting of the city/country
+
     /*
     Current Weather is a class that stores all the attributes that is to be represented in the local weather view
      */
@@ -328,12 +330,13 @@ public class WeatherData implements Serializable{
     public class MarsWeatherValue {
         public float temperatureMax;
         public float temperatureMin;
+        public float temperatureMaxFahrenheit;
+        public float temperatureMinFahrenheit;
         public float airpressure;
         public String humidity;
         public String windSpeed;
         public String windDirection;
         public String skyCondition;
-        private String unit;
 
         public String getWindSpeed() {
             return windSpeed;
@@ -367,6 +370,14 @@ public class WeatherData implements Serializable{
             return skyCondition;
         }
 
+        public float getTemperatureMaxFahrenheit() {
+            return temperatureMaxFahrenheit;
+        }
+
+        public float getTemperatureMinFahrenheit() {
+            return temperatureMinFahrenheit;
+        }
+
         public void setTemperatureMax(float max_temp) {
             this.temperatureMax = max_temp;
         }
@@ -391,12 +402,12 @@ public class WeatherData implements Serializable{
             this.skyCondition = skyCondition;
         }
 
-        public void setUnits(String unit) {
-            this.unit = unit;
+        public void setTemperatureMaxFahrenheit(float temperatureMaxFahrenheit){
+            this.temperatureMaxFahrenheit = temperatureMaxFahrenheit;
         }
 
-        public String getUnits() {
-            return unit;
+        public void setTemperatureMinFahrenheit(float temperatureMinFahrenheit){
+            this.temperatureMinFahrenheit = temperatureMinFahrenheit;
         }
     }
 
@@ -502,6 +513,7 @@ public class WeatherData implements Serializable{
             // Changes units to match when refreshed
             if(currentWeather.getUnits().equals("fahrenheit")) {
                 changeTemperatureUnits("kelvin", "fahrenheit");
+
             } else {
                 changeTemperatureUnits("kelvin", "celsius");
             }
@@ -763,6 +775,8 @@ public class WeatherData implements Serializable{
         marsWeather.setTemperatureMin(mw.getReport().min_temp);
         marsWeather.setWindDirection(mw.getReport().getWind_direction());
         marsWeather.setWindSpeed(mw.getReport().getWind());
+        marsWeather.setTemperatureMaxFahrenheit(mw.getReport().max_temp_fahrenheit);
+        marsWeather.setTemperatureMinFahrenheit(mw.getReport().min_temp_fahrenheit);
     }
 
     /**************************************************************************************************
