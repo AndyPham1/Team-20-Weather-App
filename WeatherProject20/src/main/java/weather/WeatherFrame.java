@@ -1086,6 +1086,7 @@ public class WeatherFrame extends JFrame implements Serializable {
 						//Adding an accept button
 						final JButton btnAccept = new JButton("Accept");
 						btnAccept.setBounds(77, 65, 150, 23);
+						locationAdder.getRootPane().setDefaultButton(btnAccept);
 						locationAdder.add(btnAccept);
 						btnAccept.addActionListener(
 								new ActionListener() {
