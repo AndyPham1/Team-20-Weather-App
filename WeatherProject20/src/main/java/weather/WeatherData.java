@@ -442,10 +442,32 @@ public class WeatherData implements Serializable{
      */
     private void getWeatherEmpty() {
         firstFlag=true;
-        String defaultCity = JOptionPane.showInputDialog("Please enter your current city below: ");
-        String defaultCountry = JOptionPane.showInputDialog("Please enter your current country below: ");
+        JOptionPane newPane = new JOptionPane();
+
+        String location = newPane.showInputDialog("<html>Please enter your current location information below:<br>" +
+                "<div align='center'><font size ='3' color='gray'>Format: City, Country</font></div></html>");
+        String locationArray[] = new String[2];
+        locationArray = location.split(", ", 2);
+        newPane.setBounds((int) newPane.getBounds().getX(), (int) newPane.getBounds().getY() + 20, 500, 500);
+
+        String defaultCity=null;
+        String defaultCountry=null;
+
+        try {
+            defaultCity = locationArray[0];
+            defaultCountry = locationArray[1];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(null, "Incorrect input. Please follow the format and try again");
+            getWeatherEmpty();
+        }
+
         getWeather(defaultCity, defaultCountry);
         firstFlag=false;
+
+//        String defaultCity = JOptionPane.showInputDialog("Please enter your current city below: ");
+//        String defaultCountry = JOptionPane.showInputDialog("Please enter your current country below: ");
+//        getWeather(defaultCity, defaultCountry);
+
     }
     /**
      * getWeather opens up the OpenWeatherMap API and retrieves given information that we wish to acquire
@@ -467,12 +489,13 @@ public class WeatherData implements Serializable{
 
             //before instantiating the variables of current weather data, first we must check if this is a proper list of data
             if (wv.getCod().equals("404")) {
-                JOptionPane.showMessageDialog(null, "Incorrect input, try again");
                 if (firstFlag)
+                    JOptionPane.showMessageDialog(null, "The city was not found, please try again.");
                     getWeatherEmpty();
                 return;
             }
             else
+                firstFlag=false;
                 retrieveCurrentWeather();
 
             //Get coordinates for current location for use in short term and long term forecasting
@@ -528,7 +551,6 @@ public class WeatherData implements Serializable{
         } catch (JsonParseException e) {
             e.printStackTrace();
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Incorrect input, try again");
             if (firstFlag)
                 getWeatherEmpty();
         }
