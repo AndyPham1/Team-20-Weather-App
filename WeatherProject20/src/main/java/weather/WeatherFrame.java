@@ -252,7 +252,7 @@ public class WeatherFrame extends JFrame implements Serializable {
 		/******WEATHER PANE******/
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 840, 667);
+		setBounds(100, 100, 833, 633);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(51, 51, 51));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -1048,11 +1048,11 @@ public class WeatherFrame extends JFrame implements Serializable {
 
 						//Adding a text field
 						final JTextField cityInput = new JTextField();
-						cityInput.setBounds(107, 5, 200, 23);
+						cityInput.setBounds(107, 5, 180, 23);
 						locationAdder.add(cityInput);
 
 						final JTextField countryInput = new JTextField();
-						countryInput.setBounds(107, 30, 200, 23);
+						countryInput.setBounds(107, 30, 180, 23);
 						locationAdder.add(countryInput);
 
 						//Adding an accept button
