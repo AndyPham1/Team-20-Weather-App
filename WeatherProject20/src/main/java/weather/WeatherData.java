@@ -428,7 +428,7 @@ public class WeatherData implements Serializable{
 	/* Methods */
 
     /**
-     * update will return a list of WeatherData elements that updates the data by fetching it from the source
+     * update method will return a list of WeatherData elements that updates the data by fetching it from the source
      * @return WeatherData
      */
     public WeatherData update() throws IOException {
@@ -437,7 +437,7 @@ public class WeatherData implements Serializable{
     }
 
     /**
-     * helper class to initially predetermine the current location of the user and set up the program
+     * getWeatherEmpty method is a helper class to initially predetermine the current location of the user and set up the program
      * program will not continue until the user has entered a proper city and country
      */
     private void getWeatherEmpty() {
@@ -447,7 +447,14 @@ public class WeatherData implements Serializable{
         String location = newPane.showInputDialog("<html>Please enter your current location information below:<br>" +
                 "<div align='center'><font size ='3' color='gray'>Format: City, Country <br> Remember to add a space between \",\" and the country name.</font></div></html></font></div></html>");
         String locationArray[] = new String[2];
-        locationArray = location.split(", ", 2);
+        try {
+            if (location != null) {
+                locationArray = location.split(", ", 2);
+            }
+        }
+        catch(ArrayIndexOutOfBoundsException e){
+            System.exit(0);
+        }
         newPane.setBounds((int) newPane.getBounds().getX(), (int) newPane.getBounds().getY() + 20, 500, 500);
 
         String defaultCity=null;
