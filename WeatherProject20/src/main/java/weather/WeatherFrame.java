@@ -884,7 +884,6 @@ public class WeatherFrame extends JFrame implements Serializable {
 		currRefreshButton.addActionListener(
 				new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						lastUpdatedLabel.setText("Updating ...");
 						refreshMarsGUI();
 					}
 				});
