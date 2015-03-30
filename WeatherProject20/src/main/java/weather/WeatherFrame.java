@@ -1166,13 +1166,21 @@ public class WeatherFrame extends JFrame implements Serializable {
      */
 	private void toSaveLocations() {
 		try {
-			File newFile = new File("locations.txt");
-			FileOutputStream fileOut = new FileOutputStream(newFile);
+			File locationFile = new File("locations.dat");
+			FileOutputStream fileOut = new FileOutputStream(locationFile);
 			ObjectOutputStream out = new ObjectOutputStream(fileOut);
 			out.writeObject(locationNames);
 			out.close();
 			fileOut.close();
-			JOptionPane.showMessageDialog(null, "Serialized data is saved in: locations.txt");
+
+			File unitFile = new File("units.dat");
+			FileOutputStream fileOutUnit = new FileOutputStream(unitFile);
+			ObjectOutputStream outUnit = new ObjectOutputStream(fileOutUnit);
+			outUnit.writeObject(currentUnit);
+			outUnit.close();
+			fileOut.close();
+			JOptionPane.showMessageDialog(null, "Serialized data is saved in: locations.dat\nUnit data is saved in: units.dat");
+
 		}
 		catch(IOException i){
 			i.printStackTrace();
@@ -1183,7 +1191,9 @@ public class WeatherFrame extends JFrame implements Serializable {
      * toLoadLocations method loads previous locations from a text file
      */
 	private void toLoadLocations() {
-		String fileToLoad = "locations.txt";
+		String fileToLoad = "locations.dat";
+		String unitFileToLoad = "units.dat";
+		String unitLoad = "";
 		ArrayList<WeatherData> wdLoad = new ArrayList<WeatherData>();
 		try{
 			FileInputStream fileIn = new FileInputStream(fileToLoad);
@@ -1191,6 +1201,12 @@ public class WeatherFrame extends JFrame implements Serializable {
 			wdLoad = (ArrayList<WeatherData>) in.readObject();
 			in.close();
 			fileIn.close();
+
+			FileInputStream fileInUnit = new FileInputStream(unitLoad);
+			ObjectInputStream inUnit = new ObjectInputStream(fileInUnit);
+			unitLoad = (String) inUnit.readObject();
+			inUnit.close();
+			fileInUnit.close();
 		}
 		catch (IOException i) {
 			i.printStackTrace();
@@ -1207,6 +1223,7 @@ public class WeatherFrame extends JFrame implements Serializable {
 				locationNames.add(tmp);
 			}
 		}
+		currentUnit = unitLoad; 
 	}
 
     /**
