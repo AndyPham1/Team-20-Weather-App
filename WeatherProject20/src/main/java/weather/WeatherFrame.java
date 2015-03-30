@@ -1056,7 +1056,7 @@ public class WeatherFrame extends JFrame implements Serializable {
 						locationAdder.add(countryInput);
 
 						//Adding an accept button
-						JButton btnAccept = new JButton("Accept");
+						final JButton btnAccept = new JButton("Accept");
 						btnAccept.setBounds(77, 65, 150, 23);
 						locationAdder.add(btnAccept);
 						btnAccept.addActionListener(
@@ -1346,7 +1346,7 @@ public class WeatherFrame extends JFrame implements Serializable {
 
 
     /**
-     * Refreshes GUI by updating data and setting all earth labels
+     * refreshGUI method refreshes GUI by updating data and setting all earth labels
      */
 	public void refreshGUI() {
 		try {
@@ -1421,7 +1421,7 @@ public class WeatherFrame extends JFrame implements Serializable {
 	}
 
     /**
-     * Updates mars GUI by getting data and setting all mars labels
+     * refreshMarsGUI method updates mars GUI by getting data and setting all mars labels
      */
     public void refreshMarsGUI() {
         try {
@@ -1443,7 +1443,7 @@ public class WeatherFrame extends JFrame implements Serializable {
     }
 
     /**
-     * Used to update all temperatures after the values have been changed without calling the update method
+     * changeUnits method used to update all temperatures after the values have been changed without calling the update method
      */
     public void changeUnits() {
         currTempOutput.setText(df.format(weatherData.getCurrentWeather().getTemperature()) + "\u00B0");
