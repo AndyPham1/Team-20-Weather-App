@@ -907,6 +907,7 @@ public class WeatherFrame extends JFrame implements Serializable {
 		});
 		mnuFile.add(mniSave);
 		JMenuItem mniLoad = new JMenuItem("Load");
+        mniLoad.setMnemonic(KeyEvent.VK_L);
 		mniLoad.setToolTipText("Load");
 		mniLoad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
@@ -924,22 +925,6 @@ public class WeatherFrame extends JFrame implements Serializable {
 		});
 		mnuFile.add(mniFileExit);
 		menubar.add(mnuFile);
-
-
-		JMenu menuEdit = new JMenu("Edit");
-		JMenuItem menuEditRemove = new JMenuItem("Remove");
-		menuEditRemove.setToolTipText("Choose a location you wish to remove.");
-		menuEditRemove.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent event) {
-				//TODO
-				//JFrame locationsFrame = new JFrame();
-
-
-			}
-		});
-
-		menuEdit.add(menuEditRemove);
-		menubar.add(menuEdit);
 
 
 		// Creates menu item to choose units
@@ -1375,7 +1360,6 @@ public class WeatherFrame extends JFrame implements Serializable {
 			weatherData.update();
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		currLocationLabel.setText(weatherData.getCurrentWeather().getCurrentCity() + ", " + weatherData.getCurrentWeather().getCountryCode());
@@ -1451,7 +1435,6 @@ public class WeatherFrame extends JFrame implements Serializable {
             weatherData.update();
 
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         marsConditionLabel.setText("Conditions: " + weatherData.getWeatherMars().getSkyCondition());
@@ -1504,8 +1487,8 @@ public class WeatherFrame extends JFrame implements Serializable {
 		marsPressureLabel.setText("Pressure:" + weatherData.getWeatherMars().getAirpressure() +  "kPa");
 		marsCurrentTempLabel.setText("Average Temperature: ");
 		marsCurrentTempOutput.setText(((weatherData.getWeatherMars().getTemperatureMax() + weatherData.getWeatherMars().getTemperatureMin())/2) + "\u00B0");
-		marsMinTempLabel.setText("\u2207"+ weatherData.getWeatherMars().getTemperatureMin() + "min\u00B0");
-		marsMaxTempLabel.setText("\u25B2" + weatherData.getWeatherMars().getTemperatureMin() + "max\u00B0");
+		marsMinTempLabel.setText("\u2207"+ weatherData.getWeatherMars().getTemperatureMin() + "\u00B0");
+		marsMaxTempLabel.setText("\u25B2" + weatherData.getWeatherMars().getTemperatureMin() + "\u00B0");
 		marsLastUpdatedLabel.setText("Last updated: " + weatherData.getCurrentWeather().getLastUpdatedTime());
     }
 }
