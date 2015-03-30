@@ -445,7 +445,7 @@ public class WeatherData implements Serializable{
         JOptionPane newPane = new JOptionPane();
 
         String location = newPane.showInputDialog("<html>Please enter your current location information below:<br>" +
-                "<div align='center'><font size ='3' color='gray'>Format: City, Country</font></div></html>");
+                "<div align='center'><font size ='3' color='gray'>Format: City, Country <br> Remember to add a space between \",\" and the country name.</font></div></html></font></div></html>");
         String locationArray[] = new String[2];
         locationArray = location.split(", ", 2);
         newPane.setBounds((int) newPane.getBounds().getX(), (int) newPane.getBounds().getY() + 20, 500, 500);
