@@ -257,7 +257,7 @@ public class WeatherFrame extends JFrame implements Serializable {
 		/******WEATHER PANE******/
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 840, 667);
+		setBounds(100, 100, 833, 633);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(51, 51, 51));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -1076,21 +1076,22 @@ public class WeatherFrame extends JFrame implements Serializable {
 
 						//Adding a text field
 						final JTextField cityInput = new JTextField();
-						cityInput.setBounds(107, 5, 200, 23);
+						cityInput.setBounds(107, 5, 180, 23);
 						locationAdder.add(cityInput);
 
 						final JTextField countryInput = new JTextField();
-						countryInput.setBounds(107, 30, 200, 23);
+						countryInput.setBounds(107, 30, 180, 23);
 						locationAdder.add(countryInput);
 
 						//Adding an accept button
-						JButton btnAccept = new JButton("Accept");
+						final JButton btnAccept = new JButton("Accept");
 						btnAccept.setBounds(77, 65, 150, 23);
 						locationAdder.add(btnAccept);
 						btnAccept.addActionListener(
 								new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
 										userCityInput = cityInput.getText();
+										locationAdder.getRootPane().setDefaultButton(btnAccept);
 										userCountryInput = countryInput.getText();
 										userCountryInput = changeToCountryCode(userCountryInput);
 										WeatherData newWeatherData = new WeatherData(userCityInput, userCountryInput);
@@ -1370,19 +1371,6 @@ public class WeatherFrame extends JFrame implements Serializable {
 		return false;
 	}
 
-	/**
-	 * updates the location list by adding all the locations that are on the locationNames list but not on the text panel
-	 */
-	public void updateLocationList() {
-		weatherList.removeAllElements();
-		for (int i = 0; i < locationNames.size(); i++) {
-			if (locationNames.get(i) != null) {
-				weatherList.addElement(locationNames.get(i).getCurrentWeather().getCurrentCity()
-                        + ", " + locationNames.get(i).getCurrentWeather().getCountryCode());
-			}
-		}
-	}
-
 
     public String getUnit() {
         return currentUnit;
@@ -1393,7 +1381,7 @@ public class WeatherFrame extends JFrame implements Serializable {
     }
 
     /**
-     * Refreshes GUI by updating data and setting all earth labels
+     * refreshGUI method refreshes GUI by updating data and setting all earth labels
      */
 	public void refreshGUI() {
 		try {
@@ -1468,7 +1456,7 @@ public class WeatherFrame extends JFrame implements Serializable {
 	}
 
     /**
-     * Updates mars GUI by getting data and setting all mars labels
+     * refreshMarsGUI method updates mars GUI by getting data and setting all mars labels
      */
     public void refreshMarsGUI() {
         try {
@@ -1510,7 +1498,7 @@ public class WeatherFrame extends JFrame implements Serializable {
     }
 
     /**
-     * Used to update all temperatures after the values have been changed without calling the update method
+     * changeUnits method used to update all temperatures after the values have been changed without calling the update method
      */
     public void changeUnits() {
         currTempOutput.setText(df.format(weatherData.getCurrentWeather().getTemperature()) + "\u00B0");
