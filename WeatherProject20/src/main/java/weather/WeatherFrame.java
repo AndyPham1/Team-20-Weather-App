@@ -1063,6 +1063,7 @@ public class WeatherFrame extends JFrame implements Serializable {
 								new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
 										userCityInput = cityInput.getText();
+										locationAdder.getRootPane().setDefaultButton(btnAccept);
 										userCountryInput = countryInput.getText();
 										userCountryInput = changeToCountryCode(userCountryInput);
 										WeatherData newWeatherData = new WeatherData(userCityInput, userCountryInput);
@@ -1340,19 +1341,6 @@ public class WeatherFrame extends JFrame implements Serializable {
 			}
 		}
 		return false;
-	}
-
-	/**
-	 * updates the location list by adding all the locations that are on the locationNames list but not on the text panel
-	 */
-	public void updateLocationList() {
-		weatherList.removeAllElements();
-		for (int i = 0; i < locationNames.size(); i++) {
-			if (locationNames.get(i) != null) {
-				weatherList.addElement(locationNames.get(i).getCurrentWeather().getCurrentCity()
-                        + ", " + locationNames.get(i).getCurrentWeather().getCountryCode());
-			}
-		}
 	}
 
 
