@@ -1202,7 +1202,7 @@ public class WeatherFrame extends JFrame implements Serializable {
 			in.close();
 			fileIn.close();
 
-			FileInputStream fileInUnit = new FileInputStream(unitLoad);
+			FileInputStream fileInUnit = new FileInputStream(unitFileToLoad);
 			ObjectInputStream inUnit = new ObjectInputStream(fileInUnit);
 			unitLoad = (String) inUnit.readObject();
 			inUnit.close();
@@ -1223,7 +1223,7 @@ public class WeatherFrame extends JFrame implements Serializable {
 				locationNames.add(tmp);
 			}
 		}
-		currentUnit = unitLoad; 
+		currentUnit = unitLoad;
 	}
 
     /**
