@@ -406,7 +406,7 @@ public class WeatherData implements Serializable{
      * Initializes the instance variables with the first fetch-data from the source
      */
     public WeatherData(String city, String countryCode) {
-        if (city ==null && countryCode == null)
+        if (city == null && countryCode == null)
             getWeatherEmpty();
         else
             getWeather(city, countryCode);
@@ -441,12 +441,12 @@ public class WeatherData implements Serializable{
      * @param city the city inputed by the user, countryCode the country code as a string
      */
     private void getWeather(String city, String countryCode) {
-        String urlCurrent = null;
-        if (!countryCode.equals("")) {
+        String urlCurrent = "";
+        if (countryCode != null) {
             urlCurrent = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "," + countryCode;
         }
         else {
-            urlCurrent = "http://api.openweathermap.org/data/2.5/weather?q=" + city;
+            urlCurrent = " api.openweathermap.org/data/2.5/weather?q=London,ca";
         }
 
         try {
