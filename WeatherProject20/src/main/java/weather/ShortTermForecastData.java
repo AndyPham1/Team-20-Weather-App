@@ -32,7 +32,7 @@ public ShortTermForecastData update()
 
 /**
  * changeTemperature method changes the temperature
- * @param unit 1 first unit, unit2 second unit
+ * @param unit1 first unit, unit2 second unit
  */
 public void changeTemperature(String unit1, String unit2) throws NoDataFoundException
 {	
