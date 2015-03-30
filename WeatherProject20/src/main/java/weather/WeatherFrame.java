@@ -866,7 +866,7 @@ public class WeatherFrame extends JFrame implements Serializable {
 		marsCurrentTempLabel.setBounds(330, 22, 200, 50);
 		marsPanel.add(marsCurrentTempLabel);
 
-		marsCurrentTempOutput = new JLabel(((weatherData.getWeatherMars().getTemperatureMax() + weatherData.getWeatherMars().getTemperatureMin()) / 2) + "\u00B00");
+		marsCurrentTempOutput = new JLabel(((weatherData.getWeatherMars().getTemperatureMax() + weatherData.getWeatherMars().getTemperatureMin()) / 2) + "\u00B0");
 		marsCurrentTempOutput.setFont(new Font("Tahoma", Font.PLAIN, 56));
 		marsCurrentTempOutput.setBounds(330, 46, 250, 68);
 		marsPanel.add(marsCurrentTempOutput);
@@ -875,7 +875,7 @@ public class WeatherFrame extends JFrame implements Serializable {
 		marsMinTempLabel.setBounds(400, 125, 80, 15);
 		marsPanel.add(marsMinTempLabel);
 
-		marsMaxTempLabel = new JLabel("\u25B2" + weatherData.getWeatherMars().getTemperatureMin() + "\u00B0");
+		marsMaxTempLabel = new JLabel("\u25B2" + weatherData.getWeatherMars().getTemperatureMax() + "\u00B0");
 		marsMaxTempLabel.setBounds(333, 125, 80, 14);
 		marsPanel.add(marsMaxTempLabel);
 
@@ -1448,9 +1448,9 @@ public class WeatherFrame extends JFrame implements Serializable {
         marsWindSpeedLabel.setText("Wind Speed: " + weatherData.getWeatherMars().getWindSpeed());
         marsWindDirectionLabel.setText("Wind Direction: " + weatherData.getWeatherMars().getWindDirection());
         marsPressureLabel.setText("Pressure: " + weatherData.getWeatherMars().getAirpressure() + "kPa");
-        marsCurrentTempOutput.setText(((weatherData.getWeatherMars().getTemperatureMax() + weatherData.getWeatherMars().getTemperatureMin()) / 2) + "\u00B00");
+        marsCurrentTempOutput.setText(((weatherData.getWeatherMars().getTemperatureMax() + weatherData.getWeatherMars().getTemperatureMin()) / 2) + "\u00B0");
         marsMinTempLabel.setText("\u2207" + weatherData.getWeatherMars().getTemperatureMin() + "\u00B0");
-        marsMaxTempLabel.setText("\u25B2" + weatherData.getWeatherMars().getTemperatureMin() + "\u00B0");
+        marsMaxTempLabel.setText("\u25B2" + weatherData.getWeatherMars().getTemperatureMax() + "\u00B0");
         marsLastUpdatedLabel.setText("Last updated: " + weatherData.getCurrentWeather().getLastUpdatedTime());
     }
 
