@@ -637,23 +637,23 @@ public class WeatherFrame extends JFrame implements Serializable {
 
 		longTermDay1 = new JLabel(weatherData.getNext_5()[longTermDayCounter++]);
 		longTermDay1.setHorizontalAlignment(SwingConstants.CENTER);
-		longTermDay1.setBounds(10, 11, 89, 14);
+		longTermDay1.setBounds(0, 11, 111, 14);
 		longTermPanel1.add(longTermDay1);
 
 		// Adds an image
 		longTermIcon1 = new JLabel(new ImageIcon(displayCorrectImage(weatherData.longTermWeather[0].getIcon())));
-		longTermIcon1.setBounds(10, 30, 89, 50);
+		longTermIcon1.setBounds(0, 30, 89, 50);
 		longTermPanel1.add(longTermIcon1);
 
 		longWeatherCondition1 = new JLabel(weatherData.longTermWeather[0].getCondition());
 		longWeatherCondition1.setHorizontalAlignment(SwingConstants.CENTER);
-		longWeatherCondition1.setBounds(10, 84, 89, 14);
+		longWeatherCondition1.setBounds(0, 84, 89, 14);
 		longTermPanel1.add(longWeatherCondition1);
 
 		longTermTemp1 = new JLabel(df.format(weatherData.longTermWeather[0].getTemperature()) + "\u00B0");
 		longTermTemp1.setFont(new Font("Tahoma", Font.BOLD, 16));
 		longTermTemp1.setHorizontalAlignment(SwingConstants.CENTER);
-		longTermTemp1.setBounds(10, 103, 89, 20);
+		longTermTemp1.setBounds(0, 103, 89, 20);
 		longTermPanel1.add(longTermTemp1);
 
 		longMaxTemp1 = new JLabel("\u25B2" + df.format(weatherData.longTermWeather[0].getMax()));
@@ -673,23 +673,23 @@ public class WeatherFrame extends JFrame implements Serializable {
 
 		longTermDay2 = new JLabel(weatherData.getNext_5()[longTermDayCounter++]);
 		longTermDay2.setHorizontalAlignment(SwingConstants.CENTER);
-		longTermDay2.setBounds(10, 11, 82, 14);
+		longTermDay2.setBounds(0, 11, 111, 14);
 		longTermPanel2.add(longTermDay2);
 
 		// Adds an image
 		longTermIcon2 = new JLabel(new ImageIcon(displayCorrectImage(weatherData.longTermWeather[1].getIcon())));
-		longTermIcon2.setBounds(10, 30, 82, 50);
+		longTermIcon2.setBounds(0, 30, 111, 50);
 		longTermPanel2.add(longTermIcon2);
 
 		longWeatherCondition2 = new JLabel(weatherData.longTermWeather[1].getCondition());
 		longWeatherCondition2.setHorizontalAlignment(SwingConstants.CENTER);
-		longWeatherCondition2.setBounds(10, 84, 82, 14);
+		longWeatherCondition2.setBounds(0, 84, 111, 14);
 		longTermPanel2.add(longWeatherCondition2);
 
 		longTermTemp2 = new JLabel(df.format(weatherData.longTermWeather[1].getTemperature()) + "\u00B0");
 		longTermTemp2.setHorizontalAlignment(SwingConstants.CENTER);
 		longTermTemp2.setFont(new Font("Tahoma", Font.BOLD, 16));
-		longTermTemp2.setBounds(10, 103, 82, 20);
+		longTermTemp2.setBounds(0, 103, 111, 20);
 		longTermPanel2.add(longTermTemp2);
 
 		longMaxTemp2 = new JLabel("\u25B2" + df.format(weatherData.longTermWeather[1].getMax()));
@@ -709,23 +709,23 @@ public class WeatherFrame extends JFrame implements Serializable {
 
 		longTermDay3 = new JLabel(weatherData.getNext_5()[longTermDayCounter++]);
 		longTermDay3.setHorizontalAlignment(SwingConstants.CENTER);
-		longTermDay3.setBounds(10, 11, 82, 14);
+		longTermDay3.setBounds(0, 11, 111, 14);
 		longTermPanel3.add(longTermDay3);
 
 		// Adds an image
 		longTermIcon3 = new JLabel(new ImageIcon(displayCorrectImage(weatherData.longTermWeather[2].getIcon())));
-		longTermIcon3.setBounds(10, 30, 82, 50);
+		longTermIcon3.setBounds(0, 30, 111, 50);
 		longTermPanel3.add(longTermIcon3);
 
 		longWeatherCondition3 = new JLabel(weatherData.longTermWeather[2].getCondition());
 		longWeatherCondition3.setHorizontalAlignment(SwingConstants.CENTER);
-		longWeatherCondition3.setBounds(10, 84, 82, 14);
+		longWeatherCondition3.setBounds(0, 84, 111, 14);
 		longTermPanel3.add(longWeatherCondition3);
 
 		longTermTemp3 = new JLabel(df.format(weatherData.longTermWeather[2].getTemperature()) + "\u00B0");
 		longTermTemp3.setHorizontalAlignment(SwingConstants.CENTER);
 		longTermTemp3.setFont(new Font("Tahoma", Font.BOLD, 16));
-		longTermTemp3.setBounds(10, 103, 82, 20);
+		longTermTemp3.setBounds(0, 103, 111, 20);
 		longTermPanel3.add(longTermTemp3);
 
 		longMaxTemp3 = new JLabel("\u25B2" + df.format(weatherData.longTermWeather[2].getMax()));
@@ -745,23 +745,23 @@ public class WeatherFrame extends JFrame implements Serializable {
 
 		longTermDay4 = new JLabel(weatherData.getNext_5()[longTermDayCounter++]);
 		longTermDay4.setHorizontalAlignment(SwingConstants.CENTER);
-		longTermDay4.setBounds(10, 11, 82, 14);
+		longTermDay4.setBounds(0, 11, 111, 14);
 		longTermPanel4.add(longTermDay4);
 
 		// Adds an image
 		longTermIcon4 = new JLabel(new ImageIcon(displayCorrectImage(weatherData.longTermWeather[3].getIcon())));
-		longTermIcon4.setBounds(10, 30, 82, 50);
+		longTermIcon4.setBounds(0, 30, 111, 50);
 		longTermPanel4.add(longTermIcon4);
 
 		longWeatherCondition4 = new JLabel(weatherData.longTermWeather[3].getCondition());
 		longWeatherCondition4.setHorizontalAlignment(SwingConstants.CENTER);
-		longWeatherCondition4.setBounds(10, 84, 82, 14);
+		longWeatherCondition4.setBounds(0, 84, 111, 14);
 		longTermPanel4.add(longWeatherCondition4);
 
 		longTermTemp4 = new JLabel(df.format(weatherData.longTermWeather[3].getTemperature()) + "\u00B0");
 		longTermTemp4.setHorizontalAlignment(SwingConstants.CENTER);
 		longTermTemp4.setFont(new Font("Tahoma", Font.BOLD, 16));
-		longTermTemp4.setBounds(10, 103, 82, 20);
+		longTermTemp4.setBounds(0, 103, 111, 20);
 		longTermPanel4.add(longTermTemp4);
 
 		longMaxTemp4 = new JLabel("\u25B2" + df.format(weatherData.longTermWeather[3].getMax()));
@@ -781,23 +781,23 @@ public class WeatherFrame extends JFrame implements Serializable {
 
 		longTermDay5 = new JLabel(weatherData.getNext_5()[longTermDayCounter++]);
 		longTermDay5.setHorizontalAlignment(SwingConstants.CENTER);
-		longTermDay5.setBounds(10, 11, 82, 14);
+		longTermDay5.setBounds(0, 11, 111, 14);
 		longTermPanel5.add(longTermDay5);
 
 		// Adds an image
 		longTermIcon5 = new JLabel(new ImageIcon(displayCorrectImage(weatherData.longTermWeather[4].getIcon())));
-		longTermIcon5.setBounds(10, 30, 82, 50);
+		longTermIcon5.setBounds(0, 30, 111, 50);
 		longTermPanel5.add(longTermIcon5);
 
 		longWeatherCondition5 = new JLabel(weatherData.longTermWeather[4].getCondition());
 		longWeatherCondition5.setHorizontalAlignment(SwingConstants.CENTER);
-		longWeatherCondition5.setBounds(10, 84, 82, 14);
+		longWeatherCondition5.setBounds(0, 84, 111, 14);
 		longTermPanel5.add(longWeatherCondition5);
 
 		longTermTemp5 = new JLabel(df.format(weatherData.longTermWeather[4].getTemperature()) + "\u00B0");
 		longTermTemp5.setHorizontalAlignment(SwingConstants.CENTER);
 		longTermTemp5.setFont(new Font("Tahoma", Font.BOLD, 16));
-		longTermTemp5.setBounds(10, 103, 82, 20);
+		longTermTemp5.setBounds(0, 103, 111, 20);
 		longTermPanel5.add(longTermTemp5);
 
 		longMaxTemp5 = new JLabel("\u25B2" + df.format(weatherData.longTermWeather[4].getMax()));
@@ -859,7 +859,6 @@ public class WeatherFrame extends JFrame implements Serializable {
 		marsPanel.add(marsHumidityLabel);
 
         marsWindSpeedCheck = weatherData.getWeatherMars().getWindSpeed();
-        System.out.println(marsWindSpeedCheck);
         // Checks for null value and replaces with N/A
         if(marsWindSpeedCheck == null) {
             marsWindSpeedLabel = new JLabel("Wind Speed: N/A");
@@ -1059,7 +1058,7 @@ public class WeatherFrame extends JFrame implements Serializable {
 				new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						final JFrame locationAdder = new JFrame("Add Location");
-						locationAdder.setSize(310, 120);
+						locationAdder.setSize(325, 120);
 						locationAdder.setLocationRelativeTo(LocationPanel);
 						locationAdder.setResizable(false);
 						locationAdder.setVisible(true);
@@ -1076,11 +1075,11 @@ public class WeatherFrame extends JFrame implements Serializable {
 
 						//Adding a text field
 						final JTextField cityInput = new JTextField();
-						cityInput.setBounds(107, 5, 180, 23);
+						cityInput.setBounds(122, 5, 180, 23);
 						locationAdder.add(cityInput);
 
 						final JTextField countryInput = new JTextField();
-						countryInput.setBounds(107, 30, 180, 23);
+						countryInput.setBounds(122, 30, 180, 23);
 						locationAdder.add(countryInput);
 
 						//Adding an accept button
@@ -1225,6 +1224,8 @@ public class WeatherFrame extends JFrame implements Serializable {
 			}
 		}
 		currentUnit = unitLoad;
+        weatherData.changeTemperatureUnits("kelvin", currentUnit);
+        changeUnits();
 	}
 
     /**
@@ -1340,7 +1341,6 @@ public class WeatherFrame extends JFrame implements Serializable {
      * @return weather data with proper country code
      */
 	public WeatherData checkCountryCode(WeatherData wd) {
-		//System.out.println("Country Code: "+wd.getCurrentWeather().getCountryCode());
 		if (wd.getCurrentWeather().getCountryCode().equals("United Kingdom"))
 			wd.getCurrentWeather().setCountryCode("GB");
 		else if (wd.getCurrentWeather().getCountryCode().equals("Canada"))
