@@ -7,6 +7,16 @@ Other features included in this app is to allow multiple locations to be selecte
 ### Synoposis
 This application is implemented with java. Earth weather data was obtained from [Open Weather Map API](http://openweathermap.org) and Mars data from [Mars Atmospheric Aggregation System API](http://marsweather.ingenology.com/). The group had also developed this project in the Intellij IDE, used git for version control and also maven for build automation.
 
+A list of the libraries used can be found below:
+* java.io.*
+* javax.swing.*
+* java.awt.*;
+* java.awt.event.*;
+* java.util.*;
+* java.net.*;
+* java.text.*;
+* java.imageio.*;
+
 ### Install
 Installation would require the following components and configurations:
 * Maven
