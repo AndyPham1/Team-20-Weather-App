@@ -13,6 +13,9 @@ This application is implemented with java, and connects to http://openweathermap
 ### Usage Example
 
 Here you can find a video as a guide to navigate around the program:
-https://www.youtube.com/watch?v=TquBZH7Ji_w
+[Link display text](https://www.youtube.com/watch?v=TquBZH7Ji_w)
 
 ### Documentation
+
+You can find a copy of our code documentations here:
+[Link display text](https://github.com/UWO-2212-W2015/team20/blob/master/WeatherProject20/doc/index.html)
