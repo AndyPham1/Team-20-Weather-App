@@ -15,8 +15,8 @@ Installation would require the following components and configurations:
 After these are all set up, you can follow the next few instructions to get a copy of the application on your computer:
 
 1. Clone the repo with the following code
-   ```  git clone git@github.com:UWO-2212-W2015/team20.git ```
-2. 
+   ` git clone git@github.com:UWO-2212-W2015/team20.git `
+2. Change the directory with the `cd` command into the folder where the repo had been clone to
 
 ### Build
 
